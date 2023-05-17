@@ -1,39 +1,34 @@
 @extends('layout')
 @section('header-title', 'Lista de tshirts')
 @section('main')
-
 <div class="container">
 
     <div class="row">
         @foreach($Tshirt_images as $tshirt)
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         @if($loop->iteration == 19)
             @break
         @endif
-        <div class="col-md-2">
-            <div class="card" style="height: 10px;">
+        <div class="col-md-2 imgCardBack">
+
+            <div class="min-height">
                 <a href="detail_{{$tshirt}}.php?id={{$tshirt['id']}}">
-                    <img src="/tshirt_images/{{$tshirt['image_url']}}" class="card-img-top" alt="{{$tshirt['image_url']}}">
-
+                    <img src="tshirt_images/{{$tshirt['image_url']}}" class="card-img-top center" alt="{{$tshirt['image_url']}}">
                 </a>
-
+            </div>
                 <div class="card-body">
                     <div class="row">
-                        <div >
-                            <h5 class="card-title">{{$tshirt['name']}}</h5>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div >
-                            <p class="card-text">{{$tshirt['description']}}</p>
-                        </div>
+                    <div >
+                        <h5 class="card-title titleCardBack">{{$tshirt['name']}}</h5>
                     </div>
                 </div>
+                <div class="row">
+                    <div>
+                        <p class="card-text textCardBack center">{{$tshirt['description']}}</p>
+                     </div>
+                </div>
             </div>
-            <br>
         </div>
-        <br><br><br><br><br><br><br>
+        <br>
 
         @endforeach()
 
