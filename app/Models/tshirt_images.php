@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tshirt_image extends Model
+class tshirt_images extends Model
 {
     use HasFactory;
     protected $primaryKey = 'name';

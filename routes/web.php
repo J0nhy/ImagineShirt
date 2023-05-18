@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\testeController;
+use App\Http\Controllers\catalogoController;
 
 
 /*
@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('teste', [testeController::class, 'index'])->name('teste.index');
+Route::get('catalogo', [catalogoController::class, 'index'])->name('catalogo.index');
 
 
 Auth::routes();

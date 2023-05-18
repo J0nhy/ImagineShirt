@@ -3,8 +3,9 @@
 @section('main')
 <div class="container">
 
+
     <div class="row">
-        @foreach($Tshirt_images as $tshirt)
+        @foreach($tshirt_images as $tshirt)
         @if($loop->iteration == 6
     )
             @break
@@ -37,4 +38,5 @@
 @endsection
 
 </body>
+
 </html>

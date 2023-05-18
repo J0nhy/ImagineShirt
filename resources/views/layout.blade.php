@@ -33,7 +33,7 @@
 							</li>
 
 							<li>
-								<a href="product.html">Shop</a>
+								<a href="{{ route('catalogo.index') }}">Catalogo</a>
 							</li>
 
 							<li class="label1" data-label1="hot">
