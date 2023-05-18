@@ -5,7 +5,8 @@
 
     <div class="row">
         @foreach($Tshirt_images as $tshirt)
-        @if($loop->iteration == 19)
+        @if($loop->iteration == 6
+    )
             @break
         @endif
         <div class="col-md-2 imgCardBack">
@@ -31,7 +32,6 @@
         <br>
 
         @endforeach()
-
     </div>
 </div>
 @endsection
