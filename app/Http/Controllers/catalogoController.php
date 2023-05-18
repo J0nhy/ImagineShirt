@@ -27,6 +27,12 @@ class catalogoController extends Controller
         $newTshirt = new Tshirt();
         return view('catalogo.create')->withTshirt($newTshirt);
     }
+
+    public function cart(): View
+    {
+        return view('teste.cart');
+    }
+
     public function store(Request $request): RedirectResponse
     {
         tshirt::create($request->all());
