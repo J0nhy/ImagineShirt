@@ -24,35 +24,35 @@ class catalogoController extends Controller
 
     public function create(): View
     {
-        $newTshirt = new Tshirt();
+        $newTshirt = new tshirt_images();
         return view('catalogo.create')->withTshirt($newTshirt);
     }
 
     public function cart(): View
     {
-        return view('teste.cart');
+        return view('catalogo.cart');
     }
 
     public function store(Request $request): RedirectResponse
     {
-        tshirt::create($request->all());
+        tshirt_images::create($request->all());
         return redirect()->route('catalogo.index');
     }
-    public function edit(Tshirt $tshirt): View
+    public function edit(tshirt_images $tshirt): View
     {
         return view('catalogo.edit')->withTshirt($tshirt);
     }
-    public function update(Request $request, Tshirt $tshirt): RedirectResponse
+    public function update(Request $request, tshirt_images $tshirt): RedirectResponse
     {
         $tshirt->update($request->all());
         return redirect()->route('catalogo.index');
     }
-    public function destroy(Tshirt $tshirt): RedirectResponse
+    public function destroy(tshirt_images $tshirt): RedirectResponse
     {
         $tshirt->delete();
         return redirect()->route('catalogo.index');
     }
-    public function show(Tshirt $tshirt): View
+    public function show(tshirt_images $tshirt): View
     {
         return view('catalogo.show')->withTshirt($tshirt);
     }
