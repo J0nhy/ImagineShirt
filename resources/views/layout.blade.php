@@ -32,11 +32,11 @@
 								</ul>
 							</li>
 
-							<li>
+							<li class="label1" data-label1="hot">
 								<a href="{{ route('catalogo.index') }}">Catalogo</a>
 							</li>
 
-							<li class="label1" data-label1="hot">
+							<li>
 								<a href="{{ route('catalogo.cart') }}">Carrinho</a>
 							</li>
 
@@ -44,7 +44,7 @@
 								<a href="blog.html">Blog</a>
 							</li>
 
-							<li class="active-menu">
+							<li>
 								<a href="about.html">About</a>
 							</li>
 
