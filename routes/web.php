@@ -20,6 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('teste', [testeController::class, 'index'])->name('teste.index');
+Route::get('cart', [testeController::class, 'cart'])->name('teste.cart');
 
 
 Auth::routes();

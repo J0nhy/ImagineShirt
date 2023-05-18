@@ -21,6 +21,10 @@ class testeController extends Controller
         );
         return view('teste.index')->with('Tshirt_images', $allTshirts);
     }
+    public function cart(): View
+    {
+        return view('teste.cart');
+    }
 
     public function create(): View
     {
