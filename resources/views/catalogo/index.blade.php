@@ -1,12 +1,11 @@
 @extends('layout')
-@section('header-title', 'Lista de tshirts')
 @section('main')
 <div class="container">
 
 
     <div class="row">
         @foreach($tshirt_images as $tshirt)
-        @if($loop->iteration == 6
+        @if($loop->iteration == 20
     )
             @break
         @endif
@@ -33,8 +32,14 @@
         <br>
 
         @endforeach()
+
     </div>
+    <div >
+        {{ $tshirt_images->links() }}
+    </div>
+
 </div>
+
 @endsection
 
 </body>

@@ -13,7 +13,7 @@ class catalogoController extends Controller
 {
     public function index(): View
     {
-        $allTshirts = tshirt_images::all();
+        $allTshirts = tshirt_images::paginate(10);
         //dump($allTshirts);
         Log::debug(
             'Tshirts has been loaded on the controller.',
