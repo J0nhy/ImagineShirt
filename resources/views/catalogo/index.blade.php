@@ -1,7 +1,14 @@
 @extends('layout')
 @section('main')
 <div class="container">
-
+    
+    {{--inicio da Zona de testes para o carrinho--}}
+    @if(session('message'))
+        <script>
+            alert('{{ session('message') }}');
+        </script>
+    @endif
+    {{--fim da Zona de testes para o carrinho--}}
 
     <div class="row">
         @foreach($tshirt_images as $tshirt)
@@ -27,6 +34,7 @@
                         <p class="card-text textCardBack center">{{$tshirt['description']}}</p>
                      </div>
                 </div>
+                <a href="/addToCart/{{$tshirt['image_url']}}">addToCart</a>
             </div>
         </div>
         <br>

@@ -16,7 +16,7 @@
 				<nav class="limiter-menu-desktop container">
 
 					<!-- Logo desktop -->
-					<a href="#" class="logo">
+					<a href="{{ route('catalogo.index') }}" class="logo">
 						<img src="/img/image2.png" alt="IMG-LOGO">
 					</a>
 
@@ -37,7 +37,7 @@
 							</li>
 
 							<li>
-								<a href="{{ route('catalogo.cart') }}">Carrinho</a>
+								<a href="{{ route('carrinho.cart') }}">Carrinho</a>
 							</li>
 
 							<li>
@@ -60,7 +60,7 @@
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
-						<a href ="{{ route('catalogo.cart') }}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+						<a href ="{{ route('carrinho.cart') }}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
 							<i class="zmdi zmdi-shopping-cart"></i>
                         </a>
 

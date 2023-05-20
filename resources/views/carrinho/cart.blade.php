@@ -1,6 +1,14 @@
 @extends('layout')
 @section('header-title', 'Carrinho')
 @section('main')
+
+		{{--inicio da Zona de testes para o carrinho--}}
+		<?php
+			$array = request()->session()->get('cart');
+			var_dump($array);
+		?>
+		{{--fim da Zona de testes para o carrinho--}}
+
 		<!-- Modal Search -->
 		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
 			<div class="container-search-header">

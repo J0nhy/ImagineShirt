@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\catalogoController;
+use App\Http\Controllers\carrinhoController;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -20,8 +22,8 @@ Route::get('/', function () {
 });
 
 Route::get('catalogo', [catalogoController::class, 'index'])->name('catalogo.index');
-Route::get('cart', [catalogoController::class, 'cart'])->name('catalogo.cart');
-
+Route::get('cart', [carrinhoController::class, 'index'])->name('carrinho.cart');
+Route::get('/addToCart/{id}', [carrinhoController::class, 'addToCart']);
 
 Auth::routes();
 

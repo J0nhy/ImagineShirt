@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
-
 class catalogoController extends Controller
 {
     public function index(): View
@@ -26,11 +25,6 @@ class catalogoController extends Controller
     {
         $newTshirt = new tshirt_images();
         return view('catalogo.create')->withTshirt($newTshirt);
-    }
-
-    public function cart(): View
-    {
-        return view('catalogo.cart');
     }
 
     public function store(Request $request): RedirectResponse
