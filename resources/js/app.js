@@ -1,3 +1,3 @@
-import './bootstrap'
-import './sb-admin'
-import './home'
+import './bootstrap';
+import './sb-admin';
+import './home';
