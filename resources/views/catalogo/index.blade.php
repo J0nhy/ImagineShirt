@@ -1,6 +1,6 @@
 @extends('layout')
 @section('main')
-<div class="container">
+<div class="container Margintp5">
 
     {{--inicio da Zona de testes para o carrinho--}}
     @if(session('message'))
@@ -15,9 +15,9 @@
         @if($loop->iteration == 20)
             @break
         @endif
-        <div class="col-md-2 imgCardBack">
+        <div class="col-4 imgCardBack">
 
-            <div class="min-height">
+            <div class="min-height250">
                 <a href="detail_{{$tshirt}}.php?id={{$tshirt['id']}}">
                     <img src="tshirt_images/{{$tshirt['image_url']}}" class="card-img-top center" alt="{{$tshirt['image_url']}}">
                 </a>
@@ -28,12 +28,14 @@
                         <h5 class="card-title titleCardBack">{{$tshirt['name']}}</h5>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row min-height100">
                     <div>
                         <p class="card-text textCardBack center">{{$tshirt['description']}}</p>
                      </div>
                 </div>
-                <a href="/addToCart/{{$tshirt['image_url']}}">addToCart</a>
+                <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer buttonCards">
+                    <a href="/addToCart/{{$tshirt['image_url']}}" class="buttonCards" style="text-decoration: none;">Adicionar <i class="zmdi zmdi-shopping-cart buttonCards"></i></a>
+                </button>
             </div>
         </div>
         <br>

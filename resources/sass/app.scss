@@ -12,26 +12,54 @@
 
 // Custom Styles
 .imgCardBack {
-    background-color: rgb(78, 78, 78);
+    background-color: rgb(255 255 255 / 10%);
     margin-bottom: 35%;
+    width: 23%;
     padding: 2%;
-    margin: 1%;
     border-radius: 0.7em;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: 0.2s linear;
+    margin: 1%;
 }
 .imgCardBack:hover{
-    //faz uma gtransação em que fique maior, desfocado e em 0.5 segundos
+    //faz uma transação em que fique maior, desfocado e em 0.5 segundos
     transform: scale(1.05);
     transition: transform 0.15s;
-
+    background-color: rgb(255 255 255 / 20%);
 }
-
+.buttonCards{
+    background-color: transparent;
+    align-items: end;
+    padding: 0%;
+    width: auto;
+    height: auto;
+    margin-top: 0.5em;
+}
+.buttonCards:hover{
+    background-color: transparent;
+    color: rgb(220, 220, 220);
+    transition: transform 0.02s;
+}
 .background {
-    background-color: #373737;
+    background-color: #171923;
 }
-.min-height {
+.tablesBG, #checkout {
+    background-color: rgb(255 255 255 / 10%);
+}
+table th, table td, table tr {
+    color: rgb(220, 220, 220) !important;
+}
+div#checkout h4, div#checkout span{
+    color: rgb(220, 220, 220) !important;
+}
+div#coupon{
+    margin-left: 8%;
+}
+.min-height250 {
     min-height: 250px;
+}
+.min-height100 {
+    min-height: 100px;
 }
 .center{
     text-align: center;
@@ -55,4 +83,13 @@ img{
 }
 .zmdi-shopping-cart-add:before {
     content: '\f1ca'
+}
+.Paddingbt5{
+    padding-bottom: 5%;
+}
+.Paddintp5{
+    padding-top: 5%;
+}
+.Margintp5{
+    margin-top: 5%;
 }

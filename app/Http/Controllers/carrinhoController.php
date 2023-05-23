@@ -14,14 +14,12 @@ class carrinhoController extends Controller
     public function index(Request $request): View
     {
         $array = $request->session()->get('cart');
-        /*$data = [];
-        foreach ($array as $item){
-            $result = DB::table('tshirt_images')->where('image_url', $item)->get();
-            json_decode(json_encode($result), true);
-            array_push($data, json_decode(json_encode($result), true));
-        }
-        return view('carrinho.cart')->with('cart', $data);*/
+
+        if ($array == null)
+            return view('carrinho.cart')->with('cart', null);
+
         $carrinho = tshirt_images::whereIn('image_url', $array)->get();
+
         return view('carrinho.cart')->with('cart', $carrinho);
     }
 
@@ -34,7 +32,7 @@ class carrinhoController extends Controller
             $newValues = [$count => $id];
             $mergedArray = array_merge($array, $newValues);
             $request->session()->put('cart', $mergedArray);
-        }  
+        }
         else
             $request->session()->put('cart', [1 => $id]);
 

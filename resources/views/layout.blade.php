@@ -10,7 +10,7 @@
 <body class="animsition background">
 
 	<!-- Header -->
-	<header class="header-v4">
+	<header class="header-v4 Paddingbt5">
 		<!-- Header desktop -->
 			<div class="wrap-menu-desktop how-shadow1" style="top: 0px;">
 				<nav class="limiter-menu-desktop container">
@@ -277,12 +277,6 @@
 	</div>
 
 
-	<!-- Title page -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
-		<h2 class="ltext-105 cl0 txt-center">
-			@yield('header-title')
-		</h2>
-	</section>
     <div class="content background">
         @yield('main')
     </div>
