@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\tshirt_images;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Ui\Presets\React;
+use Illuminate\Support\Facades\DB;
 
 class carrinhoController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        return view('carrinho.cart');
+        $array = $request->session()->get('cart');
+        /*$data = [];
+        foreach ($array as $item){
+            $result = DB::table('tshirt_images')->where('image_url', $item)->get();
+            json_decode(json_encode($result), true);
+            array_push($data, json_decode(json_encode($result), true));
+        }
+        return view('carrinho.cart')->with('cart', $data);*/
+        $carrinho = tshirt_images::whereIn('image_url', $array)->get();
+        return view('carrinho.cart')->with('cart', $carrinho);
     }
 
     public function addToCart(Request $request, $id): RedirectResponse
