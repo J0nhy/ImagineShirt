@@ -1,7 +1,7 @@
 @extends('layout')
 @section('main')
 <div class="container">
-    
+
     {{--inicio da Zona de testes para o carrinho--}}
     @if(session('message'))
         <script>
