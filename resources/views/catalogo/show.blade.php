@@ -13,7 +13,7 @@
 @endsection
 
 @section('main')
-    <section class="sec-product-detail bg0 p-t-65 p-b-60">
+    <section class="sec-product-detail bg0 p-t-65 p-b-60 ">
         <div class="container">
             <div class="row">
                 <div class="col-md-6" style="position:relative;">
@@ -22,11 +22,9 @@
                     <img src="/tshirt_base/00a2f2.jpg" alt="IMG-PRODUCT"
                         style="width: 80%; height: 80%;   max-height: none;object-fit: contain; position:absolute; z-index: 1;">
                     <div style="height: 250px;
-                    width: 200px;  position:absolute; z-index: 3; margin-top:80px; margin-left:140px;">
+                    width: 200px;  position:absolute; z-index: 3; top: 35%; left: 45%; transform: translate(-60%,-50%);">
 
-                        <img src="/tshirt_images/{{ $tshirt->image_url }}" alt="IMG-PRODUCT" style="object-fit: cover; max-width:100%; max-height:100%;">
-
-
+                        <img src="/tshirt_images/{{ $tshirt->image_url }}" alt="IMG-PRODUCT" style="object-fit: cover; max-width:200px; max-height:350px;">
                     </div>
 
 

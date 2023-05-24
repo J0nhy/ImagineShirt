@@ -52,6 +52,7 @@ class catalogoController extends Controller
     {
         $allTshirts = tshirt_images::all();
         return view('catalogo.show', compact('tshirt'));
+
     }
 
 
