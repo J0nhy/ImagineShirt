@@ -34,7 +34,7 @@
                      </div>
                 </div>
                 <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer buttonCards">
-                    <a href="#mudarrota" class="buttonCards" style="text-decoration: none;">Personalizar <i class="zmdi zmdi-chevron-right icon"></i></a>
+                    <a href="{{ route('catalogo.show', ['tshirt' => $tshirt]) }}" class="buttonCards" style="text-decoration: none;">Personalizar <i class="zmdi zmdi-chevron-right icon"></i></a>
                 </button>
             </div>
         </div>

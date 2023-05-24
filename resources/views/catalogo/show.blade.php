@@ -16,23 +16,20 @@
     <section class="sec-product-detail bg0 p-t-65 p-b-60">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-lg-7 p-b-30">
-                    <div class="p-l-25 p-r-30 p-lr-0-lg">
-                        <div class="wrap-slick3 flex-sb flex-w">
-                            <div class="wrap-slick3-dots"></div>
-                            <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-                            <div class="slick3 gallery-lb">
-                                <div class="item-slick3" data-thumb="images/product-detail-01.jpg">
-                                    <div class="wrap-pic-w pos-relative">
-                                        <img src="/tshirt_images/{{ $tshirt->image_url }}" alt="IMG-PRODUCT">
+                <div class="col-md-6" style="position:relative;">
 
-                                    </div>
-                                </div>
+                    <!--put one image that occopy the whole div and center it-->
+                    <img src="/tshirt_base/00a2f2.jpg" alt="IMG-PRODUCT"
+                        style="width: 80%; height: 80%;   max-height: none;object-fit: contain; position:absolute; z-index: 1;">
+                    <div style="height: 250px;
+                    width: 200px;  position:absolute; z-index: 3; margin-top:80px; margin-left:140px;">
+
+                        <img src="/tshirt_images/{{ $tshirt->image_url }}" alt="IMG-PRODUCT" style="object-fit: cover; max-width:100%; max-height:100%;">
 
 
-                            </div>
-                        </div>
                     </div>
+
+
                 </div>
 
                 <div class="col-md-6 col-lg-5 p-b-30">
@@ -71,7 +68,7 @@
                             </div>
 
                             <div class="colors">
-                                <button class="color" style="background-color: #e1e851" data-hex="#e1e851"></button>
+                                <button class="color" style="background-image: #e1e851" data-hex="#e1e851"></button>
                                 <button class="color" style="background-color: #8cd147" data-hex="#8cd147"></button>
                                 <button class="color" style="background-color: #4a9ccf" data-hex="#4a9ccf"></button>
                                 <button class="color" style="background-color: #661f45" data-hex="#661f45"></button>
