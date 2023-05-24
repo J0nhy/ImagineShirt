@@ -92,7 +92,7 @@
 											</div>
 										</td>
 										<td class="column-2"><?= $item->name; ?></td>
-										<td class="column-3">preco un</td>
+										<td class="column-3"><?= $price[0]->unit_price_catalog; ?>€</td>
 										<td class="column-4">
 											<div class="wrap-num-product flex-w m-l-auto m-r-0">
 												<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
