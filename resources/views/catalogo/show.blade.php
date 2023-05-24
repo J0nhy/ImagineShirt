@@ -24,7 +24,7 @@
                     <div style="height: 250px;
                     width: 200px;  position:absolute; z-index: 3; top: 35%; left: 45%; transform: translate(-60%,-50%);">
 
-                        <img src="/tshirt_images/{{ $tshirt->image_url }}" alt="IMG-PRODUCT" style="object-fit: cover; max-width:200px; max-height:350px;">
+                        <img id="fotoTshirt"src="/tshirt_images/{{ $tshirt->image_url }}" alt="IMG-PRODUCT" style="object-fit: cover; max-width:200px; max-height:350px;">
                     </div>
 
 
