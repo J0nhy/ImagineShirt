@@ -74,20 +74,18 @@
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
-						<div class="wrap-table-shopping-cart">
-							<table class="table-shopping-cart tablesBG">
-								<tr class="table_head">
-                                @if (!empty($cart))
-
+                        @if (!empty($cart))
+						<div class="wrap-table-shopping-cart tablesBG">
+							<table class="table-shopping-cart">
+								<tr class="table_head" style="border-top: 0px solid transparent;">
 									<th class="column-1">Product</th>
 									<th class="column-2"></th>
 									<th class="column-3">Price</th>
 									<th class="column-4">Quantity</th>
 									<th class="column-5">Total</th>
-
 								</tr>
 								@foreach($cart as $item)
-								<tr class="table_row">
+								<tr class="table_row" style="border-bottom: 0px solid transparent;">
 										<td class="column-1">
 											<div class="how-itemcart1">
 												<img src="tshirt_images/{{$item->image_url}}" class="card-img-top center" alt="{{ $item->image_url }}">
@@ -111,12 +109,12 @@
 										<td class="column-5">preco total</td>
 								</tr>
 								@endforeach
-                                @endif
-                                @if (empty($cart))
-                                <h3>O seu carrinho está vazio.</h3>
-                                @endif
 							</table>
 						</div>
+                        @endif
+                        @if (empty($cart))
+                        <h3>O seu carrinho está vazio.</h3>
+                         @endif
 					</div>
 				</div>
 
