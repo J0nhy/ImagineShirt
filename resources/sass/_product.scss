@@ -1,0 +1,20 @@
+#product-shape {
+    fill: #DBED64;
+  }
+
+  #background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+  }
+
+  .color {
+    height: 36px;
+    width: 36px;
+    margin-left: 0.5em;
+    border-radius: 18px;
+    border: 2px solid #787878;
+    cursor: pointer;
+  }

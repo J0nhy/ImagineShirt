@@ -22,6 +22,8 @@ Route::get('/', function () {
 });
 
 Route::get('catalogo', [catalogoController::class, 'index'])->name('catalogo.index');
+Route::get('catalogo/{tshirt}', [catalogoController::class, 'show'])->name('catalogo.show');
+
 Route::get('cart', [carrinhoController::class, 'index'])->name('carrinho.cart');
 Route::get('/addToCart/{id}', [carrinhoController::class, 'addToCart']);
 

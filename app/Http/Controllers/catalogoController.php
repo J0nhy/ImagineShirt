@@ -7,12 +7,14 @@ use App\Models\tshirt_images;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class catalogoController extends Controller
 {
     public function index(): View
     {
-        $allTshirts = tshirt_images::paginate(10);
+        $allTshirts = tshirt_images::paginate(16);
         //dump($allTshirts);
         Log::debug(
             'Tshirts has been loaded on the controller.',
@@ -48,7 +50,8 @@ class catalogoController extends Controller
     }
     public function show(tshirt_images $tshirt): View
     {
-        return view('catalogo.show')->withTshirt($tshirt);
+        $allTshirts = tshirt_images::all();
+        return view('catalogo.show', compact('tshirt'));
     }
 
 

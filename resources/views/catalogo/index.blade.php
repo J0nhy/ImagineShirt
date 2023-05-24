@@ -18,7 +18,7 @@
         <div class="col-4 imgCardBack">
 
             <div class="min-height250">
-                <a href="detail_{{$tshirt}}.php?id={{$tshirt['id']}}">
+                <a href="{{ route('catalogo.show', ['tshirt' => $tshirt]) }}">
                     <img src="tshirt_images/{{$tshirt['image_url']}}" class="card-img-top center" alt="{{$tshirt['image_url']}}">
                 </a>
             </div>
