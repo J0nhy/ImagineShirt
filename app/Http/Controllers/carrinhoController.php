@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\tshirt_images;
+use App\Models\prices;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -18,9 +19,10 @@ class carrinhoController extends Controller
         if ($array == null)
             return view('carrinho.cart')->with('cart', null);
 
-        $carrinho = tshirt_images::whereIn('image_url', $array)->get();
+        $cart = tshirt_images::whereIn('image_url', $array)->get();
+        $price = prices::all();
 
-        return view('carrinho.cart')->with('cart', $carrinho);
+        return view('carrinho.cart', compact('cart', 'price'));
     }
 
     public function addToCart(Request $request, $id): RedirectResponse
@@ -37,8 +39,7 @@ class carrinhoController extends Controller
             $request->session()->put('cart', [1 => $id]);
 
         $output = $request->session()->get('cart');
-        //$request->session()->flash('message', $output);
-        //return redirect()->route('catalogo.index');
+        $request->session()->put('itemCount', $count);
         return redirect()->back()->with('message', "Artigo(s) adicionado(s): " . implode('\n', $output));
     }
 

@@ -67,7 +67,7 @@
             				$count = count($array)+1;
 						*/
 						?>
-						<a href ="{{ route('carrinho.cart') }}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?= /* $count */ ""; ?>">
+						<a href ="{{ route('carrinho.cart') }}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{ Session::get('itemCount')}}">
 							<i class="zmdi zmdi-shopping-cart"></i>
                         </a>
 
