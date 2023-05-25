@@ -19,7 +19,7 @@
                 <div class="col-md-6" style="position:relative;">
 
                     <!--put one image that occopy the whole div and center it-->
-                    <img src="/tshirt_base/00a2f2.jpg" alt="IMG-PRODUCT"
+                    <img id="baseTshirt"src="/tshirt_base/00a2f2.jpg" alt="IMG-PRODUCT"
                         style="width: 80%; height: 80%;   max-height: none;object-fit: contain; position:absolute; z-index: 1;">
                     <div style="height: 250px;
                     width: 200px;  position:absolute; z-index: 3; top: 35%; left: 45%; transform: translate(-60%,-50%);">
@@ -66,37 +66,14 @@
                             </div>
 
                             <div class="colors">
-                                <button class="color" style="background-image: #e1e851" data-hex="#e1e851"></button>
-                                <button class="color" style="background-color: #8cd147" data-hex="#8cd147"></button>
-                                <button class="color" style="background-color: #4a9ccf" data-hex="#4a9ccf"></button>
-                                <button class="color" style="background-color: #661f45" data-hex="#661f45"></button>
-                                <button class="color" style="background-color: #1e2024" data-hex="#1e2024"></button>
-                                <button class="color" style="background-color: #e1e851" data-hex="#e1e851"></button>
-                                <button class="color" style="background-color: #8cd147" data-hex="#8cd147"></button>
-                                <button class="color" style="background-color: #4a9ccf" data-hex="#4a9ccf"></button>
-                                <button class="color" style="background-color: #661f45" data-hex="#661f45"></button>
-                                <button class="color" style="background-color: #1e2024" data-hex="#1e2024"></button>
-                                <button class="color" style="background-color: #e1e851" data-hex="#e1e851"></button>
-                                <button class="color" style="background-color: #8cd147" data-hex="#8cd147"></button>
-                                <button class="color" style="background-color: #4a9ccf" data-hex="#4a9ccf"></button>
-                                <button class="color" style="background-color: #661f45" data-hex="#661f45"></button>
-                                <button class="color" style="background-color: #1e2024" data-hex="#1e2024"></button>
-                                <button class="color" style="background-color: #e1e851" data-hex="#e1e851"></button>
-                                <button class="color" style="background-color: #8cd147" data-hex="#8cd147"></button>
-                                <button class="color" style="background-color: #4a9ccf" data-hex="#4a9ccf"></button>
-                                <button class="color" style="background-color: #661f45" data-hex="#661f45"></button>
-                                <button class="color" style="background-color: #1e2024" data-hex="#1e2024"></button>
-                                <button class="color" style="background-color: #e1e851" data-hex="#e1e851"></button>
-                                <button class="color" style="background-color: #8cd147" data-hex="#8cd147"></button>
-                                <button class="color" style="background-color: #4a9ccf" data-hex="#4a9ccf"></button>
-                                <button class="color" style="background-color: #661f45" data-hex="#661f45"></button>
-                                <button class="color" style="background-color: #1e2024" data-hex="#1e2024"></button>
-                                <button class="color" style="background-color: #e1e851" data-hex="#e1e851"></button>
-                                <button class="color" style="background-color: #8cd147" data-hex="#8cd147"></button>
-                                <button class="color" style="background-color: #4a9ccf" data-hex="#4a9ccf"></button>
-                                <button class="color" style="background-color: #661f45" data-hex="#661f45"></button>
-                                <button class="color" style="background-color: #1e2024" data-hex="#1e2024"></button>
-                                <button class="color" style="background-color: #e1e851" data-hex="#e1e851"></button>
+
+                                @foreach($allColors as $cor)
+                                @if($loop->iteration == 28)
+                                    @break
+                                @endif
+                                <button title="<?php echo $cor['name'];?>" class="color" style="background-color: #<?php echo $cor['code'];?> " onclick="changeImage('<?= $cor['code'];?>')"></button>
+                                @endforeach()
+
                             </div>
 
                             <div class="flex-w flex-r-m p-b-10">
@@ -341,5 +318,14 @@
             </span>
         </div>
     </section>
+    <script>
+        var image = document.querySelector('#baseTshirt');
+
+        function changeImage(cor)
+        {
+            image.src = '/tshirt_base/' + cor + '.jpg';
+        }
+
+    </script>
 
 @endsection

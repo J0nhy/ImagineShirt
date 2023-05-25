@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\tshirt_images;
+use App\Models\colors;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -51,7 +52,8 @@ class catalogoController extends Controller
     public function show(tshirt_images $tshirt): View
     {
         $allTshirts = tshirt_images::all();
-        return view('catalogo.show', compact('tshirt'));
+        $allColors = colors::all();
+        return view('catalogo.show', compact('tshirt', 'allColors'));
 
     }
 
