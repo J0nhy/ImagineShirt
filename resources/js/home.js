@@ -1,3 +1,6 @@
-function changeImage() {
-    image.src = '/tshirt_base/1e1e21.jpg';
+var image = document.querySelector('#baseTshirt');
+
+function changeImage(cor)
+{
+    image.src = '/tshirt_base/' + cor + '.jpg';
 }

@@ -1,7 +1,4 @@
-@extends('  layout')
-
-@section('titulo', 'Docente')
-
+@extends('layout')
 @section('subtitulo')
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Gestão</li>
@@ -319,12 +316,12 @@
         </div>
     </section>
     <script>
-        var image = document.querySelector('#baseTshirt');
+var image = document.querySelector('#baseTshirt');
 
-        function changeImage(cor)
-        {
-            image.src = '/tshirt_base/' + cor + '.jpg';
-        }
+function changeImage(cor)
+{
+    image.src = '/tshirt_base/' + cor + '.jpg';
+}
 
     </script>
 

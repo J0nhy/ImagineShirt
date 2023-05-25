@@ -24,12 +24,11 @@
                 <a href="#carousel__slide1" class="carousel__next">Go to first slide</a>
             </li>
         </ol>
-
     </section>
 
 
     <!-- Banner -->
-    <div class="sec-banner bg0 p-t-80 p-b-50">
+    <div class="sec-banner bg0  p-b-50">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
@@ -111,15 +110,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-
-    <!-- Back to top -->
-    <div class="btn-back-to-top" id="myBtn">
-        <span class="symbol-btn-back-to-top">
-            <i class="zmdi zmdi-chevron-up"></i>
-        </span>
     </div>
     <script></script>
 
