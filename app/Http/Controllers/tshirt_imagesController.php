@@ -11,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class catalogoController extends Controller
+class tshirt_imagesController extends Controller
 {
     public function index(): View
     {

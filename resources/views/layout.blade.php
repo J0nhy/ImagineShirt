@@ -16,7 +16,7 @@
 				<nav class="limiter-menu-desktop container">
 
 					<!-- Logo desktop -->
-					<a href="{{ route('catalogo.index') }}" class="logo">
+					<a href="/" class="logo">
 						<img src="/img/image2.png" alt="IMG-LOGO">
 					</a>
 
@@ -24,7 +24,7 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li>
-								<a href="">Home</a>
+								<a href="/">Home</a>
 								<ul class="sub-menu">
 									<li><a href="index.html">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>

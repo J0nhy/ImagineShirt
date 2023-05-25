@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\catalogoController;
+use App\Http\Controllers\tshirt_imagesController;
 use App\Http\Controllers\carrinhoController;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,11 +21,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('catalogo', [catalogoController::class, 'index'])->name('catalogo.index');
-Route::get('catalogo/{tshirt}', [catalogoController::class, 'show'])->name('catalogo.show');
+Route::get('catalogo', [tshirt_imagesController::class, 'index'])->name('catalogo.index');
+Route::get('catalogo/{tshirt}', [tshirt_imagesController::class, 'show'])->name('catalogo.show');
 
 Route::get('cart', [carrinhoController::class, 'index'])->name('carrinho.cart');
 Route::get('/addToCart/{id}', [carrinhoController::class, 'addToCart']);
+
+
 
 Auth::routes();
 
