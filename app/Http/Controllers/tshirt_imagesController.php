@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\tshirt_images;
 use App\Models\colors;
@@ -16,7 +16,7 @@ class tshirt_imagesController extends Controller
 {
     public function index(Request $request): View
     {
-        $categorias = Categories::all();
+        $categorias = Category::all();
         $filterByCategoria = $request->categoria ?? '';
 
         $filterByNome = $request->nome ?? '';
@@ -24,6 +24,9 @@ class tshirt_imagesController extends Controller
         //$filterByNome = $request->nome ?? '';
         $tshirtQuery = tshirt_images::query();
 
+        if ($filterByCategoria !== '') {
+            $tshirtQuery->where('category_id', $filterByCategoria);
+        }
         if ($filterByNome !== '') {
             $tshirtIds = tshirt_images::where('name', 'like', "%$filterByNome%")->pluck('id');
             $tshirtQuery->whereIntegerInRaw('id', $tshirtIds);
@@ -34,7 +37,7 @@ class tshirt_imagesController extends Controller
         }
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
         $tshirts = $tshirtQuery->paginate(16);
-        return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao'));
+        return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao', 'filterByCategoria', 'categorias'));
     }
 
     public function create(): View
