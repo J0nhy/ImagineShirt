@@ -13,15 +13,25 @@ use Illuminate\Support\Facades\Hash;
 
 class tshirt_imagesController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $allTshirts = tshirt_images::paginate(16);
-        //dump($allTshirts);
-        Log::debug(
-            'Tshirts has been loaded on the controller.',
-            ['$allTshirts' => $allTshirts]
-        );
-        return view('catalogo.index')->with('tshirt_images', $allTshirts);
+
+        $filterByNome = $request->nome ?? '';
+        $filterByDescricao = $request->descricao ?? '';
+        //$filterByNome = $request->nome ?? '';
+        $tshirtQuery = tshirt_images::query();
+
+        if ($filterByNome !== '') {
+            $tshirtIds = tshirt_images::where('name', 'like', "%$filterByNome%")->pluck('id');
+            $tshirtQuery->whereIntegerInRaw('id', $tshirtIds);
+        }
+        if ($filterByDescricao !== '') {
+            $tshirtIds = tshirt_images::where('description', 'like', "%$filterByDescricao%")->pluck('id');
+            $tshirtQuery->whereIntegerInRaw('id', $tshirtIds);
+        }
+        // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
+        $tshirts = $tshirtQuery->paginate(16);
+        return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao'));
     }
 
     public function create(): View
