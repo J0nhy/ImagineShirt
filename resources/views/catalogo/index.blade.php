@@ -13,6 +13,20 @@
         <div class="d-flex justify-content-between">
             <div class="flex-grow-1 pe-2">
                 <div class="d-flex justify-content-between">
+                    <div class="flex-grow-1 mb-3 form-floating">
+                        <select class="form-select" name="categoria" id="inputCategoria">
+                            <option {{ old('categoria', $filterByCategoria) === '' ? 'selected' : '' }}
+                                value="">Todos Departamentos </option>
+                            @foreach ($categorias as $categoria)
+                                <option
+                                    {{ old('categoria', $filterByCategoria) == $categoria->id ? 'selected' : '' }}
+                                    value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
+                            @endforeach
+                        </select>
+                        <label for="inputDepartamento" class="form-label">Departamento</label>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
                     <div class="mb-3 me-2 flex-grow-1 form-floating">
                         <input type="text" class="form-control" name="nome" id="inputNome"
                             value="{{ old('nome', $filterByNome) }}">
