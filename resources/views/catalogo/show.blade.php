@@ -1,9 +1,13 @@
 @extends('layout')
-
-
-
-
 @section('main')
+{{--inicio da Zona de testes para o carrinho--}}
+@if(session('message'))
+<script>
+    alert('{{ session('message') }}');
+</script>
+@endif
+{{--fim da Zona de testes para o carrinho--}}
+
     <section class="sec-product-detail bg0  p-t-65 p-b-60 ">
                     <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('catalogo.index') }}">catalogo</a></li>
@@ -89,7 +93,7 @@
                                     </div>
                                     <button
                                         class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                        Adicionar ao carrinho
+                                        <a href="/addToCart/{{$tshirt->image_url}}" style="text-decoration: none; color: white;">Adicionar ao Carrinho</a>
                                         </button>
 
                                 </div>

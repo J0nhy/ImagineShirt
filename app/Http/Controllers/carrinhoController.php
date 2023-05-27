@@ -35,8 +35,10 @@ class carrinhoController extends Controller
             $mergedArray = array_merge($array, $newValues);
             $request->session()->put('cart', $mergedArray);
         }
-        else
+        else{
             $request->session()->put('cart', [1 => $id]);
+            $count = 1;
+        }
 
         $output = $request->session()->get('cart');
         $request->session()->put('itemCount', $count);
