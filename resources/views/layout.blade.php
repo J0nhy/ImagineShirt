@@ -4,6 +4,7 @@
 	<title>About</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="jquery-3.6.4.min.js"></script>
     @vite('resources/sass/app.scss')
 
 </head>
@@ -67,7 +68,7 @@
             				$count = count($array)+1;
 						*/
 						?>
-						<a href ="{{ route('carrinho.cart') }}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{ Session::get('itemCount')}}">
+						<a href ="{{ route('carrinho.cart') }}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{ Session::has('itemCount') ? Session::get('itemCount') : 0}}">
 							<i class="zmdi zmdi-shopping-cart"></i>
                         </a>
 

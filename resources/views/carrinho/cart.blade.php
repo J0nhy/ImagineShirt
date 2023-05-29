@@ -1,6 +1,8 @@
+<?php
+$iterator=0;
+?>
 @extends('layout')
 @section('main')
-
 		<!-- Modal Search -->
 		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
 			<div class="container-search-header">
@@ -83,6 +85,7 @@
 									<th class="column-3">Price</th>
 									<th class="column-4">Quantity</th>
 									<th class="column-5">Total</th>
+									<th class="column-6"></th>
 								</tr>
 								@foreach($cart as $item)
 								<tr class="table_row" style="border-bottom: 0px solid transparent;">
@@ -91,23 +94,27 @@
 												<img src="tshirt_images/{{$item->image_url}}" class="card-img-top center" alt="{{ $item->image_url }}">
 											</div>
 										</td>
-										<td class="column-2"><?= $item->name; ?></td>
-										<td class="column-3"><?= $price[0]->unit_price_catalog; ?>€</td>
+										<td class="column-2"><?= $item->name; ?><br><?= $cores[$iterator]; ?><br><?= $sizes[$iterator]; ?></td>
+										<td id="price<?= $iterator; ?>" class="column-3"><?= $price[0]->unit_price_catalog; ?>€</td>
 										<td class="column-4">
 											<div class="wrap-num-product flex-w m-l-auto m-r-0">
-												<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+												<div onclick="changeQty('-', '<?= $iterator; ?>')" class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 													<i class="fs-16 zmdi zmdi-minus"></i>
 												</div>
 
-												<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="1">
+												<input onchange="changeTotal('<?= $iterator; ?>')" class="mtext-104 cl3 txt-center num-product" type="number" id="qty<?= $iterator; ?>" name="num-product1" value="1" min="1" max="50">
 
-												<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+												<div onclick="changeQty('+', '<?= $iterator; ?>')" class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 													<i class="fs-16 zmdi zmdi-plus"></i>
 												</div>
 											</div>
 										</td>
-										<td class="column-5">preco total</td>
+										<td id="total<?= $iterator; ?>" class="column-5"><?= $price[0]->unit_price_catalog; ?>€</td>
+										<td class="column-6"><a class="linkBranco" href="/removeFromCart/{{$item->image_url}};<?= $cores[$iterator]; ?>;<?= $sizes[$iterator]; ?>"><i class="zmdi zmdi-close iconBigger"></i></a></td>
 								</tr>
+								<?php 
+									$iterator++;
+								?>
 								@endforeach
 							</table>
 						</div>
@@ -329,7 +336,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			<i class="zmdi zmdi-chevron-up"></i>
 		</span>
 	</div>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -369,6 +376,33 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
+<script>
+
+function changeTotal($id)
+{
+	var total = document.querySelector('#total' + $id);
+	var price = $('#price'+ $id).text();
+	price = price.split("€");
+	var qty = document.querySelector('#qty' + $id);
+	totalVal = price[0] * qty.value;
+    total.innerHTML = totalVal + ".00€";
+}
+function changeQty($op, $id)
+{	
+	var qty = document.querySelector('#qty' + $id);
+	if($op == "-"){
+		if(qty.value > 1){
+			qty.value--;
+			changeTotal($id);
+		}
+	}else{
+		if(qty.value < 50){
+			qty.value++;
+			changeTotal($id);
+		}
+	}
+}
+</script>
 </body>
 </html>
 @endsection

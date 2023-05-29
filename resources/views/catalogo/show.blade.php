@@ -19,7 +19,7 @@
                 <div class="col-md-6" style="position:relative;">
 
                     <!--put one image that occopy the whole div and center it-->
-                    <img id="baseTshirt"src="/tshirt_base/00a2f2.jpg" alt="IMG-PRODUCT"
+                    <img id="baseTshirt" src="/tshirt_base/00a2f2.jpg" alt="IMG-PRODUCT"
                         style="width: 80%; height: 80%;   max-height: none;object-fit: contain; position:absolute; z-index: 1;">
                     <div style="height: 250px;
                     width: 200px;  position:absolute; z-index: 3; top: 40%; left: 45%; transform: translate(-52%,-50%);">
@@ -53,7 +53,7 @@
 
                                 <div class="size-204 respon6-next">
                                     <div class="rs1-select2 bor8 ">
-                                        <select class="js-select2" name="time">
+                                        <select class="js-select2" id="size" name="size" onchange="changeSize()">
                                             <option>Tamanho</option>
                                             <option>S</option>
                                             <option>M</option>
@@ -71,7 +71,7 @@
                                 @if($loop->iteration == 28)
                                     @break
                                 @endif
-                                <button title="<?php echo $cor['name'];?>" class="color" style="background-color: #<?php echo $cor['code'];?> " onclick="changeImage('<?= $cor['code'];?>')"></button>
+                                <button title="<?php echo $cor['name'];?>" class="color" style="background-color: #<?php echo $cor['code'];?> " onclick="changeImage('<?= $cor['code']; ?>', '<?= $cor['name']; ?>')"></button>
                                 @endforeach()
 
                             </div>
@@ -93,7 +93,7 @@
                                     </div>
                                     <button
                                         class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                        <a href="/addToCart/{{$tshirt->image_url}}" style="text-decoration: none; color: white;">Adicionar ao Carrinho</a>
+                                        <a id="addCart" href="#" class="linkBranco">Adicionar ao Carrinho</a>
                                         </button>
 
                                 </div>
@@ -293,14 +293,29 @@
             </span>
         </div>
     </section>
-    <script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
 var image = document.querySelector('#baseTshirt');
+var size = document.querySelector('#addCart');
+var tamanho;
+var cor = "Azul marinho";
 
-function changeImage(cor)
+function changeImage(colorCode, colorName)
 {
-    image.src = '/tshirt_base/' + cor + '.jpg';
+    image.src = '/tshirt_base/' + colorCode + '.jpg';
+    cor = colorName;
+    changeURL();
+}
+function changeSize()
+{
+    tamanho = $('#size').find(":selected").text();
+    changeURL();
+}
+function changeURL()
+{
+    size.href = "/addToCart/{{$tshirt->image_url}}/" + cor + "/" + tamanho;
 }
 
-    </script>
+</script>
 
 @endsection
