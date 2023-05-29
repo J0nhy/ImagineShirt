@@ -9,10 +9,7 @@
 {{--fim da Zona de testes para o carrinho--}}
 
     <section class="sec-product-detail bg0  p-t-65 p-b-60 ">
-                    <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('catalogo.index') }}">catalogo</a></li>
-                        <li class="breadcrumb-item"><strong>{{ $tshirt->name }}</strong></li>
-                    </ol>
+
         <div class="container bg0 p-t-65">
             <div class="row">
 
