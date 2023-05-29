@@ -21,6 +21,20 @@
                             <div class="flex-grow-1 mb-3 me-2 form-floating">
                                 <select class="form-select" name="categoria" id="inputCategoria">
                                     <option {{ old('categoria', $filterByCategoria) === '' ? 'selected' : '' }}
+                                        value=""></option>
+                                    @foreach ($table_names as $campo)
+                                        <option
+
+                                            value="{{ $campo }}">{{ $campo }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="inputDepartamento" class="form-label">Ordenar por</label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="flex-grow-1 mb-3 me-2 form-floating">
+                                <select class="form-select" name="categoria" id="inputCategoria">
+                                    <option {{ old('categoria', $filterByCategoria) === '' ? 'selected' : '' }}
                                         value="">Todas as categorias </option>
                                     @foreach ($categorias as $categoria)
                                         <option
@@ -91,9 +105,11 @@
             @endforeach()
 
         </div>
-        <div >
+        <br>
+        <div>
             {{ $tshirts->links() }}
         </div>
+        <br>
 
     </div>
     </div>

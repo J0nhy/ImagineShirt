@@ -11,11 +11,16 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
+
 
 class tshirt_imagesController extends Controller
 {
     public function index(Request $request): View
     {
+        $table_names = Schema::getColumnListing('tshirt_images');
+
+
         $categorias = Category::all();
         $filterByCategoria = $request->categoria ?? '';
 
@@ -37,7 +42,7 @@ class tshirt_imagesController extends Controller
         }
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
         $tshirts = $tshirtQuery->paginate(16);
-        return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao', 'filterByCategoria', 'categorias'));
+        return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao', 'filterByCategoria', 'categorias', 'table_names'));
     }
 
     public function create(): View
