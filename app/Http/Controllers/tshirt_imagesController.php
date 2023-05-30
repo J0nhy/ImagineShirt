@@ -21,12 +21,15 @@ class tshirt_imagesController extends Controller
         $table_names = Schema::getColumnListing('tshirt_images');
 
 
+
         $categorias = Category::all();
         $filterByCategoria = $request->categoria ?? '';
 
+        $orderByCategoria = $request->categoriaOrder ?? '';
+
         $filterByNome = $request->nome ?? '';
         $filterByDescricao = $request->descricao ?? '';
-        //$filterByNome = $request->nome ?? '';
+
         $tshirtQuery = tshirt_images::query();
 
 
@@ -41,9 +44,13 @@ class tshirt_imagesController extends Controller
             $tshirtIds = tshirt_images::where('description', 'like', "%$filterByDescricao%")->pluck('id');
             $tshirtQuery->whereIntegerInRaw('id', $tshirtIds);
         }
+        //order by categoria
+        if($orderByCategoria !== ''){
+            $tshirtQuery->orderBy($orderByCategoria, 'asc');
+        }
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
         $tshirts = $tshirtQuery->whereNull('customer_id')->whereNull('deleted_at')->paginate(16);
-        return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao', 'filterByCategoria', 'categorias', 'table_names'));
+        return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao', 'filterByCategoria', 'categorias', 'table_names', 'orderByCategoria'));
     }
 
     public function create(): View

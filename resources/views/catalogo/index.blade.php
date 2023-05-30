@@ -19,16 +19,16 @@
                     <div class="flex-grow-1 pe-2">
                         <div class="d-flex justify-content-between">
                             <div class="flex-grow-1 mb-3 me-2 form-floating">
-                                <select class="form-select" name="categoria" id="inputCategoria">
-                                    <option {{ old('categoria', $filterByCategoria) === '' ? 'selected' : '' }}
-                                        value=""></option>
+                                <select class="form-select" name="categoriaOrder" id="inputOrderCategoria">
+                                    <option {{ old('categoriaOrder', $orderByCategoria) === '' ? 'selected' : '' }}
+                                        value="">Ordenar por</option>
                                     @foreach ($table_names as $campo)
                                         <option
-
-                                            value="{{ $campo }}">{{ $campo }}</option>
+                                        {{ old('categoriaOrder', $orderByCategoria) == $campo ? 'selected' : '' }}
+                                        value="{{ $campo }}">{{ $campo }}</option>
                                     @endforeach
                                 </select>
-                                <label for="inputDepartamento" class="form-label">Ordenar por</label>
+                                <label for="inputOrderCategoria" class="form-label">Ordenar por</label>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">
@@ -42,7 +42,7 @@
                                             value="{{ $categoria->id }}">{{ $categoria->name }}</option>
                                     @endforeach
                                 </select>
-                                <label for="inputDepartamento" class="form-label">Categoria</label>
+                                <label for="inputCategoria" class="form-label">Categoria</label>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">
