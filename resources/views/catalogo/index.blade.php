@@ -107,7 +107,7 @@
         </div>
         <br>
         <div>
-            {{ $tshirts->links() }}
+            {{ $tshirts->withQueryString()->links() }}
         </div>
         <br>
 
