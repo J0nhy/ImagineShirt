@@ -42,7 +42,7 @@ class tshirt_imagesController extends Controller
             $tshirtQuery->whereIntegerInRaw('id', $tshirtIds);
         }
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
-        $tshirts = $tshirtQuery->whereNull('customer_id')->paginate(16);
+        $tshirts = $tshirtQuery->whereNull('customer_id')->whereNull('deleted_at')->paginate(16);
         return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao', 'filterByCategoria', 'categorias', 'table_names'));
     }
 
