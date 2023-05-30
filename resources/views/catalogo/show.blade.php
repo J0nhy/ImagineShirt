@@ -68,7 +68,7 @@
                                 @if($loop->iteration == 28)
                                     @break
                                 @endif
-                                <button title="<?php echo $cor['name'];?>" class="color" style="background-color: #<?php echo $cor['code'];?> " onclick="changeImage('<?= $cor['code']; ?>', '<?= $cor['name']; ?>')"></button>
+                                <button title="{{$cor->name}}" class="color" style="background-color: #<?php echo $cor['code'];?> " onclick="changeImage('<?= $cor['code']; ?>', '<?= $cor['name']; ?>')"></button>
                                 @endforeach()
 
                             </div>

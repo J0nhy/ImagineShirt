@@ -29,6 +29,7 @@ class tshirt_imagesController extends Controller
         //$filterByNome = $request->nome ?? '';
         $tshirtQuery = tshirt_images::query();
 
+
         if ($filterByCategoria !== '') {
             $tshirtQuery->where('category_id', $filterByCategoria);
         }
@@ -73,7 +74,8 @@ class tshirt_imagesController extends Controller
     public function show(tshirt_images $tshirt): View
     {
         $allTshirts = tshirt_images::all();
-        $allColors = colors::all();
+        $allColors = colors::whereNull('deleted_at')->get();
+
         return view('catalogo.show', compact('tshirt', 'allColors'));
 
     }
