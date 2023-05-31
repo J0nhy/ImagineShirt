@@ -26,6 +26,7 @@ class tshirt_imagesController extends Controller
         $filterByCategoria = $request->categoria ?? '';
 
         $orderByCategoria = $request->categoriaOrder ?? '';
+        $orderByCategoriaAscDesc = $request->categoriaOrderAscDesc ?? '';
 
         $filterByNome = $request->nome ?? '';
         $filterByDescricao = $request->descricao ?? '';
@@ -46,11 +47,12 @@ class tshirt_imagesController extends Controller
         }
         //order by categoria
         if($orderByCategoria !== ''){
-            $tshirtQuery->orderBy($orderByCategoria, 'asc');
+            $tshirtQuery->orderBy($orderByCategoria, $orderByCategoriaAscDesc);
         }
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
         $tshirts = $tshirtQuery->whereNull('customer_id')->whereNull('deleted_at')->paginate(16);
-        return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao', 'filterByCategoria', 'categorias', 'table_names', 'orderByCategoria'));
+        return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao',
+                    'filterByCategoria', 'categorias', 'table_names', 'orderByCategoria', 'orderByCategoriaAscDesc'));
     }
 
     public function create(): View

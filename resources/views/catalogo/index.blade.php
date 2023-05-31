@@ -29,6 +29,18 @@
                                     @endforeach
                                 </select>
                                 <label for="inputOrderCategoria" class="form-label">Ordenar por</label>
+
+                            </div>
+                            <div class="flex-grow-1 mb-3 me-2 form-floating">
+                                <select class="form-select" name="categoriaOrderAscDesc" id="inputOrderCategoriaAscDesc">
+                                    <option {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === '' ? 'selected' : '' }}
+                                        value="asc">Ascendente</option>
+                                    <option {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === '' ? 'selected' : '' }}
+                                        value="desc">Descendente</option>
+
+                                </select>
+                                <label for="inputOrderCategoriaAscDesc" class="form-label">Ordem</label>
+
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">
