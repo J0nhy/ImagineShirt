@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\tshirt_imagesController;
 use App\Http\Controllers\carrinhoController;
+use App\Models\tshirt_images;
+use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -32,3 +34,11 @@ Route::get('/removeFromCart/{id}', [carrinhoController::class, 'removeFromCart']
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('admin', [tshirt_imagesController::class, 'admin'])->name('admin.index');
+
+Route::get('users', [userController::class, 'index'])->name('users.index');
+
+
+Route::resource('docentes', tshirt_imagesController::class);
+

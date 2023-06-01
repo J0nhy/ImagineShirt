@@ -55,6 +55,13 @@ class tshirt_imagesController extends Controller
                     'filterByCategoria', 'categorias', 'table_names', 'orderByCategoria', 'orderByCategoriaAscDesc'));
     }
 
+    public function admin(Request $request): View
+    {
+        $table_names = Schema::getColumnListing('tshirt_images');
+
+        return view('admin.index', compact('table_names'));
+    }
+
     public function create(): View
     {
         $newTshirt = new tshirt_images();

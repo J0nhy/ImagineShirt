@@ -34,7 +34,7 @@
                             <div class="flex-grow-1 mb-3 me-2 form-floating">
                                 <select class="form-select" name="categoriaOrderAscDesc" id="inputOrderCategoriaAscDesc">
                                     <option {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === '' ? 'selected' : '' }}
-                                        value="asc">Ascendente</option>
+                                        value="">Ascendente</option>
                                     <option {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === '' ? 'selected' : '' }}
                                         value="desc">Descendente</option>
 
