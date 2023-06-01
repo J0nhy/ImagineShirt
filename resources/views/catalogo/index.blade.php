@@ -86,10 +86,10 @@
     <div class="col-sm-9">
         <div class="row">
             @foreach($tshirts as $tshirt)
-            @if($loop->iteration == 20)
+            @if($loop->iteration >=count($tshirts)+1)
                 @break
             @endif
-            <div class="col-4 imgCardBack myBlowAnim">
+            <div class="col-4 imgCardBack">
 
                 <div class="min-height250">
                     <a href="{{ route('catalogo.show', ['tshirt' => $tshirt]) }}">
