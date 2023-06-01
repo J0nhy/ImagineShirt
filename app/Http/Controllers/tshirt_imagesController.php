@@ -50,7 +50,7 @@ class tshirt_imagesController extends Controller
             $tshirtQuery->orderBy($orderByCategoria, $orderByCategoriaAscDesc);
         }
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
-        $tshirts = $tshirtQuery->whereNull('customer_id')->whereNull('deleted_at')->paginate(16);
+        $tshirts = $tshirtQuery->whereNull('customer_id')->paginate(16);
         return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao',
                     'filterByCategoria', 'categorias', 'table_names', 'orderByCategoria', 'orderByCategoriaAscDesc'));
     }
@@ -83,7 +83,7 @@ class tshirt_imagesController extends Controller
     public function show(tshirt_images $tshirt): View
     {
         $allTshirts = tshirt_images::all();
-        $allColors = colors::whereNull('deleted_at')->get();
+        $allColors = colors::all();
 
         return view('catalogo.show', compact('tshirt', 'allColors'));
 
