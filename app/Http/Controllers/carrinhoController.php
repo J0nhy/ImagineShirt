@@ -15,8 +15,10 @@ class carrinhoController extends Controller
     public function index(Request $request): View
     {
         $array = $request->session()->get('cart');
-        //$arrayCor = $request->session()->get('cor');
-        //$arraySize = $request->session()->get('size');
+
+        if ($array == null)
+            return view('carrinho.cart')->with('cart', null);
+
         $produtos = [];
         $cores = [];
         $sizes = [];
@@ -30,7 +32,7 @@ class carrinhoController extends Controller
         if ($produtos == null)
             return view('carrinho.cart')->with('cart', null);
 
-        $cart = tshirt_images::WhereIn('image_url', $produtos)->get(); //nao esta a aparecer repetidos porque ele armazena 
+        $cart = tshirt_images::WhereIn('image_url', $produtos)->get(); //nao esta a aparecer repetidos porque ele armazena
                                                                        //na var $cart os valores que dao match, se 1 valor ja deu match n vai add outra vez
         $price = prices::all();
 

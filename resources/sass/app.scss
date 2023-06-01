@@ -28,6 +28,14 @@
     transition: transform 0.15s;
     background-color: rgb(255 255 255 / 20%);
 }
+.customShirtBack{
+    background-color: rgb(255 255 255 / 10%);
+    width: 100%;
+    padding-top: 2%;
+    border-radius: 0.7em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: 0.2s linear;
+}
 .buttonCards{
     background-color: transparent;
     align-items: end;
@@ -110,6 +118,6 @@ img{
     margin-left: 0.5em;
 }
 .linkBranco{
-    text-decoration: none; 
+    text-decoration: none;
     color: white;
 }

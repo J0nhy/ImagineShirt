@@ -8,10 +8,10 @@
 @endif
 {{--fim da Zona de testes para o carrinho--}}
 
-    <section class="sec-product-detail bg0  p-t-65 p-b-60 ">
+    <section class="sec-product-detail bg0  p-t-65 p-b-60 background">
 
-        <div class="container bg0 p-t-65">
-            <div class="row">
+        <div class="container bg0 p-t-65 background">
+            <div class="row customShirtBack">
 
                 <div class="col-md-6" style="position:relative;">
 
@@ -29,38 +29,32 @@
 
                 <div class="col-md-6 col-lg-5 p-b-30 ">
                     <div class="p-r-50 p-t-5 p-lr-0-lg">
-                        <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+                        <h4 class="mtext-105 cl2 js-name-detail p-b-14 titleCardBack">
                             {{ $tshirt->name }}
                         </h4>
 
-                        <span class="mtext-106 cl2">
+                        <span class="mtext-106 cl2 titleCardBack">
                             15€
                         </span>
 
-                        <p class="stext-102 cl3 p-t-23">
+                        <p class="stext-102 cl3 p-t-23 textCardBack">
                             {{ $tshirt->description }}
                         </p>
 
                         <!--  -->
                         <div class="p-t-33">
-                            <div class="flex-w flex-r-m p-b-10">
-                                <div class="size-203 flex-c-m respon6">
-                                    Tamanho
-                                </div>
+                                <div class="rs1-select2" style="float: left;">
+                                    <select class="js-select2" id="size" name="size" onchange="changeSize()">
+                                        <option>Tamanho</option>
+                                        <option>S</option>
+                                        <option>M</option>
+                                        <option>L</option>
+                                        <option>XL</option>
+                                    </select>
+                                <div class="dropDownSelect2"></div>
 
-                                <div class="size-204 respon6-next">
-                                    <div class="rs1-select2 bor8 ">
-                                        <select class="js-select2" id="size" name="size" onchange="changeSize()">
-                                            <option>Tamanho</option>
-                                            <option>S</option>
-                                            <option>M</option>
-                                            <option>L</option>
-                                            <option>XL</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
-                                </div>
                             </div>
+                            <br><br>
 
                             <div class="colors">
 

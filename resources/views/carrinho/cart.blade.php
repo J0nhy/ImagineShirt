@@ -102,7 +102,7 @@ $iterator=0;
 													<i class="fs-16 zmdi zmdi-minus"></i>
 												</div>
 
-												<input onchange="changeTotal('<?= $iterator; ?>')" class="mtext-104 cl3 txt-center num-product" type="number" id="qty<?= $iterator; ?>" name="num-product1" value="1" min="1" max="50">
+												<input disabled onchange="changeTotal('<?= $iterator; ?>')" class="mtext-104 cl3 txt-center num-product" type="number" id="qty<?= $iterator; ?>" name="num-product1" value="1" min="1" max="50">
 
 												<div onclick="changeQty('+', '<?= $iterator; ?>')" class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 													<i class="fs-16 zmdi zmdi-plus"></i>
