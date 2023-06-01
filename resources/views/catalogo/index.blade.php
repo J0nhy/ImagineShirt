@@ -89,7 +89,7 @@
             @if($loop->iteration == 20)
                 @break
             @endif
-            <div class="col-4 imgCardBack">
+            <div class="col-4 imgCardBack myBlowAnim">
 
                 <div class="min-height250">
                     <a href="{{ route('catalogo.show', ['tshirt' => $tshirt]) }}">

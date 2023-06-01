@@ -1,5 +1,6 @@
 <?php
 $iterator=0;
+$valorTotal=0;
 ?>
 @extends('layout')
 @section('main')
@@ -91,10 +92,10 @@ $iterator=0;
 								<tr class="table_row" style="border-bottom: 0px solid transparent;">
 										<td class="column-1">
 											<div class="how-itemcart1">
-												<img src="tshirt_images/{{$item->image_url}}" class="card-img-top center" alt="{{ $item->image_url }}">
+												<img src="tshirt_images/{{$item["image_url"]}}" class="card-img-top center" alt="{{ $item["image_url"] }}">
 											</div>
 										</td>
-										<td class="column-2"><?= $item->name; ?><br><?= $cores[$iterator]; ?><br><?= $sizes[$iterator]; ?></td>
+										<td class="column-2"><?= $item["name"]; ?><br><?= $item["cor"]; ?><br><?= $item["name"]; ?></td>
 										<td id="price<?= $iterator; ?>" class="column-3"><?= $price[0]->unit_price_catalog; ?>€</td>
 										<td class="column-4">
 											<div class="wrap-num-product flex-w m-l-auto m-r-0">
@@ -110,10 +111,11 @@ $iterator=0;
 											</div>
 										</td>
 										<td id="total<?= $iterator; ?>" class="column-5"><?= $price[0]->unit_price_catalog; ?>€</td>
-										<td class="column-6"><a class="linkBranco" href="/removeFromCart/{{$item->image_url}};<?= $cores[$iterator]; ?>;<?= $sizes[$iterator]; ?>"><i class="zmdi zmdi-close iconBigger"></i></a></td>
+										<td class="column-6"><a class="linkBranco" href="/removeFromCart/{{$item["image_url"]}};{{$item["name"]}};{{$item["cor"]}};{{$item["size"]}}"><i class="zmdi zmdi-close iconBigger"></i></a></td>
 								</tr>
 								<?php
 									$iterator++;
+                                    $valorTotal += $price[0]->unit_price_catalog;
 								?>
 								@endforeach
 							</table>
@@ -150,7 +152,7 @@ $iterator=0;
 
 							<div class="size-209">
 								<span class="mtext-110 cl2">
-									$79.65
+									????
 								</span>
 							</div>
 						</div>
@@ -163,8 +165,8 @@ $iterator=0;
 							</div>
 
 							<div class="size-209 p-t-1">
-								<span class="mtext-110 cl2">
-									$79.65
+								<span id="valorTotal" class="mtext-110 cl2">
+									<?= $valorTotal; ?>.00€
 								</span>
 							</div>
 						</div>
@@ -380,12 +382,27 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 function changeTotal($id)
 {
-	var total = document.querySelector('#total' + $id);
+	var objTotal = document.querySelector('#total' + $id);
+    var valTotal = $('#total'+ $id).text();
+    valTotal = valTotal.split("€");
+
+    var objValorTotal = document.querySelector('#valorTotal');
+    var txtValTotal = $('#valorTotal').text();
+    var txtValTotal = txtValTotal.split("€");
+
+    somaValTotal = txtValTotal[0];
+    somaValTotal -= valTotal[0];
+
 	var price = $('#price'+ $id).text();
 	price = price.split("€");
+
 	var qty = document.querySelector('#qty' + $id);
-	totalVal = price[0] * qty.value;
-    total.innerHTML = totalVal + ".00€";
+
+	subTotalVal = price[0] * qty.value;
+    objTotal.innerHTML = subTotalVal + ".00€";
+
+    somaValTotal += subTotalVal;
+    objValorTotal.innerHTML = somaValTotal + ".00€";
 }
 function changeQty($op, $id)
 {

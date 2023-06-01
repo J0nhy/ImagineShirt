@@ -1,27 +1,29 @@
 @extends('layout')
 @section('main')
-{{--inicio da Zona de testes para o carrinho--}}
-@if(session('message'))
-<script>
-    alert('{{ session('message') }}');
-</script>
-@endif
-{{--fim da Zona de testes para o carrinho--}}
+    {{-- inicio da Zona de testes para o carrinho --}}
+    @if (session('message'))
+        <script>
+            alert('{{ session('message') }}');
+        </script>
+    @endif
+    {{-- fim da Zona de testes para o carrinho --}}
 
-    <section class="sec-product-detail bg0  p-t-65 p-b-60 background">
+    <section class="sec-product-detail bg0 background">
 
         <div class="container bg0 p-t-65 background">
             <div class="row customShirtBack">
 
-                <div class="col-md-6" style="position:relative;">
+                <div class="col-md-6 myBlowAnim" style="position:relative;">
 
                     <!--put one image that occopy the whole div and center it-->
-                    <img id="baseTshirt" src="/tshirt_base/00a2f2.jpg" alt="IMG-PRODUCT"
-                        style="width: 80%; height: 80%;   max-height: none;object-fit: contain; position:absolute; z-index: 1;">
-                    <div style="height: 250px;
+                    <img id="baseTshirt" src="/tshirt_base/{{ $allColors['0']['code'] }}.png" alt="IMG-PRODUCT"
+                        style="width: 80%; height: 80%; max-height: none;object-fit: contain; position:absolute; z-index: 1;">
+                    <div
+                        style="height: 250px;
                     width: 200px;  position:absolute; z-index: 3; top: 40%; left: 45%; transform: translate(-52%,-50%);">
 
-                        <img id="fotoTshirt"src="/tshirt_images/{{ $tshirt->image_url }}" alt="IMG-PRODUCT" style="object-fit: cover; max-width:160px; max-height:350px;">
+                        <img id="fotoTshirt"src="/tshirt_images/{{ $tshirt->image_url }}" alt="IMG-PRODUCT"
+                            style="object-fit: cover; max-width:160px; max-height:350px;">
                     </div>
 
 
@@ -43,61 +45,66 @@
 
                         <!--  -->
                         <div class="p-t-33">
-                                <div class="rs1-select2" style="float: left;">
-                                    <select class="js-select2" id="size" name="size" onchange="changeSize()">
-                                        <option>Tamanho</option>
-                                        <option>S</option>
-                                        <option>M</option>
-                                        <option>L</option>
-                                        <option>XL</option>
-                                    </select>
-                                <div class="dropDownSelect2"></div>
-
+                            <div class="dropdown" style="float: left;">
+                                <div class="select">
+                                    <span>Tamanho <i class="zmdi zmdi-chevron-down icon" style="vertical-align: middle;"></i></span>
+                                    <i class="fa fa-chevron-left"></i>
+                                </div>
+                                <input type="hidden" name="size">
+                                <ul class="dropdown-menu">
+                                    <li onclick="changeSize('S')" id="S">S</li>
+                                    <li onclick="changeSize('M')"id="M">M</li>
+                                    <li onclick="changeSize('L')"id="L">L</li>
+                                    <li onclick="changeSize('XL')"id="XL">XL</li>
+                                </ul>
                             </div>
-                            <br><br>
+                        </div>
+                        <br><br><br>
 
-                            <div class="colors">
+                        <div class="colors">
 
-                                @foreach($allColors as $cor)
-                                @if($loop->iteration == 28)
-                                    @break
-                                @endif
-                                <button title="{{$cor->name}}" class="color" style="background-color: #<?php echo $cor['code'];?> " onclick="changeImage('<?= $cor['code']; ?>', '<?= $cor['name']; ?>')"></button>
-                                @endforeach()
+                            @foreach ($allColors as $cor)
+                                @if ($loop->iteration == 28)
+                                @break
+                            @endif
+                            <button title="{{ $cor->name }}" class="color"
+                                style="background-color: #<?php echo $cor['code']; ?> "
+                                onclick="changeImage('<?= $cor['code'] ?>', '<?= $cor['name'] ?>')"></button>
+                        @endforeach()
 
-                            </div>
+                    </div>
+                    <br>
+                    <div class="flex-w flex-c-str p-b-10">
+                        <div class=" flex-w flex-m respon6-next">
+                            <div class="wrap-num-product flex-w  m-r-20 m-tb-10">
+                                <div onclick="changeQty('-')"
+                                    class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                    <i class="fs-16 zmdi zmdi-minus"></i>
+                                </div>
 
-                            <div class="flex-w flex-c-str p-b-10">
-                                <div class=" flex-w flex-m respon6-next">
-                                    <div class="wrap-num-product flex-w  m-r-20 m-tb-10">
-                                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                            <i class="fs-16 zmdi zmdi-minus"></i>
-                                        </div>
+                                <input disabled class="mtext-104 cl3 txt-center num-product" type="number"
+                                    id="qty" name="num-product1" value="1" min="1" max="50">
 
-                                        <input class="mtext-104 cl3 txt-center num-product" type="number"
-                                            name="num-product" value="1">
-
-                                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                            <i class="fs-16 zmdi zmdi-plus"></i>
-                                        </div>
-
-                                    </div>
-                                    <button
-                                        class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                        <a id="addCart" href="#" class="linkBranco">Adicionar ao Carrinho</a>
-                                        </button>
-
+                                <div onclick="changeQty('+')" class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                    <i class="fs-16 zmdi zmdi-plus"></i>
                                 </div>
                             </div>
+                            <button
+                                class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                <a id="addCart" href="#" class="linkBranco">Adicionar ao Carrinho</a>
+                            </button>
+
                         </div>
                     </div>
                 </div>
             </div>
-
+        </div>
+    </div>
+    <!------------------------------------ É PARA USAR ISTO ???????? -------------------------------
             <div class="bor10 m-t-50 p-t-43 p-b-40">
-                <!-- Tab01 -->
+                <!-- Tab01
                 <div class="tab01">
-                    <!-- Nav tabs -->
+                    <!-- Nav tabs
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item p-b-10">
                             <a class="nav-link active" data-toggle="tab" href="#description"
@@ -114,9 +121,9 @@
                         </li>
                     </ul>
 
-                    <!-- Tab panes -->
+                    <!-- Tab panes
                     <div class="tab-content p-t-43">
-                        <!-- - -->
+
                         <div class="tab-pane fade show active" id="description" role="tabpanel">
                             <div class="how-pos2 p-lr-15-md">
                                 <p class="stext-102 cl6">
@@ -124,7 +131,7 @@
                             </div>
                         </div>
 
-                        <!-- - -->
+
                         <div class="tab-pane fade" id="information" role="tabpanel">
                             <div class="row">
                                 <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
@@ -183,12 +190,12 @@
                             </div>
                         </div>
 
-                        <!-- - -->
+
                         <div class="tab-pane fade" id="reviews" role="tabpanel">
                             <div class="row">
                                 <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
                                     <div class="p-b-30 m-lr-15-sm">
-                                        <!-- Review -->
+                                        <!-- Review
                                         <div class="flex-w flex-t p-b-68">
                                             <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
                                                 <img src="images/avatar-01.jpg" alt="AVATAR">
@@ -216,7 +223,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- Add review -->
+                                        <!-- Add review
                                         <form class="w-full">
                                             <h5 class="mtext-108 cl2 p-b-7">
                                                 Add a review
@@ -283,30 +290,57 @@
                 Categories: Jacket, Men
             </span>
         </div>
-    </section>
+    -->
+</section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-var image = document.querySelector('#baseTshirt');
-var size = document.querySelector('#addCart');
-var tamanho;
-var cor = "Azul marinho";
+    var image = document.querySelector('#baseTshirt');
+    var size = document.querySelector('#addCart');
+    var tamanho = "M";
+    var cor = "Azul marinho";
 
-function changeImage(colorCode, colorName)
-{
-    image.src = '/tshirt_base/' + colorCode + '.jpg';
-    cor = colorName;
-    changeURL();
-}
-function changeSize()
-{
-    tamanho = $('#size').find(":selected").text();
-    changeURL();
-}
-function changeURL()
-{
-    size.href = "/addToCart/{{$tshirt->image_url}}/" + cor + "/" + tamanho;
-}
+    function changeImage(colorCode, colorName) {
+        image.src = '/tshirt_base/' + colorCode + '.png';
+        cor = colorName;
+        changeURL();
+    }
 
+    function changeSize($val) {
+        tamanho = $val;
+        changeURL();
+    }
+
+    function changeURL() {
+        size.href = "/addToCart/{{ $tshirt->image_url }}/{{ $tshirt->name }}/" + cor + "/" + tamanho;
+    }
+
+    function changeQty($op) {
+        var qty = document.querySelector('#qty');
+        if ($op == "-") {
+            if (qty.value > 1) {
+                qty.value--;
+            }
+        } else {
+            if (qty.value < 50) {
+                qty.value++;
+            }
+        }
+    }
+
+    /*Dropdown Menu*/
+    $('.dropdown').click(function() {
+        $(this).attr('tabindex', 1).focus();
+        $(this).toggleClass('active');
+        $(this).find('.dropdown-menu').slideToggle(300);
+    });
+    $('.dropdown').focusout(function() {
+        $(this).removeClass('active');
+        $(this).find('.dropdown-menu').slideUp(300);
+    });
+    $('.dropdown .dropdown-menu li').click(function() {
+        $(this).parents('.dropdown').find('span').text($(this).text());
+        $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
+    });
+    /*End Dropdown Menu*/
 </script>
-
 @endsection

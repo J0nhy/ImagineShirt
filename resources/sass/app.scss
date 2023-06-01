@@ -23,15 +23,18 @@
     margin: 1%;
 }
 .imgCardBack:hover{
+    background-color: rgb(255 255 255 / 20%);
+}
+.myBlowAnim:hover{
     //faz uma transação em que fique maior, desfocado e em 0.5 segundos
     transform: scale(1.05);
+    cursor: pointer;
     transition: transform 0.15s;
-    background-color: rgb(255 255 255 / 20%);
 }
 .customShirtBack{
     background-color: rgb(255 255 255 / 10%);
     width: 100%;
-    padding-top: 2%;
+    padding-top: 5%;
     border-radius: 0.7em;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: 0.2s linear;
@@ -120,4 +123,42 @@ img{
 .linkBranco{
     text-decoration: none;
     color: white;
+}
+
+/*Styling Selectbox*/
+.dropdown {
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgb(204, 204, 204);
+    transition: all .3s ease;
+    color: #474747;
+    padding: 1.5% 7% 1.5% 6%;
+  }
+  .dropdown .select,.dropdown{
+      cursor: pointer;
+      text-align: center;
+      font-weight: bold;
+  }
+  .dropdown .dropdown-menu {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgb(204, 204, 204);
+    border-radius: 0 1px 2px 2px;
+    display: none;
+    max-height: 150px;
+}
+.dropdown .dropdown-menu li {
+    padding: 6px;
+    transition: all .1s ease-in-out;
+    cursor: pointer
+}
+.dropdown .dropdown-menu {
+    list-style: none
+}
+.dropdown .dropdown-menu li:hover {
+    background-color: #d7d7d7
+}
+.dropdown .dropdown-menu li:active {
+    background-color: #d7d7d7
 }

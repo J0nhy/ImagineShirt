@@ -19,38 +19,43 @@ class carrinhoController extends Controller
         if ($array == null)
             return view('carrinho.cart')->with('cart', null);
 
-        $produtos = [];
-        $cores = [];
-        $sizes = [];
+        $cart = array();
+        $iterator = 0;
         foreach ($array as $produto) {
             $produto = explode(";", $produto);
-            array_push($produtos, $produto[0]);
-            array_push($cores, $produto[1]);
-            array_push($sizes, $produto[2]);
+            $cart[$iterator] = array(
+                "image_url" => $produto[0],
+                "name" => $produto[1],
+                "cor" => $produto[2],
+                "size" => $produto[3]
+            );
+            //array_push($cart[$iterator], $produto[0]);
+            //array_push($cart[$iterator], $produto[1]);
+            //array_push($cart[$iterator], $produto[2]);
+            //array_push($cart[$iterator], $produto[3]);
+            $iterator++;
         }
 
-        if ($produtos == null)
+        if ($cart == null)
             return view('carrinho.cart')->with('cart', null);
 
-        $cart = tshirt_images::WhereIn('image_url', $produtos)->get(); //nao esta a aparecer repetidos porque ele armazena
-                                                                       //na var $cart os valores que dao match, se 1 valor ja deu match n vai add outra vez
         $price = prices::all();
 
-        return view('carrinho.cart', compact('cart', 'price', 'cores', 'sizes'));
+        return view('carrinho.cart', compact('cart', 'price'));
     }
 
-    public function addToCart(Request $request, $id, $cor, $size): RedirectResponse
+    public function addToCart(Request $request, $url, $nome, $cor, $size): RedirectResponse
     {
         // Retrieve the array from the session
         if($request->session()->has('cart')){
             $array = $request->session()->get('cart');
             $count = count($array)+1;
-            $newValues = [$count => $id . ";" . $cor . ";" . $size];
+            $newValues = [$count => $url . ";" . $nome .";" . $cor . ";" . $size];
             $mergedArray = array_merge($array, $newValues);
             $request->session()->put('cart', $mergedArray);
         }
         else{
-            $request->session()->put('cart', [1 => $id . ";" . $cor . ";" . $size]);
+            $request->session()->put('cart', [1 => $url . ";" . $nome .";" . $cor . ";" . $size]);
             $count = 1;
         }
 
