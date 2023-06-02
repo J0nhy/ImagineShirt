@@ -10,7 +10,7 @@
             </li>
             <li id="carousel__slide2" tabindex="0" class="carousel__slide">
                 <div class="carousel__snapper"></div>
-                <a href="/" class="carousel__prev">Go to previous slide</a>
+                <a href="#carousel__slide1" class="carousel__prev">Go to previous slide</a>
                 <a href="#carousel__slide3" class="carousel__next">Go to next slide</a>
             </li>
             <li id="carousel__slide3" tabindex="0" class="carousel__slide">
