@@ -2,8 +2,96 @@
 $iterator=0;
 $valorTotal=0;
 ?>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<!--===============================================================================================-->
+		<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+		<script src="vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+		<script src="vendor/bootstrap/js/popper.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+		<script src="vendor/select2/select2.min.js"></script>
+		<script>
+			$(".js-select2").each(function(){
+				$(this).select2({
+					minimumResultsForSearch: 20,
+					dropdownParent: $(this).next('.dropDownSelect2')
+				});
+			})
+		</script>
+	<!--===============================================================================================-->
+		<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<!--===============================================================================================-->
+		<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+		<script>
+			$('.js-pscroll').each(function(){
+				$(this).css('position','relative');
+				$(this).css('overflow','hidden');
+				var ps = new PerfectScrollbar(this, {
+					wheelSpeed: 1,
+					scrollingThreshold: 1000,
+					wheelPropagation: false,
+				});
+	
+				$(window).on('resize', function(){
+					ps.update();
+				})
+			});
+		</script>
+	<!--===============================================================================================-->
+		<script src="js/main.js"></script>
+	
+	
+<script>
+
+	function changeTotal($id)
+	{
+		var objTotal = document.querySelector('#total' + $id);
+		var valTotal = $('#total'+ $id).text();
+		valTotal = valTotal.split("€");
+	
+		var objValorTotal = document.querySelector('#valorTotal');
+		var txtValTotal = $('#valorTotal').text();
+		var txtValTotal = txtValTotal.split("€");
+	
+		somaValTotal = txtValTotal[0];
+		somaValTotal -= valTotal[0];
+	
+		var price = $('#price'+ $id).text();
+		price = price.split("€");
+	
+		var qty = document.querySelector('#qty' + $id);
+	
+		subTotalVal = price[0] * qty.value;
+		objTotal.innerHTML = subTotalVal + ".00€";
+	
+		somaValTotal += subTotalVal;
+		objValorTotal.innerHTML = somaValTotal + ".00€";
+	}
+	function changeQty($op, $id)
+	{
+		var qty = document.querySelector('#qty' + $id);
+		if($op == "-"){
+			if(qty.value > 1){
+				qty.value--;
+				changeTotal($id);
+			}
+		}else{
+			if(qty.value < 50){
+				qty.value++;
+				changeTotal($id);
+			}
+		}
+	}
+	</script>
 @extends('layout')
 @section('main')
+	@if (session('message'))
+        <script>
+            alert('{{ session('message') }}');
+        </script>
+    @endif
 		<!-- Modal Search -->
 		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
 			<div class="container-search-header">
@@ -21,41 +109,6 @@ $valorTotal=0;
 		</div>
 	</header>
 
-	<!-- Cart
-	<div class="wrap-header-cart js-panel-cart">
-		<div class="s-full js-hide-cart"></div>
-
-		<div class="header-cart flex-col-l p-l-65 p-r-25">
-			<div class="header-cart-title flex-w flex-sb-m p-b-8">
-				<span class="mtext-103 cl2">
-					Your Cart
-				</span>
-
-				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
-					<i class="zmdi zmdi-close"></i>
-				</div>
-			</div>
-
-				<div class="w-full">
-					<div class="header-cart-total w-full p-tb-40">
-						Total: $75.00
-					</div>
-
-					<div class="header-cart-buttons flex-w w-full">
-						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-							View Cart
-						</a>
-
-						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-							Check Out
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-
 	<!-- breadcrumb -->
 	<div class="container">
 		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
@@ -72,7 +125,7 @@ $valorTotal=0;
 
 
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85 background">
+	<form class="bg0 p-t-75 p-b-85 background" method="POST" action="/store">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -95,7 +148,7 @@ $valorTotal=0;
 												<img src="tshirt_images/{{$item["image_url"]}}" class="card-img-top center" alt="{{ $item["image_url"] }}">
 											</div>
 										</td>
-										<td class="column-2"><?= $item["name"]; ?><br><?= $item["cor"]; ?><br><?= $item["name"]; ?></td>
+										<td class="column-2"><?= $item["name"]; ?><br><?= $item["cor"]; ?><br><?= $item["size"]; ?></td>
 										<td id="price<?= $iterator; ?>" class="column-3"><?= $price[0]->unit_price_catalog; ?>€</td>
 										<td class="column-4">
 											<div class="wrap-num-product flex-w m-l-auto m-r-0">
@@ -103,7 +156,7 @@ $valorTotal=0;
 													<i class="fs-16 zmdi zmdi-minus"></i>
 												</div>
 
-												<input disabled onchange="changeTotal('<?= $iterator; ?>')" class="mtext-104 cl3 txt-center num-product" type="number" id="qty<?= $iterator; ?>" name="num-product1" value="1" min="1" max="50">
+												<input disabled onchange="changeTotal('<?= $iterator; ?>')" class="mtext-104 cl3 txt-center num-product" type="number" id="qty<?= $iterator; ?>" name="num-product1" value="<?= $item["qtd"]; ?>" min="1" max="50">
 
 												<div onclick="changeQty('+', '<?= $iterator; ?>')" class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 													<i class="fs-16 zmdi zmdi-plus"></i>
@@ -111,11 +164,12 @@ $valorTotal=0;
 											</div>
 										</td>
 										<td id="total<?= $iterator; ?>" class="column-5"><?= $price[0]->unit_price_catalog; ?>€</td>
-										<td class="column-6"><a class="linkBranco" href="/removeFromCart/{{$item["image_url"]}};{{$item["name"]}};{{$item["cor"]}};{{$item["size"]}}"><i class="zmdi zmdi-close iconBigger"></i></a></td>
+										<td class="column-6"><a class="linkBranco" href="/removeFromCart/{{$item["image_url"]}}{{$item["cor"]}}{{$item["size"]}}"><i class="zmdi zmdi-close iconBigger"></i></a></td>
 								</tr>
 								<?php
+									echo "<script>changeTotal('".$iterator."');</script>";
+                                    $valorTotal += $price[0]->unit_price_catalog*$item["qtd"];
 									$iterator++;
-                                    $valorTotal += $price[0]->unit_price_catalog;
 								?>
 								@endforeach
 							</table>
@@ -146,13 +200,13 @@ $valorTotal=0;
 						<div class="flex-w flex-t bor12 p-b-13">
 							<div class="size-208">
 								<span class="stext-110 cl2">
-									Subtotal:
+									Nº Artigos:
 								</span>
 							</div>
 
 							<div class="size-209">
 								<span class="mtext-110 cl2">
-									????
+									<?= $iterator; ?>
 								</span>
 							</div>
 						</div>
@@ -162,6 +216,7 @@ $valorTotal=0;
 								<span class="mtext-101 cl2">
 									Total:
 								</span>
+								<input hidden type="text" name="total" value="<?= $valorTotal; ?>">
 							</div>
 
 							<div class="size-209 p-t-1">
@@ -183,153 +238,7 @@ $valorTotal=0;
 
 
 <?php
-/*
-	<!-- Footer -->
-	<footer class="bg3 p-t-75 p-b-32">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6 col-lg-3 p-b-50">
-					<h4 class="stext-301 cl0 p-b-30">
-						Categories
-					</h4>
 
-					<ul>
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Women
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Men
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shoes
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Watches
-							</a>
-						</li>
-					</ul>
-				</div>
-
-				<div class="col-sm-6 col-lg-3 p-b-50">
-					<h4 class="stext-301 cl0 p-b-30">
-						Help
-					</h4>
-
-					<ul>
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Track Order
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Returns
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shipping
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								FAQs
-							</a>
-						</li>
-					</ul>
-				</div>
-
-				<div class="col-sm-6 col-lg-3 p-b-50">
-					<h4 class="stext-301 cl0 p-b-30">
-						GET IN TOUCH
-					</h4>
-
-					<p class="stext-107 cl7 size-201">
-						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
-					</p>
-
-					<div class="p-t-27">
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-facebook"></i>
-						</a>
-
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-instagram"></i>
-						</a>
-
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-pinterest-p"></i>
-						</a>
-					</div>
-				</div>
-
-				<div class="col-sm-6 col-lg-3 p-b-50">
-					<h4 class="stext-301 cl0 p-b-30">
-						Newsletter
-					</h4>
-
-					<form>
-						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
-							<div class="focus-input1 trans-04"></div>
-						</div>
-
-						<div class="p-t-18">
-							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-								Subscribe
-							</button>
-						</div>
-					</form>
-				</div>
-			</div>
-
-			<div class="p-t-40">
-				<div class="flex-c-m flex-w p-b-18">
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-01.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-02.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-03.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-04.png" alt="ICON-PAY">
-					</a>
-
-					<a href="#" class="m-all-1">
-						<img src="images/icons/icon-pay-05.png" alt="ICON-PAY">
-					</a>
-				</div>
-
-				<p class="stext-107 cl6 txt-center">
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
-				</p>
-			</div>
-		</div>
-	</footer>
-
-*/
 ?>
 
 	<!-- Back to top -->
@@ -338,88 +247,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			<i class="zmdi zmdi-chevron-up"></i>
 		</span>
 	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-	<script>
-		$(".js-select2").each(function(){
-			$(this).select2({
-				minimumResultsForSearch: 20,
-				dropdownParent: $(this).next('.dropDownSelect2')
-			});
-		})
-	</script>
-<!--===============================================================================================-->
-	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script>
-		$('.js-pscroll').each(function(){
-			$(this).css('position','relative');
-			$(this).css('overflow','hidden');
-			var ps = new PerfectScrollbar(this, {
-				wheelSpeed: 1,
-				scrollingThreshold: 1000,
-				wheelPropagation: false,
-			});
 
-			$(window).on('resize', function(){
-				ps.update();
-			})
-		});
-	</script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
-
-<script>
-
-function changeTotal($id)
-{
-	var objTotal = document.querySelector('#total' + $id);
-    var valTotal = $('#total'+ $id).text();
-    valTotal = valTotal.split("€");
-
-    var objValorTotal = document.querySelector('#valorTotal');
-    var txtValTotal = $('#valorTotal').text();
-    var txtValTotal = txtValTotal.split("€");
-
-    somaValTotal = txtValTotal[0];
-    somaValTotal -= valTotal[0];
-
-	var price = $('#price'+ $id).text();
-	price = price.split("€");
-
-	var qty = document.querySelector('#qty' + $id);
-
-	subTotalVal = price[0] * qty.value;
-    objTotal.innerHTML = subTotalVal + ".00€";
-
-    somaValTotal += subTotalVal;
-    objValorTotal.innerHTML = somaValTotal + ".00€";
-}
-function changeQty($op, $id)
-{
-	var qty = document.querySelector('#qty' + $id);
-	if($op == "-"){
-		if(qty.value > 1){
-			qty.value--;
-			changeTotal($id);
-		}
-	}else{
-		if(qty.value < 50){
-			qty.value++;
-			changeTotal($id);
-		}
-	}
-}
-</script>
 </body>
 </html>
 @endsection
