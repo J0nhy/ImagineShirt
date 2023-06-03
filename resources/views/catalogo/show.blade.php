@@ -13,7 +13,7 @@
         <div class="container bg0 p-t-65 background">
             <div class="row customShirtBack">
 
-                <div class="col-md-6 myBlowAnim" style="position:relative;">
+                <div class="col-md-6 myBlowAnim position-relative">
 
                     <!--put one image that occopy the whole div and center it-->
                     <img id="baseTshirt" src="/tshirt_base/{{ $allColors['0']['code'] }}.png" alt="IMG-PRODUCT"
@@ -61,18 +61,17 @@
                         </div>
                         <br><br><br>
 
-                        <div class="colors">
+                        <div>
 
                             @foreach ($allColors as $cor)
-                                @if ($loop->iteration == 28)
-                                @break
-                            @endif
-                            <button title="{{ $cor->name }}" class="color"
-                                style="background-color: #<?php echo $cor['code']; ?> "
-                                onclick="changeImage('<?= $cor['code'] ?>', '<?= $cor['name'] ?>')"></button>
-                        @endforeach()
+                                <button title="{{ $cor->name }}" class="color"
+                                    style="background-color: #<?php echo $cor['code']; ?> "
+                                    onclick="changeImage('<?= $cor['code'] ?>', '<?= $cor['name'] ?>')">
+                                </button>
 
-                    </div>
+                            @endforeach()
+
+                        </div>
                     <br>
                     <div class="flex-w flex-c-str p-b-10">
                         <div class=" flex-w flex-m respon6-next">
@@ -96,6 +95,16 @@
 
                         </div>
                     </div>
+
+                    <div class="product">
+                        <img id="baseTshirt" src="/tshirt_base/fcfbff.png" alt="IMG-PRODUCT"
+                            class="img-1">
+                            <img id="baseTshirt" src="/tshirt_base/{{ $allColors['0']['code'] }}_2.png" alt="IMG-PRODUCT"
+                             class="img-2">
+                        <div class="colooor"></div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -294,14 +303,15 @@
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-    var image = document.querySelector('#baseTshirt');
+     var image = document.querySelector('#baseTshirt');
     var size = document.querySelector('#addCart');
     var tamanho = "M";
     var cor = "Azul marinho";
     var qtd = 1;
+    const color = document.querySelector('.colooor');
 
     function changeImage(colorCode, colorName) {
-        image.src = '/tshirt_base/' + colorCode + '.png';
+        color.style.backgroundColor = "#" + colorCode;
         cor = colorName;
         changeURL();
     }
