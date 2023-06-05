@@ -95,16 +95,6 @@
 
                         </div>
                     </div>
-
-                    <div class="product">
-                        <img id="baseTshirt" src="/tshirt_base/fcfbff.png" alt="IMG-PRODUCT"
-                            class="img-1">
-                            <img id="baseTshirt" src="/tshirt_base/{{ $allColors['0']['code'] }}_2.png" alt="IMG-PRODUCT"
-                             class="img-2">
-                        <div class="colooor"></div>
-                    </div>
-
-
                 </div>
             </div>
         </div>
@@ -303,14 +293,13 @@
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-     var image = document.querySelector('#baseTshirt');
+    var image = document.querySelector('#baseTshirt');
     var size = document.querySelector('#addCart');
     var tamanho = "M";
     var cor = "Azul marinho";
-    const color = document.querySelector('.colooor');
 
     function changeImage(colorCode, colorName) {
-        color.style.backgroundColor = "#" + colorCode;
+        image.src = '/tshirt_base/' + colorCode + '.png';
         cor = colorName;
         changeURL();
     }
@@ -353,4 +342,5 @@
     });
     /*End Dropdown Menu*/
 </script>
+
 @endsection

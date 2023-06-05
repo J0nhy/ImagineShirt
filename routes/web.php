@@ -37,7 +37,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('admin', [tshirt_imagesController::class, 'admin'])->name('admin.index');
 
-Route::get('users', [userController::class, 'index'])->name('users.index');
+Route::get('admin/users', [userController::class, 'index'])->name('users.index');
 
 
 Route::resource('docentes', tshirt_imagesController::class);
