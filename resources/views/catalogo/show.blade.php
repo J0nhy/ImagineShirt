@@ -297,6 +297,7 @@
     var size = document.querySelector('#addCart');
     var tamanho = "M";
     var cor = "Azul marinho";
+    var qtd = 1;
 
     function changeImage(colorCode, colorName) {
         image.src = '/tshirt_base/' + colorCode + '.png';
