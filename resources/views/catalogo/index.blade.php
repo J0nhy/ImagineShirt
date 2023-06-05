@@ -34,7 +34,7 @@
                             <div class="flex-grow-1 mb-3 me-2 form-floating">
                                 <select class="form-select" name="categoriaOrderAscDesc" id="inputOrderCategoriaAscDesc">
                                     <option {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === '' ? 'selected' : '' }}
-                                        value="">Ascendente</option>
+                                        value="asc">Ascendente</option>
                                     <option {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === '' ? 'selected' : '' }}
                                         value="desc">Descendente</option>
 
@@ -92,7 +92,7 @@
             <div class="col-4 imgCardBack">
 
                 <div class="min-height250">
-                    <a href="{{ route('catalogo.show', ['tshirt' => $tshirt]) }}">
+                    <a href="{{ route('catalogo.show', ['tshirt' => $tshirt->slug]) }}">
                         <img src="tshirt_images/{{$tshirt['image_url']}}" class="card-img-top center" alt="{{$tshirt['image_url']}}">
                     </a>
                 </div>

@@ -5,9 +5,7 @@
             <thead class="table-dark">
                 <tr>
                     <th>Nome</th>
-                    <th>Email</th>
-                    <th>Tipo</th>
-                    <th>Photo</th>
+                    <th>Deletado</th>
                     <th class="button-icon-col"></th>
                     <th class="button-icon-col"></th>
                     <th class="button-icon-col"></th>
@@ -15,19 +13,18 @@
             </thead>
             <tbody>
 
-                @foreach ($users as $user)
+                @foreach ($categorias as $categoria)
                     <tr>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->user_type }}</td>
-                        <td>{{ $user->photo_url }}</td>
+                        <td>{{ $categoria->name }}</td>
+                        <td>{{ $categoria->deleted_at }}</td>
+
 
                     </tr>
                 @endforeach
             </tbody>
         </table>
         <div>
-            {{ $users->withQueryString()->links() }}
+            {{ $categorias->withQueryString()->links() }}
         </div>
     </section>
 @endsection
