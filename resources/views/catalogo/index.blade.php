@@ -96,7 +96,7 @@
                         <img src="tshirt_images/{{$tshirt['image_url']}}" class="card-img-top center" alt="{{$tshirt['image_url']}}">
                     </a>
                 </div>
-                    <div class="card-body">
+                    <div>
                         <div class="row">
                         <div >
                             <h5 class="card-title titleCardBack">{{$tshirt['name']}}</h5>

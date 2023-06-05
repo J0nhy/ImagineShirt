@@ -11,9 +11,6 @@ class tshirt_images extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    //protected $primaryKey = 'name';
-    public $incrementing = false;
-    protected $keyType = 'string';
     public $timestamps = false;
     protected $fillable = [
         'id', 'costumer_id', 'category_id', 'name', 'description',

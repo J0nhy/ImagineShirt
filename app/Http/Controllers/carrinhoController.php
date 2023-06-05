@@ -35,15 +35,6 @@ class carrinhoController extends Controller
             $array = $request->session()->get('cart');
             $igual = array_key_exists($id, $array);
 
-            /* $igual = false;
-
-            // verificar se já existe este produto no carrinho
-            for ($i=0; $i < count($array); $i++) {
-                if($array[$i]["id"] == $id){
-                    $igual = $i;
-                }
-            }*/
-
             if ($igual == false) {
                 $count = count($array) + 1;
                 $array[$id] = array(
@@ -79,7 +70,7 @@ class carrinhoController extends Controller
 
         $output = $request->session()->get('cart');
         $request->session()->put('itemCount', $count);
-        return redirect()->back()->with('message', "Artigo(s) adicionado(s): " . $url . $cor . $size . '-' . $igual);
+        return redirect()->back()->with('message', "Artigo(s) adicionado(s): " . $url . $cor . $size);
     }
 
     public function removeFromCart(Request $request, $id): RedirectResponse
@@ -98,6 +89,7 @@ class carrinhoController extends Controller
     {
         try {
             $total = $request->input('total');
+
             if ($request->session()->has('cart')) {
                 $array = $request->session()->get('cart');
                 $count = count($array);
@@ -105,6 +97,13 @@ class carrinhoController extends Controller
                     $htmlMessage = "Não existem produtos no carrinho.";
                     $alertType = 'alert';
                 } else {
+                    $qtds = array();
+                    $iterator = 0;
+                    foreach ($array as $item) {
+                        $qtds['qty' . $iterator] = $request->input('qty' . $iterator); //ta a vir null
+                        $iterator++;
+                    }
+                    dd($total, $qtds);
                     $order = DB::transaction(function () use ($array, $total) {
                         $newOrder = new orders();
                         $newOrder->status = "closed";
@@ -121,10 +120,14 @@ class carrinhoController extends Controller
                             $newOrderItem->order_id = $newOrder->id;
                             $newOrderItem->tshirt_image_id = tshirt_images::where('image_url', '=', $item["image_url"])->pluck('id')->first();
                             $newOrderItem->color_code = colors::where('name', 'like', "%" . $item["cor"] . "%")->pluck('code')->first();
-                            $newOrderItem->total_price = $item["qtd"] * prices::first()->unit_price_catalog;
+                            $newOrderItem->size = $item["size"];
+                            $newOrderItem->qty = $item["qtd"];
+                            $newOrderItem->unit_price = prices::first()->unit_price_catalog;
+                            $newOrderItem->sub_total = $item["qtd"] * $newOrderItem->unit_price;
+                            $newOrderItem->save();
                         }
 
-                        return $newOrder;
+                        return $newOrder->id;
                     });
                     $htmlMessage = "<strong>A sua encomenda foi concluida com sucesso: " . $total . "produto(s).</strong>";
 
@@ -136,6 +139,7 @@ class carrinhoController extends Controller
                 $htmlMessage = "Não existem produtos no carrinho.";
             }
         } catch (\Exception $error) {
+            dd($error);
             $htmlMessage = "Não foi possível concluir a encomenda, porque ocorreu um erro!";
         }
         return back()
