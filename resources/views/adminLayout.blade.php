@@ -265,7 +265,7 @@
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="{{ route('categorias.index')}}">
           <i class="bi bi-journal-text"></i><span>Categorias</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
       </li><!-- End Forms Nav -->
@@ -282,11 +282,6 @@
         </a>
       </li><!-- End Charts Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-      </li><!-- End Icons Nav -->
 
       <li class="nav-heading">Pages</li>
 
