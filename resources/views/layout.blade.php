@@ -52,6 +52,7 @@
 								<a href="contact.html">Contact</a>
 							</li>
 						</ul>
+
 					</div>
 
 					<!-- Icon header -->
@@ -74,6 +75,37 @@
 						<a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
+                        <ul class="navbar-nav me-1 me-lg-3">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="{{ Auth::user()->fullPhotoUrl }}" alt="Avatar" class="bg-dark rounded-circle"
+                                        width="45" height="45">
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                                        <li><a class="dropdown-item"
+                                                href="">Perfil</a>
+                                        </li>
+
+                                    <li><a class="dropdown-item" href="">Alterar Senha</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                            onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                            Sair
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
 					</div>
 				</nav>
 			</div>
