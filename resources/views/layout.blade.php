@@ -51,6 +51,7 @@
 							<li>
 								<a href="contact.html">Contact</a>
 							</li>
+
 						</ul>
 
 					</div>
@@ -75,12 +76,15 @@
 						<a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
+                        <a class="bi bi-person " id="navbarDropdown" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person"></i>
+                                </a>
                         <ul class="navbar-nav me-1 me-lg-3">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                                <a class="nav-link dropdown-toggle bi bi-person " id="navbarDropdown" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="" alt="Avatar" class="bg-dark rounded-circle"
-                                        width="45" height="45">
+                                    <i class="bi bi-person"></i>
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
