@@ -297,6 +297,11 @@
     var size = document.querySelector('#addCart');
     var tamanho = "M";
     var cor = "Azul marinho";
+<<<<<<< HEAD
+=======
+    var qtd = 1;
+    const color = document.querySelector('.colooor');
+>>>>>>> 6a5981f2452f101c12921543adaf0c08e414e777
 
     function changeImage(colorCode, colorName) {
         image.src = '/tshirt_base/' + colorCode + '.png';
@@ -309,8 +314,13 @@
         changeURL();
     }
 
+    function changeQtd() {
+        qtd = document.querySelector('#qty').value;
+        changeURL();
+    }
+
     function changeURL() {
-        size.href = "/addToCart/{{ $tshirt->image_url }}/{{ $tshirt->name }}/" + cor + "/" + tamanho;
+        size.href = "/addToCart/{{ $tshirt->image_url }}/{{ $tshirt->name }}/" + cor + "/" + tamanho + "/" + qtd;
     }
 
     function changeQty($op) {
@@ -324,6 +334,7 @@
                 qty.value++;
             }
         }
+        changeQtd();
     }
 
     /*Dropdown Menu*/
