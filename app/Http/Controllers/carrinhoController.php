@@ -38,7 +38,7 @@ class carrinhoController extends Controller
             /* $igual = false;
 
             // verificar se já existe este produto no carrinho
-            for ($i=0; $i < count($array); $i++) { 
+            for ($i=0; $i < count($array); $i++) {
                 if($array[$i]["id"] == $id){
                     $igual = $i;
                 }
@@ -119,10 +119,11 @@ class carrinhoController extends Controller
                         foreach($array as $item){
                             $newOrderItem = new order_items();
                             $newOrderItem->order_id = $newOrder->id;
-                            $newOrderItem->tshirt_image_id = tshirt_images::where('image_url', '=', $item["image_url"])->pluck('id'); 
-                            $newOrderItem->color_code = colors::where('name', 'like', "%" . $item["name"] . "%")->pluck('code');
-                            $newOrderItem->total_price = $item["qtd"] * prices::all()->plunk('unit_price_catalog'); // alterar consuante for para funcionar o preco das estampas
+                            $newOrderItem->tshirt_image_id = tshirt_images::where('image_url', '=', $item["image_url"])->pluck('id')->first();
+                            $newOrderItem->color_code = colors::where('name', 'like', "%" . $item["cor"] . "%")->pluck('code')->first();
+                            $newOrderItem->total_price = $item["qtd"] * prices::first()->unit_price_catalog;
                         }
+
                         return $newOrder;
                     });
                     $htmlMessage = "<strong>A sua encomenda foi concluida com sucesso: " . $total . "produto(s).</strong>";

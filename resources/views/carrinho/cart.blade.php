@@ -33,7 +33,7 @@ $valorTotal=0;
 					scrollingThreshold: 1000,
 					wheelPropagation: false,
 				});
-	
+
 				$(window).on('resize', function(){
 					ps.update();
 				})
@@ -41,8 +41,8 @@ $valorTotal=0;
 		</script>
 	<!--===============================================================================================-->
 		<script src="js/main.js"></script>
-	
-	
+
+
 <script>
 
 	function changeTotal($id)
@@ -50,22 +50,22 @@ $valorTotal=0;
 		var objTotal = document.querySelector('#total' + $id);
 		var valTotal = $('#total'+ $id).text();
 		valTotal = valTotal.split("€");
-	
+
 		var objValorTotal = document.querySelector('#valorTotal');
 		var txtValTotal = $('#valorTotal').text();
 		var txtValTotal = txtValTotal.split("€");
-	
+
 		somaValTotal = txtValTotal[0];
 		somaValTotal -= valTotal[0];
-	
+
 		var price = $('#price'+ $id).text();
 		price = price.split("€");
-	
+
 		var qty = document.querySelector('#qty' + $id);
-	
+
 		subTotalVal = price[0] * qty.value;
 		objTotal.innerHTML = subTotalVal + ".00€";
-	
+
 		somaValTotal += subTotalVal;
 		objValorTotal.innerHTML = somaValTotal + ".00€";
 	}
@@ -125,7 +125,8 @@ $valorTotal=0;
 
 
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85 background" method="POST" action="/store">
+	<form class="bg0 p-t-75 p-b-85 background" method="POST" action="store">
+        @csrf <!-- {{ csrf_field() }} -->
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -226,7 +227,7 @@ $valorTotal=0;
 							</div>
 						</div>
 
-						<button class="flex-c-m stext-101 cl2 size-116 bg8 bor14 hov-btn3 p-lr-15 trans-04 pointer ">
+						<button class="flex-c-m stext-101 cl2 size-116 bg8 bor14 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
 							Proceed to Checkout
 						</button>
 					</div>
