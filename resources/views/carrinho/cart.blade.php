@@ -47,6 +47,7 @@ $valorTotal=0;
 
 	function changeTotal($id)
 	{
+
 		var objTotal = document.querySelector('#total' + $id);
 		var valTotal = $('#total'+ $id).text();
 		valTotal = valTotal.split("€");
@@ -68,6 +69,9 @@ $valorTotal=0;
 
 		somaValTotal += subTotalVal;
 		objValorTotal.innerHTML = somaValTotal + ".00€";
+
+        var objSomaTotal = document.querySelector('#valSomaTotal');
+        objSomaTotal.value = somaValTotal;
 	}
 	function changeQty($op, $id)
 	{
@@ -157,7 +161,7 @@ $valorTotal=0;
 													<i class="fs-16 zmdi zmdi-minus"></i>
 												</div>
 
-												<input disabled onchange="changeTotal('<?= $iterator; ?>')" class="mtext-104 cl3 txt-center num-product" type="number" id="qty<?= $iterator; ?>" name="qty<?= $iterator; ?>" value="<?= $item["qtd"]; ?>" min="1" max="50">
+												<input onchange="changeTotal('<?= $iterator; ?>')" class="mtext-104 cl3 txt-center num-product" type="number" id="qty<?= $iterator; ?>" name="qty<?= $iterator; ?>" value="<?= $item["qtd"]; ?>" min="1" max="50">
 
 												<div onclick="changeQty('+', '<?= $iterator; ?>')" class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 													<i class="fs-16 zmdi zmdi-plus"></i>
@@ -217,7 +221,7 @@ $valorTotal=0;
 								<span class="mtext-101 cl2">
 									Total:
 								</span>
-								<input hidden type="text" name="total" value="<?= $valorTotal; ?>">
+								<input type="hidden" id="valSomaTotal" name="total" value="<?= $valorTotal; ?>">
 							</div>
 
 							<div class="size-209 p-t-1">

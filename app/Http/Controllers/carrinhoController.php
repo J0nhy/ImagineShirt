@@ -103,10 +103,9 @@ class carrinhoController extends Controller
                         $qtds['qty' . $iterator] = $request->input('qty' . $iterator); //ta a vir null
                         $iterator++;
                     }
-                    dd($total, $qtds);
-                    $order = DB::transaction(function () use ($array, $total) {
+                    $order = DB::transaction(function () use ($array, $total, $qtds) {
                         $newOrder = new orders();
-                        $newOrder->status = "closed";
+                        $newOrder->status = "pending";
                         $newOrder->customer_id = 155; //posteriormente mudar quando ja tiverem as contas de utilizador a funcionar
                         $newOrder->date = date("Y-m-d");
                         $newOrder->total_price = $total;
@@ -115,18 +114,19 @@ class carrinhoController extends Controller
                         $newOrder->payment_type = "PAYPAL"; //mudar quando se fizer a pagina de checokut
                         $newOrder->payment_ref = "5251638642578549"; //mudar quando se fizer a pagina de checokut
                         $newOrder->save();
+                        $iterator = 0;
                         foreach($array as $item){
                             $newOrderItem = new order_items();
                             $newOrderItem->order_id = $newOrder->id;
                             $newOrderItem->tshirt_image_id = tshirt_images::where('image_url', '=', $item["image_url"])->pluck('id')->first();
                             $newOrderItem->color_code = colors::where('name', 'like', "%" . $item["cor"] . "%")->pluck('code')->first();
                             $newOrderItem->size = $item["size"];
-                            $newOrderItem->qty = $item["qtd"];
+                            $newOrderItem->qty = $qtds['qty' . $iterator];
                             $newOrderItem->unit_price = prices::first()->unit_price_catalog;
-                            $newOrderItem->sub_total = $item["qtd"] * $newOrderItem->unit_price;
+                            $newOrderItem->sub_total = $newOrderItem->qty * $newOrderItem->unit_price;
                             $newOrderItem->save();
+                            $iterator++;
                         }
-
                         return $newOrder->id;
                     });
                     $htmlMessage = "<strong>A sua encomenda foi concluida com sucesso: " . $total . "produto(s).</strong>";
