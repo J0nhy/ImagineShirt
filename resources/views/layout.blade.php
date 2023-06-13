@@ -12,7 +12,7 @@
 <body class="animsition background">
 
     <!-- Header -->
-    <header class="header-v4 Paddingbt5">
+    <header class="header-v4 Paddingbt5 background">
         <!-- Header desktop -->
         <div class="wrap-menu-desktop how-shadow1" style="top: 0px;">
             <nav class="limiter-menu-desktop container">
@@ -96,6 +96,9 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
                                 <li><a class="dropdown-item" href="">Perfil</a>
+                                </li>
+
+                                <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
                                 </li>
 
                                 <li><a class="dropdown-item" href="">Alterar Senha</a></li>

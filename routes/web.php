@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\tshirt_imagesController;
 use App\Http\Controllers\carrinhoController;
 use App\Http\Controllers\categoryController;
+use App\Http\Controllers\pedidosController;
 use App\Models\tshirt_images;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,9 @@ Route::get('cart', [carrinhoController::class, 'index'])->name('carrinho.cart');
 Route::get('/addToCart/{url}/{nome}/{cor}/{size}/{qtd}', [carrinhoController::class, 'addToCart']);
 Route::get('/removeFromCart/{id}', [carrinhoController::class, 'removeFromCart']);
 Route::post('store', [carrinhoController::class, 'store']);
+
+Route::get('orders', [pedidosController::class, 'index'])->name('pedidos.orders');
+Route::get('/viewOrder/{id}', [pedidosController::class, 'viewOrder']);
 
 Auth::routes();
 

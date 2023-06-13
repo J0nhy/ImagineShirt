@@ -14,4 +14,9 @@ class colors extends Model
     protected $fillable = [
         'code', 'name', 'deleted_at'
     ];
+
+    public function cores()
+    {
+        return $this->hasMany(order_items::class, 'color_code', 'code');
+    }
 }

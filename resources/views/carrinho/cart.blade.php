@@ -153,7 +153,7 @@ $valorTotal=0;
 												<img src="tshirt_images/{{$item["image_url"]}}" class="card-img-top center" alt="{{ $item["image_url"] }}">
 											</div>
 										</td>
-										<td class="column-2"><?= $item["name"]; ?><br><?= $item["cor"]; ?><br><?= $item["size"]; ?></td>
+										<td class="column-2"><b><?= $item["name"]; ?></b><br><?= $item["cor"]; ?><br><?= $item["size"]; ?></td>
 										<td id="price<?= $iterator; ?>" class="column-3"><?= $price[0]->unit_price_catalog; ?>€</td>
 										<td class="column-4">
 											<div class="wrap-num-product flex-w m-l-auto m-r-0">
