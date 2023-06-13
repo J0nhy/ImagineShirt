@@ -88,7 +88,23 @@ $valorTotal=0;
 			}
 		}
 	}
-	</script>
+	function expandirImagem(img) {
+		var imagem = document.querySelector(img);
+		var popup = document.querySelector('.popup');
+		var popupImage = document.querySelector('.popup-image');
+
+		// Define a imagem expandida
+		popupImage.src = imagem.src;
+
+		// Exibe o pop-up
+		popup.style.display = 'flex';
+	}
+
+	function fecharPopUp() {
+		var popup = document.querySelector('.popup');
+		popup.style.display = 'none';
+	}
+</script>
 @extends('layout')
 @section('main')
 	@if (session('message'))
@@ -149,8 +165,14 @@ $valorTotal=0;
 								@foreach($cart as $item)
 								<tr class="table_row" style="border-bottom: 0px solid transparent;">
 										<td class="column-1">
-											<div class="how-itemcart1">
-												<img src="tshirt_images/{{$item["image_url"]}}" class="card-img-top center" alt="{{ $item["image_url"] }}">
+											<div class="how-itemcart1" onclick="expandirImagem('#img<?= $iterator; ?>')">
+												<img src="tshirt_images/{{$item["image_url"]}}" class="card-img-top center" alt="{{ $item["image_url"] }}" id="img<?= $iterator; ?>">
+											</div>
+											<!-- Pop-up -->
+											<div class="popup" onclick="fecharPopUp()">
+												<div class="popup-content">
+												<img class="popup-image" src="" alt="Imagem expandida">
+												</div>
 											</div>
 										</td>
 										<td class="column-2"><b><?= $item["name"]; ?></b><br><?= $item["cor"]; ?><br><?= $item["size"]; ?></td>
