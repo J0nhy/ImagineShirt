@@ -27,9 +27,9 @@ class carrinhoController extends Controller
         return view('carrinho.cart', compact('cart', 'price'));
     }
 
-    public function addToCart(Request $request, $url, $nome, $cor, $size, $qtd): RedirectResponse
+    public function addToCart(Request $request, $id, $url, $nome, $cor, $size, $qtd, $corCode, $own): RedirectResponse
     {
-        $id = $url . $cor . $size;
+        $arrayId = $url . $cor . $size;
         // Retrieve the array from the session
         if ($request->session()->has('cart')) {
             $array = $request->session()->get('cart');
@@ -37,40 +37,48 @@ class carrinhoController extends Controller
 
             if ($igual == false) {
                 $count = count($array) + 1;
-                $array[$id] = array(
+                $array[$arrayId] = array(
                     "image_url" => $url,
                     "name" => $nome,
                     "cor" => $cor,
                     "size" => $size,
-                    "qtd" => $qtd
+                    "qtd" => $qtd,
+                    "id" => $id,
+                    "colorCode" => $corCode,
+                    "own" => $own
                 );
                 $request->session()->put('cart', $array);
             } else {
                 $count = count($array);
-                $array[$id] = array(
+                $array[$arrayId] = array(
                     "image_url" => $url,
                     "name" => $nome,
                     "cor" => $cor,
                     "size" => $size,
-                    "qtd" => $array[$id]["qtd"] + $qtd
+                    "qtd" => $array[$id]["qtd"] + $qtd,
+                    "id" => $id,
+                    "colorCode" => $corCode,
+                    "own" => $own
                 );
                 $request->session()->put('cart', $array);
             }
         } else {
-            $array[$id] = array(
+            $array[$arrayId] = array(
                 "image_url" => $url,
                 "name" => $nome,
                 "cor" => $cor,
                 "size" => $size,
-                "qtd" => $qtd
+                "qtd" => $qtd,
+                "id" => $id,
+                "colorCode" => $corCode,
+                "own" => $own
             );
             $request->session()->put('cart', $array);
             $count = 1;
         }
 
-        $output = $request->session()->get('cart');
         $request->session()->put('itemCount', $count);
-        return redirect()->back()->with('message', "Artigo(s) adicionado(s): " . $url . $cor . $size);
+        return redirect()->back()->with('message', "Artigo(s) adicionado(s): " . $arrayId);
     }
 
     public function removeFromCart(Request $request, $id): RedirectResponse
@@ -118,11 +126,14 @@ class carrinhoController extends Controller
                         foreach($array as $item){
                             $newOrderItem = new order_items();
                             $newOrderItem->order_id = $newOrder->id;
-                            $newOrderItem->tshirt_image_id = tshirt_images::where('image_url', '=', $item["image_url"])->pluck('id')->first();
-                            $newOrderItem->color_code = colors::where('name', 'like', "%" . $item["cor"] . "%")->pluck('code')->first();
+                            $newOrderItem->tshirt_image_id = $item["id"];
+                            $newOrderItem->color_code = $item["colorCode"];
                             $newOrderItem->size = $item["size"];
                             $newOrderItem->qty = $qtds['qty' . $iterator];
-                            $newOrderItem->unit_price = prices::first()->unit_price_catalog;
+                            if($item["own"] == "True")
+                                $newOrderItem->unit_price = prices::first()->unit_price_own;
+                            else
+                                $newOrderItem->unit_price = prices::first()->unit_price_catalog;
                             $newOrderItem->sub_total = $newOrderItem->qty * $newOrderItem->unit_price;
                             $newOrderItem->save();
                             $iterator++;

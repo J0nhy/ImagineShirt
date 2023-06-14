@@ -176,7 +176,7 @@ $valorTotal=0;
 											</div>
 										</td>
 										<td class="column-2"><b><?= $item["name"]; ?></b><br><?= $item["cor"]; ?><br><?= $item["size"]; ?></td>
-										<td id="price<?= $iterator; ?>" class="column-3"><?= $price[0]->unit_price_catalog; ?>€</td>
+										<td id="price<?= $iterator; ?>" class="column-3"><?= $item["own"] == "True" ? $price[0]->unit_price_own : $price[0]->unit_price_catalog; ?>€</td>
 										<td class="column-4">
 											<div class="wrap-num-product flex-w m-l-auto m-r-0">
 												<div onclick="changeQty('-', '<?= $iterator; ?>')" class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
@@ -190,12 +190,12 @@ $valorTotal=0;
 												</div>
 											</div>
 										</td>
-										<td id="total<?= $iterator; ?>" class="column-5"><?= $price[0]->unit_price_catalog; ?>€</td>
+										<td id="total<?= $iterator; ?>" class="column-5"><?= $item["own"] == "True" ? $price[0]->unit_price_own : $price[0]->unit_price_catalog; ?>€</td>
 										<td class="column-6"><a class="linkBranco" href="/removeFromCart/{{$item["image_url"]}}{{$item["cor"]}}{{$item["size"]}}"><i class="zmdi zmdi-close iconBigger"></i></a></td>
 								</tr>
 								<?php
 									echo "<script>changeTotal('".$iterator."');</script>";
-                                    $valorTotal += $price[0]->unit_price_catalog*$item["qtd"];
+                                    $valorTotal += ($item["own"] == "True" ? $price[0]->unit_price_own : $price[0]->unit_price_catalog)*$item["qtd"];
 									$iterator++;
 								?>
 								@endforeach

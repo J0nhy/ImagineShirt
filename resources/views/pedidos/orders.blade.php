@@ -51,7 +51,7 @@ $iterator=0;
                 <th class="cols">Endereço</th>
                 <th class="cols">Tipo de Pagamento</th>
             </tr>
-            @foreach($orders as $order)
+            @foreach($orders->reverse() as $order)
                         <tr class="rows" id="linha<?= $iterator; ?>" onclick="window.location='/viewOrder/{{ $order->id }}'">
                             <td class="cols">{{ $order->status }}</td>
                             <td class="cols">{{ $order->date }}</td>
