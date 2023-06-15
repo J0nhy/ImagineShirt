@@ -7,7 +7,8 @@ use App\Http\Controllers\categoryController;
 use App\Http\Controllers\pedidosController;
 use App\Models\tshirt_images;
 use App\Http\Controllers\userController;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;use App\Http\Controllers\PerfilController;
+
 
 
 /*
@@ -40,6 +41,7 @@ Route::get('/viewOrder/{id}', [pedidosController::class, 'viewOrder']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 Route::get('admin', [tshirt_imagesController::class, 'admin'])->name('admin.index');
 
