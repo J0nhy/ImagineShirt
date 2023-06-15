@@ -1,28 +1,31 @@
 @extends('adminLayout')
 @section('main')
-<p>
-    <a class="btn btn-success" href="{{ route('categorias.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar nova categoria</a>
-</p>
     <section class="section dashboard">
-        <h1>Categorias</h1>
+        <h1>Encomendas</h1>
         <table class="table">
             <thead class="table-dark">
                 <tr>
-                    <th>Nome</th>
-                    <th>Deletado</th>
+                    <th>Status</th>
+                    <th>Costumer ID</th>
+                    <th>Date</th>
+                    <th>Total Price</th>
+                    <th>Notes</th>
                     <th class="button-icon-col"></th>
                     <th class="button-icon-col"></th>
                 </tr>
             </thead>
             <tbody>
 
-                @foreach ($categorias as $categoria)
+                @foreach ($encomendas as $encomenda)
                     <tr>
-                        <td>{{ $categoria->name }}</td>
-                        <td>{{ $categoria->deleted_at }}</td>
+                        <td>{{ $encomenda->status }}</td>
+                        <td>{{ $encomenda->customer_id }}</td>
+                        <td>{{ $encomenda->date }}</td>
+                        <td>{{ $encomenda->total_price }}</td>
+                        <td>{{ $encomenda->notes }}</td>
                         <td class="button-icon-col">
 
-                            <a class="btn btn-secondary" href="{{ route('categorias.index', ['categorias' => $categoria]) }}">
+                            <a class="btn btn-secondary" href="{{ route('encomendas.index', ['encomendas' => $encomenda]) }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-pen" viewBox="0 0 16 16">
                                     <path
@@ -48,7 +51,7 @@
             </tbody>
         </table>
         <div>
-            {{ $categorias->withQueryString()->links() }}
+            {{ $encomendas->withQueryString()->links() }}
         </div>
     </section>
 @endsection
