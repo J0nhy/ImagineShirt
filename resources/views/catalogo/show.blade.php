@@ -36,7 +36,7 @@
                         </h4>
 
                         <span class="mtext-106 cl2 titleCardBack">
-                            15€
+                            <?= empty($tshirt->customer_id) ? '10' : '15' ?>€
                         </span>
 
                         <p class="stext-102 cl3 p-t-23 textCardBack">
@@ -106,16 +106,16 @@
         var size = document.querySelector('#addCart');
         var tamanho = "M";
         var cor = "Azul marinho";
+        var corCode = "00a2f2";
         var qtd = 1;
 
 
         function changeImage(colorCode, colorName) {
             image.src = '/tshirt_base/' + colorCode + '.png';
             cor = colorName;
+            corCode = colorCode;
             changeURL();
         }
-
-
 
         function changeSize($val) {
             tamanho = $val;
@@ -128,7 +128,7 @@
         }
 
         function changeURL() {
-            size.href = "/addToCart/{{ $tshirt->image_url }}/{{ $tshirt->name }}/" + cor + "/" + tamanho + "/" + qtd;
+            size.href = "/addToCart/{{ $tshirt->id }}/{{ $tshirt->image_url }}/{{ $tshirt->name }}/" + cor + "/" + tamanho + "/" + qtd + "/" + corCode + "/{{ $tshirt->customer_id != null ? 'True' : 'False' }}";
         }
 
         function changeQty($op) {

@@ -14,4 +14,9 @@ class orders extends Model
         'notes', 'nif', 'address', 'payment_type', 'payment_ref',
         'receipt_url', 'created_at', 'updated_at'
     ];
+
+    public function pedidos()
+    {
+        return $this->hasMany(order_items::class, 'order_id', 'id');
+    }
 }

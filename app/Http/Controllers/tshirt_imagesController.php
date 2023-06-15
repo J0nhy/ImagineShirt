@@ -20,8 +20,6 @@ class tshirt_imagesController extends Controller
     {
         $table_names = Schema::getColumnListing('tshirt_images');
 
-
-
         $categorias = Category::all();
         $filterByCategoria = $request->categoria ?? '';
 
@@ -50,7 +48,7 @@ class tshirt_imagesController extends Controller
             $tshirtQuery->orderBy($orderByCategoria, $orderByCategoriaAscDesc);
         }
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
-        $tshirts = $tshirtQuery->whereNull('customer_id')->paginate(16);
+        $tshirts = $tshirtQuery->whereNull('customer_id')->orWhere('customer_id', '=', '155' /*mudar quando users tiverem feitos*/ )->paginate(16);
 
         return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao',
                     'filterByCategoria', 'categorias', 'table_names', 'orderByCategoria', 'orderByCategoriaAscDesc'));
@@ -97,6 +95,33 @@ class tshirt_imagesController extends Controller
 
         return view('catalogo.show', compact('tshirt', 'allColors'));
 
+    }
+
+    public function uploadEstampa(Request $request): RedirectResponse
+    {
+        try {
+            $nome = $_POST['NomeEstampa'];
+            $descricao = $_POST['DescricaoEstampa'];
+            $imageUrl = basename($_FILES["Estampa"]["name"]);
+            //dd($nome, $descricao, $imageUrl);
+            
+            $imageUrl = str_replace(" ", "_", $imageUrl);
+
+            $imagem = $request->file('Estampa');
+            $path = $imagem->storeAs('tshirt_images', $imageUrl);
+            
+            $newImage = new tshirt_images();
+            $newImage->name = $nome; 
+            $newImage->description = $descricao;
+            $newImage->image_url = $imageUrl;
+            $newImage->customer_id = 155; // mudar quando os users tiverem a funcionar
+            $newImage->save();
+
+            return redirect()->route('catalogo.index')->with('message', 'Estampa "' . $nome . '" guardada em ' . $path . '.');
+
+        } catch (\Throwable $th) {
+            return redirect()->route('catalogo.index')->with('message', "Estampa não guardada. ERRO: " . $th . "." );
+        }
     }
 
 

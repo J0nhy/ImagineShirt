@@ -80,6 +80,15 @@
                     <a href="{{ route('catalogo.index') }}" class="btn btn-secondary mb-3 py-3 px-4 flex-shrink-1">Limpar</a>
                 </div>
             </form>
+            <form method="POST" action="{{ route('catalogo.uploadEstampa') }}" id="formFiltro" enctype="multipart/form-data">
+                @csrf <!-- {{ csrf_field() }} -->
+                <div class="flex-shrink-1 d-flex flex-column justify-content-between">
+                    <input type="file" class="btn btn-secondary mb-3 px-4 flex-grow-1" id="Estampa" name="Estampa" accept=".jpg,.jpeg,.png" onchange="UploadFileSet()">
+                    <input type="text" class="hidden inputText" name="NomeEstampa" id="NomeEstampa" min="1" max="20" placeholder="Nome">
+                    <input type="text" class="hidden inputText" name="DescricaoEstampa" id="DescricaoEstampa" min="10" max="100" placeholder="Descrição">
+                    <button type="submit" class="btn btn-primary mb-3 px-4 flex-grow-1 hidden" id="uploadFile" name="uploadFile">Submeter Estampa</button>
+                </div>
+            </form>
         </div>
 
     </div>
@@ -132,7 +141,24 @@
 </div>
 
 @endsection
+<script>
+    function UploadFileSet(){
+        var file = document.querySelector('#Estampa');
+        var submitBtn = document.querySelector('#uploadFile');
+        var NomeEstampa = document.querySelector('#NomeEstampa');
+        var DescricaoEstampa = document.querySelector('#DescricaoEstampa');
 
+        if(file.files[0].name != null){
+            submitBtn.classList.remove('hidden');
+            NomeEstampa.classList.remove('hidden');
+            DescricaoEstampa.classList.remove('hidden');
+        }else{
+            submitBtn.classList.add('hidden');
+            NomeEstampa.classList.add('hidden');
+            DescricaoEstampa.classList.add('hidden');
+        }
+    }
+</script>
 </body>
 
 </html>

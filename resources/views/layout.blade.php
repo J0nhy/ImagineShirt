@@ -12,7 +12,7 @@
 <body class="animsition background">
 
     <!-- Header -->
-    <header class="header-v4 Paddingbt5">
+    <header class="header-v4 Paddingbt5 background">
         <!-- Header desktop -->
         <div class="wrap-menu-desktop how-shadow1" style="top: 0px;">
             <nav class="limiter-menu-desktop container">
@@ -27,11 +27,7 @@
                     <ul class="main-menu">
                         <li>
                             <a href="/">Home</a>
-                            <ul class="sub-menu">
-                                <li><a href="index.html">Homepage 1</a></li>
-                                <li><a href="home-02.html">Homepage 2</a></li>
-                                <li><a href="home-03.html">Homepage 3</a></li>
-                            </ul>
+
                         </li>
 
                         <li class="label1" data-label1="hot">
@@ -82,6 +78,12 @@
                         <i class="zmdi zmdi-favorite-outline"></i>
                     </a>
 
+                    <div style="padding-left: 13px;">
+                        @if(Auth::user())
+                            {{Auth::user()->name}}
+                        @endif
+                    </div>
+
                     <ul class="navbar-nav me-1 me-lg-3">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle bi bi-person " id="navbarDropdown" href="#"
@@ -94,11 +96,20 @@
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
+                                @if(Auth::user())
                                 <li><a class="dropdown-item" href="">Perfil</a>
                                 </li>
-
                                 <li><a class="dropdown-item" href="">Alterar Senha</a></li>
+                                @else
+                                <li><a class="dropdown-item" href="{{ route('login') }}">Login</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('register') }}">Registar</a>
+                                </li>
+                                @endif
+                                <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
+                                </li>
+
+
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>
@@ -185,11 +196,7 @@
             <ul class="main-menu-m">
                 <li>
                     <a href="index.html">Home</a>
-                    <ul class="sub-menu-m">
-                        <li><a href="index.html">Homepage 1</a></li>
-                        <li><a href="home-02.html">Homepage 2</a></li>
-                        <li><a href="home-03.html">Homepage 3</a></li>
-                    </ul>
+
                     <span class="arrow-main-menu-m">
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
                     </span>

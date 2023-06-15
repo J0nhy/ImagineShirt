@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\colors;
+use App\Models\orders;
+use App\Models\order_items;
+use App\Models\tshirt_images;
+use App\Models\users;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Laravel\Ui\Presets\React;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Exists;
+
+class pedidosController extends Controller
+{
+    public function index(Request $request): View
+    {   
+        $userId = users::where('email', '=', /*Auth::user()->email*/'rafaela.nogueira@mail.pt')->pluck('id')->first(); //mudar quando os users tiverem feitos
+        $orders = orders::where('customer_id', '=', $userId)->get();
+        return view('pedidos.orders')->with('orders', $orders);
+    }
+
+    public function viewOrder(Request $request, $id): View
+    {   
+        $products = order_items::where('order_id', '=', $id)->get();
+        $imageId = order_items::where('order_id', '=', $id)->pluck('tshirt_image_id');
+        $colorCode = order_items::where('order_id', '=', $id)->pluck('color_code');
+
+        $image = tshirt_images::whereIn('id', $imageId)->withTrashed()->get();
+        $cor = colors::whereIn('code', $colorCode)->withTrashed()->pluck("name");
+
+        $iterator=0;
+        foreach($products as $produto){
+            $produtos[$produto->id] = array(
+                "image_url" => $image[$iterator]["image_url"],
+                "name" => $image[$iterator]["name"],
+                "cor" => isset($cor[$iterator]) ?  $cor[$iterator] : 'null',
+                "size" => $produto->size,
+                "qtd" => $produto->qty,
+                "price" => $produto->unit_price,
+                "subTotal" => $produto->sub_total
+            );
+            $iterator++;
+        }
+
+        return view('pedidos.orderDetails')->with('produtos', $produtos);
+    }
+
+}

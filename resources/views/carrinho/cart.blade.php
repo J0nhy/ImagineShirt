@@ -88,7 +88,23 @@ $valorTotal=0;
 			}
 		}
 	}
-	</script>
+	function expandirImagem(img) {
+		var imagem = document.querySelector(img);
+		var popup = document.querySelector('.popup');
+		var popupImage = document.querySelector('.popup-image');
+
+		// Define a imagem expandida
+		popupImage.src = imagem.src;
+
+		// Exibe o pop-up
+		popup.style.display = 'flex';
+	}
+
+	function fecharPopUp() {
+		var popup = document.querySelector('.popup');
+		popup.style.display = 'none';
+	}
+</script>
 @extends('layout')
 @section('main')
 	@if (session('message'))
@@ -149,12 +165,18 @@ $valorTotal=0;
 								@foreach($cart as $item)
 								<tr class="table_row" style="border-bottom: 0px solid transparent;">
 										<td class="column-1">
-											<div class="how-itemcart1">
-												<img src="tshirt_images/{{$item["image_url"]}}" class="card-img-top center" alt="{{ $item["image_url"] }}">
+											<div class="how-itemcart1" onclick="expandirImagem('#img<?= $iterator; ?>')">
+												<img src="tshirt_images/{{$item["image_url"]}}" class="card-img-top center" alt="{{ $item["image_url"] }}" id="img<?= $iterator; ?>">
+											</div>
+											<!-- Pop-up -->
+											<div class="popup" onclick="fecharPopUp()">
+												<div class="popup-content">
+												<img class="popup-image" src="" alt="Imagem expandida">
+												</div>
 											</div>
 										</td>
-										<td class="column-2"><?= $item["name"]; ?><br><?= $item["cor"]; ?><br><?= $item["size"]; ?></td>
-										<td id="price<?= $iterator; ?>" class="column-3"><?= $price[0]->unit_price_catalog; ?>€</td>
+										<td class="column-2"><b><?= $item["name"]; ?></b><br><?= $item["cor"]; ?><br><?= $item["size"]; ?></td>
+										<td id="price<?= $iterator; ?>" class="column-3"><?= $item["own"] == "True" ? $price[0]->unit_price_own : $price[0]->unit_price_catalog; ?>€</td>
 										<td class="column-4">
 											<div class="wrap-num-product flex-w m-l-auto m-r-0">
 												<div onclick="changeQty('-', '<?= $iterator; ?>')" class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
@@ -168,12 +190,12 @@ $valorTotal=0;
 												</div>
 											</div>
 										</td>
-										<td id="total<?= $iterator; ?>" class="column-5"><?= $price[0]->unit_price_catalog; ?>€</td>
+										<td id="total<?= $iterator; ?>" class="column-5"><?= $item["own"] == "True" ? $price[0]->unit_price_own : $price[0]->unit_price_catalog; ?>€</td>
 										<td class="column-6"><a class="linkBranco" href="/removeFromCart/{{$item["image_url"]}}{{$item["cor"]}}{{$item["size"]}}"><i class="zmdi zmdi-close iconBigger"></i></a></td>
 								</tr>
 								<?php
 									echo "<script>changeTotal('".$iterator."');</script>";
-                                    $valorTotal += $price[0]->unit_price_catalog*$item["qtd"];
+                                    $valorTotal += ($item["own"] == "True" ? $price[0]->unit_price_own : $price[0]->unit_price_catalog)*$item["qtd"];
 									$iterator++;
 								?>
 								@endforeach
