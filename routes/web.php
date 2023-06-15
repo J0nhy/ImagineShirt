@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\tshirt_imagesController;
 use App\Http\Controllers\carrinhoController;
 use App\Http\Controllers\categoryController;
+use App\Http\Controllers\colorController;
+use App\Http\Controllers\orderController;
 use App\Models\tshirt_images;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +42,10 @@ Route::get('admin', [tshirt_imagesController::class, 'admin'])->name('admin.inde
 
 Route::get('admin/users', [userController::class, 'index'])->name('users.index');
 Route::get('admin/categorias', [categoryController::class, 'index'])->name('categorias.index');
+Route::get('admin/cores', [colorController::class, 'index'])->name('cores.index');
+Route::get('admin/encomendas', [orderController::class, 'index'])->name('encomendas.index');
+Route::get('admin/categorias/create', [categoryController::class, 'create'])->name('categorias.create');
+Route::get('admin/categorias/store', [categoryController::class, 'store'])->name('categorias.store');
 
 
 Route::resource('docentes', tshirt_imagesController::class);

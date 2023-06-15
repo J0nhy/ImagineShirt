@@ -1,6 +1,9 @@
 @extends('adminLayout')
 @section('main')
     <section class="section dashboard">
+        <h1>Users</h1>
+
+
         <table class="table">
             <thead class="table-dark">
                 <tr>
