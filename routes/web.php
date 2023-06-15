@@ -4,12 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\tshirt_imagesController;
 use App\Http\Controllers\carrinhoController;
 use App\Http\Controllers\categoryController;
-<<<<<<< HEAD
 use App\Http\Controllers\colorController;
 use App\Http\Controllers\orderController;
-=======
-use App\Http\Controllers\pedidosController;
->>>>>>> 35e284a0199ba76543b85dd76763aed9e8f3b898
 use App\Models\tshirt_images;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Auth;
