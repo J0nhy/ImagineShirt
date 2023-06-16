@@ -30,6 +30,8 @@ Route::get('/', function () {
 Route::get('catalogo', [tshirt_imagesController::class, 'index'])->name('catalogo.index');
 Route::get('catalogo/{tshirt}', [tshirt_imagesController::class, 'show'])->name('catalogo.show');
 Route::post('uploadEstampa', [tshirt_imagesController::class, 'uploadEstampa'])->name('catalogo.uploadEstampa');
+Route::get('edit', [tshirt_imagesController::class, 'edit'])->name('catalogo.edit');
+Route::post('editarEstampa', [tshirt_imagesController::class, 'editarEstampa'])->name('catalogo.editarEstampa');
 
 Route::get('cart', [carrinhoController::class, 'index'])->name('carrinho.cart');
 Route::get('/addToCart/{id}/{url}/{nome}/{cor}/{size}/{qtd}/{corCode}/{own}', [carrinhoController::class, 'addToCart']);

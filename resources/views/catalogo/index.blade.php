@@ -93,7 +93,54 @@
 
     </div>
     <div class="col-sm-9">
-        <div class="row">
+        <div class="row background">
+            <div style="text-align: right;">
+                <h3 style="cursor: pointer; display: inline;" class="marginr5 hoverEffect" onclick="expandirOuRecolher()">As Minhas Imagens 
+                    <i class="zmdi zmdi-caret-down icon" style="height: 85%;"> </i>
+                </h3>
+                <h3 style="display: inline; cursor: default;" >| 
+                    <a style="text-decoration: none; color: #444444;" href="{{ route('catalogo.edit') }}">
+                        <i class="zmdi zmdi-edit hoverEffect" style="cursor: pointer;"></i>
+                    </a>
+                </h3>
+            </div>
+            <hr>
+            <br>
+            <div class="expansivel background" id="minhaDiv">
+                <div class="ver-mais background">
+                    @foreach($imagensPrivadas as $tshirt)
+                    @if($loop->iteration >= count($tshirts)+1)
+                        @break
+                    @endif
+                    <div class="col-4 imgCardBack">
+
+                    <div class="min-height250">
+                        <a href="{{ route('catalogo.show', ['tshirt' => $tshirt->slug]) }}">
+                            <img src="tshirt_images/{{$tshirt['image_url']}}" class="card-img-top center" alt="{{$tshirt['image_url']}}">
+                        </a>
+                    </div>
+                        <div>
+                            <div class="row">
+                            <div >
+                                <h5 class="card-title titleCardBack">{{$tshirt['name']}}</h5>
+                            </div>
+                        </div>
+                        <div class="row min-height100">
+                            <div>
+                                <p class="card-text textCardBack center">{{$tshirt['description']}}</p>
+                            </div>
+                        </div>
+                        <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer buttonCards">
+                            <a href="{{ route('catalogo.show', ['tshirt' => $tshirt]) }}" class="buttonCards" style="text-decoration: none;">Personalizar <i class="zmdi zmdi-chevron-right icon"></i></a>
+                        </button>
+                        </div>
+                    </div>
+                    <br>
+
+                    @endforeach()
+                </div>
+            </div>
+            <br>
             @foreach($tshirts as $tshirt)
             @if($loop->iteration >=count($tshirts)+1)
                 @break
@@ -158,6 +205,10 @@
             DescricaoEstampa.classList.add('hidden');
         }
     }
+    function expandirOuRecolher() {
+      var div = document.getElementById("minhaDiv");
+      div.classList.toggle("expandir");
+    }   
 </script>
 </body>
 

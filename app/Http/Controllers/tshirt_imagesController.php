@@ -44,14 +44,24 @@ class tshirt_imagesController extends Controller
             $tshirtQuery->whereIntegerInRaw('id', $tshirtIds);
         }
         //order by categoria
-        if($orderByCategoria !== ''){
+        if ($orderByCategoria !== '') {
             $tshirtQuery->orderBy($orderByCategoria, $orderByCategoriaAscDesc);
         }
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
-        $tshirts = $tshirtQuery->whereNull('customer_id')->orWhere('customer_id', '=', '155' /*mudar quando users tiverem feitos*/ )->paginate(16);
+        $tshirts = $tshirtQuery->whereNull('customer_id')->paginate(16);
+        $imagensPrivadas = tshirt_images::where('customer_id', '=', 155)->paginate(16);
 
-        return view('catalogo.index', compact('tshirts', 'filterByNome', 'filterByDescricao',
-                    'filterByCategoria', 'categorias', 'table_names', 'orderByCategoria', 'orderByCategoriaAscDesc'));
+        return view('catalogo.index', compact(
+            'tshirts',
+            'imagensPrivadas',
+            'filterByNome',
+            'filterByDescricao',
+            'filterByCategoria',
+            'categorias',
+            'table_names',
+            'orderByCategoria',
+            'orderByCategoriaAscDesc'
+        ));
     }
 
     public function admin(Request $request): View
@@ -72,10 +82,6 @@ class tshirt_imagesController extends Controller
         tshirt_images::create($request->all());
         return redirect()->route('catalogo.index');
     }
-    public function edit(tshirt_images $tshirt): View
-    {
-        return view('catalogo.edit')->withTshirt($tshirt);
-    }
     public function update(Request $request, tshirt_images $tshirt): RedirectResponse
     {
         $tshirt->update($request->all());
@@ -89,12 +95,11 @@ class tshirt_imagesController extends Controller
     public function show(String $tshirt): View
     {
         //dd(strtok($tshirt, '-'));
-        $tshirt = tshirt_images::findOrFail( strtok($tshirt, '-') );
+        $tshirt = tshirt_images::findOrFail(strtok($tshirt, '-'));
         $allTshirts = tshirt_images::all();
         $allColors = colors::all();
 
         return view('catalogo.show', compact('tshirt', 'allColors'));
-
     }
 
     public function uploadEstampa(Request $request): RedirectResponse
@@ -104,24 +109,48 @@ class tshirt_imagesController extends Controller
             $descricao = $_POST['DescricaoEstampa'];
             $imageUrl = basename($_FILES["Estampa"]["name"]);
             //dd($nome, $descricao, $imageUrl);
-            
+
             $imageUrl = str_replace(" ", "_", $imageUrl);
 
             $imagem = $request->file('Estampa');
             $path = $imagem->storeAs('tshirt_images', $imageUrl);
-            
+
             $newImage = new tshirt_images();
-            $newImage->name = $nome; 
+            $newImage->name = $nome;
             $newImage->description = $descricao;
             $newImage->image_url = $imageUrl;
             $newImage->customer_id = 155; // mudar quando os users tiverem a funcionar
             $newImage->save();
 
             return redirect()->route('catalogo.index')->with('message', 'Estampa "' . $nome . '" guardada em ' . $path . '.');
-
         } catch (\Throwable $th) {
-            return redirect()->route('catalogo.index')->with('message', "Estampa não guardada. ERRO: " . $th . "." );
+            return redirect()->route('catalogo.index')->with('message', "Estampa não guardada. ERRO: " . $th . ".");
         }
+    }
+    public function edit(): View
+    {
+        $tshirts = tshirt_images::where('customer_id', '=', 155 /* mudar quando users tiverem feitos */)->get();
+        return view('catalogo.edit')->with('tshirts', $tshirts);
+    }
+
+    public function editarEstampa() : RedirectResponse
+    {
+        try{
+            $id = $_POST['updateIdEstampa'];
+            $nome = $_POST['updateNomeEstampa'];
+            $descricao = $_POST['updateDescricaoEstampa'];
+            
+            $estampa = tshirt_images::find($id); // Supondo que você queira atualizar o usuário com o ID 1
+
+            $estampa->name = $nome;
+            $estampa->description = $descricao;
+            $estampa->save();
+
+            return redirect()->back()->with('message', "Imagem atualizada para: " . $nome . ".");
+
+    } catch (\Throwable $th) {
+        return redirect()->back()->with('message', "ERRO: Não foi possivel atualizar a Imagem: " . $nome . ".");
+    }
     }
 
 

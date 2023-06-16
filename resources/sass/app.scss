@@ -1,9 +1,9 @@
 // // Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
 // // Variables
- @import 'variables';
+@import 'variables';
 // // Bootstrap
- @import 'bootstrap/scss/bootstrap';
+@import 'bootstrap/scss/bootstrap';
 
 
 
@@ -26,16 +26,22 @@
     transition: 0.2s linear;
     margin: 1%;
 }
-.imgCardBack:hover{
+
+.imgCardBack:hover {
     background-color: rgb(255 255 255 / 20%);
 }
-.myBlowAnim:hover{
+.imgCardBack.noHover:hover {
+    background-color: rgb(255 255 255 / 10%);
+}
+
+.myBlowAnim:hover {
     //faz uma transação em que fique maior, desfocado e em 0.5 segundos
     transform: scale(1.05);
     cursor: pointer;
     transition: transform 0.15s;
 }
-.customShirtBack{
+
+.customShirtBack {
     background-color: rgb(255 255 255 / 10%);
     width: 100%;
     padding-top: 5%;
@@ -43,7 +49,8 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: 0.2s linear;
 }
-.buttonCards{
+
+.buttonCards {
     background-color: transparent;
     align-items: end;
     padding: 0%;
@@ -52,81 +59,125 @@
     margin-top: 0.5em;
 
 }
-.buttonCards:hover{
+
+.buttonCards:hover {
     background-color: transparent;
     color: rgb(220, 220, 220);
     transition: transform 0.02s;
 }
+
 .background {
     background-color: #171923;
 }
-.tablesBG, #checkout {
+
+.tablesBG,
+#checkout {
     background-color: rgb(255 255 255 / 10%);
     border-radius: 0.4em;
 }
-table th, table td, table tr {
+
+table th,
+table td,
+table tr {
     color: rgb(220, 220, 220) !important;
 }
-div#checkout h4, div#checkout span{
+
+div#checkout h4,
+div#checkout span {
     color: rgb(220, 220, 220) !important;
 }
-div#coupon{
+
+div#coupon {
     margin-left: 8%;
 }
+
 .min-height250 {
     min-height: 250px;
 }
+
 .min-height100 {
     min-height: 100px;
 }
-.center{
+
+.center {
     text-align: center;
     margin: auto;
 }
-img{
+
+img {
     max-height: 220px;
     vertical-align: middle;
     margin: auto;
     text-align: center;
 }
-.textCardBack{
+
+.textCardBack {
     color: rgb(158, 158, 158);
     text-align: justify;
 }
-.titleCardBack{
+
+.titleCardBack {
     color: rgb(220, 220, 220);
     text-align: left;
     font-size: 1.25em;
     margin-bottom: 0.35em;
 }
+
 .zmdi-shopping-cart-add:before {
     content: '\f1ca'
 }
-.Paddingbt5{
+
+.Paddingbt5 {
     padding-bottom: 5%;
 }
-.Paddintp5{
+
+.Paddintp5 {
     padding-top: 5%;
 }
-.Margintp5{
+
+.paddingr5{
+    padding-right: 5%;
+}
+
+.paddingl5{
+    padding-left: 5%;
+}
+
+.Margintp5 {
     margin-top: 5%;
 }
-.icon{
+
+.marginr5 {
+    margin-right: 5%;
+}
+
+.marginl5 {
+    margin-left: 5%;
+}
+
+.icon {
     width: 10px;
     font-size: 1.425em;
     font-weight: 1000;
     vertical-align: bottom;
 }
-.iconBigger{
+
+.iconBigger {
     width: 10px;
+    height: auto;
     font-size: 2.5em;
     font-weight: 1000;
     vertical-align: bottom;
     margin-left: 0.5em;
 }
-.linkBranco{
+
+.linkBranco {
     text-decoration: none;
     color: white;
+}
+.hoverEffect:hover{
+    color: #888888;
+    transition: transform 0.15s;
 }
 
 /*Styling Selectbox*/
@@ -137,43 +188,54 @@ img{
     transition: all .3s ease;
     color: #474747;
     padding: 1.5% 7% 1.5% 6%;
-  }
-  .dropdown .select,.dropdown{
-      cursor: pointer;
-      text-align: center;
-      font-weight: bold;
-  }
-  .dropdown .dropdown-menu {
+}
+
+.dropdown .select,
+.dropdown {
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dropdown .dropdown-menu {
     position: absolute;
     background-color: #fff;
     box-shadow: 0 1px 2px rgb(204, 204, 204);
     border-radius: 0 1px 2px 2px;
 }
+
 .dropdown .dropdown-menu li {
     padding: 6px;
     transition: all .1s ease-in-out;
     cursor: pointer
 }
+
 .dropdown .dropdown-menu {
     list-style: none
 }
+
 .dropdown .dropdown-menu li:hover {
     background-color: #d7d7d7
 }
+
 .dropdown .dropdown-menu li:active {
     background-color: #d7d7d7
 }
-b{
+
+b {
     font-size: 1.15em;
     font-weight: 900;
 }
-#addEstampa input[type="file"]{
+
+#addEstampa input[type="file"] {
     cursor: pointer;
 }
-.hidden{
+
+.hidden {
     display: none;
 }
-.inputText{
+
+.inputText {
     background-color: transparent;
     border: 1px solid white;
     border-radius: 0.7em;
@@ -185,25 +247,30 @@ b{
     font-size: 0.7vw;
 }
 
+
 /* tabela tipo lista */
 
-.cols{
+.cols {
     padding: 1em;
     font-family: Poppins-Bold;
 }
-.rows{
+
+.rows {
     font-family: Poppins-Bold;
-    border-bottom: 0px solid transparent; 
+    border-bottom: 0px solid transparent;
     cursor: pointer;
 }
-.rows:hover{
+
+.rows:hover {
     background-color: #2f3349;
 }
-.cabecalhos{
+
+.cabecalhos {
     padding: 0% 2%;
     font-family: Poppins-Bold;
 }
-.tableList{
+
+.tableList {
     background-color: rgb(255 255 255 / 10%);
     border: 1px solid white;
     border-radius: 0.4em;
@@ -222,18 +289,83 @@ b{
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     text-align: center;
-  }
-  
-  .popup-content {
+}
+
+.popup-content {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
-  }
-  
-  .popup-image {
+}
+
+.popup-image {
     max-width: 80%;
     max-height: 80%;
+}
+
+/* Exandir estampas proprias catalogo */
+.expansivel {
+    width: 100%;
+    height: 0px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    margin-bottom: 2.5%;
+    padding: 0%;
   }
+  
+  .expansivel.expandir {
+    height: auto;
+    max-height: 600px;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .ver-mais {
+    display: none;
+  }
+  
+  .expansivel.expandir .ver-mais {
+    display: flex;
+  }
+
+  /* criar uma overlay de edição */
+
+.overlayBackground{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    margin: auto;
+    top: 0;
+}
+.updateBox{
+    width: 50%;
+    height: 50%;
+    margin: 10% auto auto auto;
+}
+
+.inputTextUpdate {
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 0.7em;
+    font-family: "Poppins-Bold";
+    padding: 2%;
+    text-indent: 10px;
+    color: white;
+    font-size: 0.7vw;
+    margin: auto;
+    margin-bottom: 5%;
+    width: 50%;
+}
+
+.labelUpdate {
+    background-color: transparent;
+    font-family: "Poppins-Bold";
+    color: rgb(168, 168, 168);
+    font-size: 0.7vw;
+    width: 50%;
+    margin: auto;
+    text-align: left;
+}
 
