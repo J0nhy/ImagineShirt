@@ -73,7 +73,9 @@
                                 $nameParts = explode(' ', Auth::user()->name);
                                 $firstName = $nameParts[0];
                             ?>
-                            {{ $firstName }}
+                            {{ $firstName }}´
+
+
                         @endif
                     </div>
 
@@ -81,9 +83,11 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
+                                @if (Auth::user())
                                 <img src="/photos/{{ Auth::user()->photo_url}}" alt="Avatar" class="bg-dark rounded-circle"
                                     width="45" height="45">
-                            </a>
+                                    @endif
+                                </a>
 
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 @if (Auth::user())
