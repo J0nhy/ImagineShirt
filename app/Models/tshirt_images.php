@@ -11,7 +11,7 @@ class tshirt_images extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'id', 'costumer_id', 'category_id', 'name', 'description',
         'image_url', 'extra_info', 'created_at', 'updated_at', 'deleted_at'

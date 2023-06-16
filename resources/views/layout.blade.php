@@ -27,7 +27,6 @@
                     <ul class="main-menu">
                         <li>
                             <a href="/">Home</a>
-
                         </li>
 
                         <li class="label1" data-label1="hot">
@@ -35,19 +34,14 @@
                         </li>
 
                         <li>
+                            <a href="#">Sobre Nós</a> <!-- /*route('about')*/ -->
+                        </li>
+
+                        <li>
+                            <a href="#">Contactos</a> <!-- /*route('contacts')*/ -->
+                        </li>
+                        <li>
                             <a href="{{ route('carrinho.cart') }}">Carrinho</a>
-                        </li>
-
-                        <li>
-                            <a href="blog.html">Blog</a>
-                        </li>
-
-                        <li>
-                            <a href="about.html">About</a>
-                        </li>
-
-                        <li>
-                            <a href="contact.html">Contact</a>
                         </li>
 
                     </ul>
@@ -97,15 +91,14 @@
                                     <li><a class="dropdown-item" href="">Perfil</a>
                                     </li>
                                     <li><a class="dropdown-item" href="">Alterar Senha</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
+                                    </li>
                                 @else
                                     <li><a class="dropdown-item" href="{{ route('login') }}">Login</a>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('register') }}">Registar</a>
                                     </li>
                                 @endif
-                                <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
-                                </li>
-
 
                                 <li>
                                     <hr class="dropdown-divider" />
@@ -164,70 +157,49 @@
         <div class="menu-mobile">
             <ul class="topbar-mobile">
                 <li>
-                    <div class="left-top-bar">
-                        Free shipping for standard order over $100
-                    </div>
-                </li>
-
-                <li>
                     <div class="right-top-bar flex-w h-full">
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            Help & FAQs
-                        </a>
+                        @if (Auth::user())
+                            <a class="dropdown-item" href="#">Perfil</a>
 
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            My Account
-                        </a>
+                            <a class="dropdown-item" href="#">Alterar Senha</a>
 
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            EN
-                        </a>
+                            <a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
+                        @else
+                            <a class="dropdown-item" href="{{ route('login') }}">Login</a>
 
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            USD
-                        </a>
+                            <a class="dropdown-item" href="{{ route('register') }}">Registar</a>
+                        @endif
                     </div>
                 </li>
             </ul>
 
             <ul class="main-menu-m">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="/">Home</a>
+                </li>
 
-                    <span class="arrow-main-menu-m">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </span>
+                <li class="label1" data-label1="hot">
+                    <a href="{{ route('catalogo.index') }}">Catalogo</a>
                 </li>
 
                 <li>
-                    <a href="product.html">Shop</a>
+                    <a href="#">Sobre Nós</a> <!-- /*route('about')*/ -->
                 </li>
 
                 <li>
-                    <a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
+                    <a href="#">Contactos</a> <!-- /*route('contacts')*/ -->
                 </li>
-
                 <li>
-                    <a href="blog.html">Blog</a>
-                </li>
-
-                <li>
-                    <a href="about.html">About</a>
-                </li>
-
-                <li>
-                    <a href="contact.html">Contact</a>
+                    <a href="{{ route('carrinho.cart') }}">Carrinho</a>
                 </li>
             </ul>
         </div>
     </header>
 
 
-
     <div class="content background">
         @yield('main')
     </div>
-
 
 
     <!-- Back to top -->

@@ -62,7 +62,7 @@
                                     <a href="#"
                                         onclick="updateEstampa('{{ $tshirt['id'] }}', '{{ $tshirt['name'] }}', '{{ $tshirt['description'] }}', '{{ $tshirt['image_url'] }}')"
                                         class="btn btn-primary mb-3 px-4 flex-grow-1" name="filtrar">Editar</a>
-                                    <a href="{{ route('catalogo.index') }}"
+                                    <a href="/removerEstampa/{{ $tshirt['id'] }}"
                                         style="background-color: rgb(179, 0, 0); border-color: rgb(179, 0, 0);"
                                         class="btn btn-secondary mb-3 py-3 px-4 flex-shrink-1">Eliminar</a>
                                 </div>

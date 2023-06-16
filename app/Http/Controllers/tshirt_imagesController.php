@@ -148,10 +148,25 @@ class tshirt_imagesController extends Controller
 
             return redirect()->back()->with('message', "Imagem atualizada para: " . $nome . ".");
 
-    } catch (\Throwable $th) {
-        return redirect()->back()->with('message', "ERRO: Não foi possivel atualizar a Imagem: " . $nome . ".");
-    }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('message', "ERRO: Não foi possivel atualizar a Imagem: " . $nome . ".");
+        }
     }
 
+    public function removerEstampa($id) : RedirectResponse
+    {
+        try{
+            
+            $estampa = tshirt_images::find($id); // Supondo que você queira atualizar o usuário com o ID 1
 
+            if($estampa != null){
+                tshirt_images::where('id',$id)->delete();
+            }
+
+            return redirect()->back()->with('message', "Imagem eliminada com sucesso.");
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('message', "ERRO: Não foi possivel eliminar a Imagem.");
+        }
+    }
 }

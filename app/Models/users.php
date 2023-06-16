@@ -10,7 +10,7 @@ class users extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'name', 'email', 'user_type', 'password', 'photo_url'];
 }

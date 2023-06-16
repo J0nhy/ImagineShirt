@@ -10,7 +10,7 @@ class colors extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'code', 'name', 'deleted_at'
     ];

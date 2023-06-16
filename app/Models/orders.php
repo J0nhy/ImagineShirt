@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class orders extends Model
 {
     use HasFactory;
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'id', 'status', 'customer_id', 'date', 'total_price',
         'notes', 'nif', 'address', 'payment_type', 'payment_ref',
