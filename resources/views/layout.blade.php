@@ -9,10 +9,10 @@
 
 </head>
 
-<body class="animsition background">
+<body class="animsition">
 
     <!-- Header -->
-    <header class="header-v4 Paddingbt5 background">
+    <header class="header-v4 Paddingbt5">
         <!-- Header desktop -->
         <div class="wrap-menu-desktop how-shadow1" style="top: 0px;">
             <nav class="limiter-menu-desktop container">
@@ -74,7 +74,11 @@
 
                     <div style="padding-left: 13px;">
                         @if (Auth::user())
-                            {{ Auth::user()->name }}
+                            <?php
+                                $nameParts = explode(' ', Auth::user()->name);
+                                $firstName = $nameParts[0];
+                            ?>
+                            {{ $firstName }}
                         @endif
                     </div>
 

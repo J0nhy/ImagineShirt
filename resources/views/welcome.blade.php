@@ -1,5 +1,6 @@
 @extends('layout')
 @section('main')
+<body class="bg0">
     <section class="carousel" aria-label="Gallery">
         <ol class="carousel__viewport">
             <li id="carousel__slide1" tabindex="0" class="carousel__slide">
