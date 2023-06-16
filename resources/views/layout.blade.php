@@ -81,7 +81,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="/img/avatar_unknown.png" alt="Avatar" class="bg-dark rounded-circle"
+                                <img src="/photos/{{ Auth::user()->photo_url}}" alt="Avatar" class="bg-dark rounded-circle"
                                     width="45" height="45">
                             </a>
 
