@@ -10,7 +10,7 @@ class Category extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    public $timestamps = true;
+    public $timestamps = false;
     protected $fillable = ['id', 'name'];
 
     public function categorias()

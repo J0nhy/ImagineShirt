@@ -9,10 +9,10 @@
 
 </head>
 
-<body class="animsition background">
+<body class="animsition">
 
     <!-- Header -->
-    <header class="header-v4 Paddingbt5 background">
+    <header class="header-v4 Paddingbt5">
         <!-- Header desktop -->
         <div class="wrap-menu-desktop how-shadow1" style="top: 0px;">
             <nav class="limiter-menu-desktop container">
@@ -54,12 +54,7 @@
                         <i class="zmdi zmdi-search"></i>
                     </div>
                     <?php
-                    /*
-							use Illuminate\Http\Request;
-						    $request = new Request;
-							$array = $request->session()->get('cart');
-            				$count = count($array)+1;
-						*/
+
                     ?>
                     <a href="{{ route('carrinho.cart') }}"
                         class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"

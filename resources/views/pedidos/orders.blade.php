@@ -50,6 +50,7 @@ $iterator=0;
                 <th class="cols">NIF</th>
                 <th class="cols">Endereço</th>
                 <th class="cols">Tipo de Pagamento</th>
+                <th class="cols">Data da Encomenda</th>
             </tr>
             @foreach($orders->reverse() as $order)
                         <tr class="rows" id="linha<?= $iterator; ?>" onclick="window.location='/viewOrder/{{ $order->id }}'">
@@ -60,6 +61,7 @@ $iterator=0;
                             <td class="cols">{{ $order->nif }}</td>
                             <td class="cols">{{ $order->address }}</td>
                             <td class="cols">{{ $order->payment_type }}</td>
+                            <td class="cols">{{ $order->date }}</td>
                         </tr>
                     <?php 
                         $iterator++;

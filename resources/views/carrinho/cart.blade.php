@@ -252,10 +252,14 @@ $valorTotal=0;
 								</span>
 							</div>
 						</div>
-
+						@if (Auth::user())
 						<button class="flex-c-m stext-101 cl2 size-116 bg8 bor14 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
 							Proceed to Checkout
 						</button>
+						@else
+							<a class="flex-c-m stext-101 cl2 size-116 bg8 bor14 hov-btn3 p-lr-15 trans-04 pointer" href="{{ route('login') }}">Login</a>
+                        @endif
+						
 					</div>
 				</div>
 			</div>

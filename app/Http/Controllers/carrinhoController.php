@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\orders;
 use App\Models\order_items;
+use Illuminate\Support\Facades\Auth;
+use App\Models\customers;
 use App\Models\tshirt_images;
 use App\Models\prices;
 use App\Models\colors;
@@ -12,6 +14,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\Catch_;
 
 class carrinhoController extends Controller
 {
@@ -108,19 +111,24 @@ class carrinhoController extends Controller
                     $qtds = array();
                     $iterator = 0;
                     foreach ($array as $item) {
-                        $qtds['qty' . $iterator] = $request->input('qty' . $iterator); //ta a vir null
+                        $qtds['qty' . $iterator] = $request->input('qty' . $iterator); 
                         $iterator++;
                     }
-                    $order = DB::transaction(function () use ($array, $total, $qtds) {
+                    try{
+                        $customer = customers::where('id', '=', Auth::user()->id ?? '')->first();
+                    } catch (\Exception $error) {
+                        $htmlMessage = "User não existe ou dados estão incorretos";
+                    } 
+                    $order = DB::transaction(function () use ($array, $total, $qtds, $customer) {
                         $newOrder = new orders();
                         $newOrder->status = "pending";
-                        $newOrder->customer_id = 155; //posteriormente mudar quando ja tiverem as contas de utilizador a funcionar
+                        $newOrder->customer_id = $customer->id;
                         $newOrder->date = date("Y-m-d");
                         $newOrder->total_price = $total;
-                        $newOrder->nif = "429223586"; //posteriormente mudar quando ja tiverem as contas de utilizador a funcionar
-                        $newOrder->address = "Tv. Maia, nº 37 4524-258 Seixal";
-                        $newOrder->payment_type = "PAYPAL"; //mudar quando se fizer a pagina de checokut
-                        $newOrder->payment_ref = "5251638642578549"; //mudar quando se fizer a pagina de checokut
+                        $newOrder->nif = $customer->nif;
+                        $newOrder->address = $customer->address;
+                        $newOrder->payment_type = $customer->default_payment_type;
+                        $newOrder->payment_ref = $customer->default_payment_ref;
                         $newOrder->save();
                         $iterator = 0;
                         foreach($array as $item){
@@ -143,6 +151,7 @@ class carrinhoController extends Controller
                     $htmlMessage = "<strong>A sua encomenda foi concluida com sucesso: " . $total . "produto(s).</strong>";
 
                     $request->session()->forget('cart');
+                    $request->session()->forget('itemCount');
                     return redirect()->route('carrinho.cart')
                         ->with('message', $htmlMessage);
                 }
