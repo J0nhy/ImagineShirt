@@ -58,7 +58,7 @@ Route::get('admin/encomendas', [orderController::class, 'index'])->name('encomen
 Route::get('admin/categorias/create', [categoryController::class, 'create'])->name('categorias.create');
 Route::post('admin/categorias/store', [categoryController::class, 'store'])->name('categorias.store');
 
-
+//teste
 //Route::resource('docentes', tshirt_imagesController::class);
 
 Route::get('/password/change', [ChangePasswordController::class, 'show'])->name('password.change.show');
