@@ -13,7 +13,7 @@ class tshirt_images extends Model
     use SoftDeletes;
     public $timestamps = true;
     protected $fillable = [
-        'id', 'costumer_id', 'category_id', 'name', 'description',
+        'id', 'customer_id', 'category_id', 'name', 'description',
         'image_url', 'extra_info', 'created_at', 'updated_at', 'deleted_at'
     ];
 

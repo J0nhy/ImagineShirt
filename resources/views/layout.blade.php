@@ -54,12 +54,7 @@
                         <i class="zmdi zmdi-search"></i>
                     </div>
                     <?php
-                    /*
-							use Illuminate\Http\Request;
-						    $request = new Request;
-							$array = $request->session()->get('cart');
-            				$count = count($array)+1;
-						*/
+
                     ?>
                     <a href="{{ route('carrinho.cart') }}"
                         class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"

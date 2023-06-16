@@ -6,6 +6,7 @@ use App\Http\Controllers\carrinhoController;
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\colorController;
 use App\Http\Controllers\orderController;
+use App\Http\Controllers\pedidosController;
 use App\Models\tshirt_images;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Auth;use App\Http\Controllers\PerfilController;

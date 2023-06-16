@@ -19,8 +19,7 @@ class pedidosController extends Controller
 {
     public function index(Request $request): View
     {   
-        $userId = users::where('email', '=', /*Auth::user()->email*/'rafaela.nogueira@mail.pt')->pluck('id')->first(); //mudar quando os users tiverem feitos
-        $orders = orders::where('customer_id', '=', $userId)->get();
+        $orders = orders::where('customer_id', '=', Auth::user()->id)->get();
         return view('pedidos.orders')->with('orders', $orders);
     }
 
