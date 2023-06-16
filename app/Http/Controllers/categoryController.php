@@ -7,7 +7,7 @@ use App\Models\Category;
 use Illuminate\View\View;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\RedirectResponse;
-
+use Illuminate\Support\Facades\DB;
 
 class categoryController extends Controller
 {
@@ -28,9 +28,8 @@ class categoryController extends Controller
     {
         //$this->authorize('create', CursoController::class);
 
-
         $newCategoria = Category::create($request->validated());
-        $url = route('admin.categorias.index', ['categoria' => $newCategoria]);
+        $url = route('admin.categorias.create', ['categoria' => $newCategoria]);
         $htmlMessage = "Categoria <a href='$url'>{$newCategoria->nome}</a>
                         <strong>\"{$newCategoria->nome}\"</strong> foi criado com sucesso!";
         return redirect()->route('admin.categorias.index')

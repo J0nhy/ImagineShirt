@@ -55,7 +55,7 @@ Route::get('admin/categorias', [categoryController::class, 'index'])->name('cate
 Route::get('admin/cores', [colorController::class, 'index'])->name('cores.index');
 Route::get('admin/encomendas', [orderController::class, 'index'])->name('encomendas.index');
 Route::get('admin/categorias/create', [categoryController::class, 'create'])->name('categorias.create');
-Route::get('admin/categorias/store', [categoryController::class, 'store'])->name('categorias.store');
+Route::post('admin/categorias/store', [categoryController::class, 'store'])->name('categorias.store');
 
 
 Route::resource('docentes', tshirt_imagesController::class);
