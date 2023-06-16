@@ -314,17 +314,17 @@ b {
     margin-bottom: 2.5%;
     padding: 0%;
   }
-  
+
   .expansivel.expandir {
     height: auto;
     max-height: 600px;
     transition: all 0.5s ease-in-out;
   }
-  
+
   .ver-mais {
     display: none;
   }
-  
+
   .expansivel.expandir .ver-mais {
     display: flex;
   }
@@ -368,4 +368,6 @@ b {
     margin: auto;
     text-align: left;
 }
+
+
 

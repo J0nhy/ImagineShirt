@@ -9,6 +9,7 @@ use App\Http\Controllers\orderController;
 use App\Models\tshirt_images;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Auth;use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 
 
 
@@ -57,5 +58,7 @@ Route::get('admin/categorias/create', [categoryController::class, 'create'])->na
 Route::get('admin/categorias/store', [categoryController::class, 'store'])->name('categorias.store');
 
 
-Route::resource('docentes', tshirt_imagesController::class);
+//Route::resource('docentes', tshirt_imagesController::class);
 
+Route::get('/password/change', [ChangePasswordController::class, 'show'])->name('password.change.show');
+Route::post('/password/change', [ChangePasswordController::class, 'store'])->name('password.change.store');

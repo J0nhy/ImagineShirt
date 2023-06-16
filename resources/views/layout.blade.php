@@ -74,7 +74,11 @@
 
                     <div style="padding-left: 13px;">
                         @if (Auth::user())
-                            {{ Auth::user()->name }}
+                            <?php
+                                $nameParts = explode(' ', Auth::user()->name);
+                                $firstName = $nameParts[0];
+                            ?>
+                            {{ $firstName }}
                         @endif
                     </div>
 
@@ -90,7 +94,7 @@
                                 @if (Auth::user())
                                     <li><a class="dropdown-item" href="">Perfil</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="">Alterar Senha</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar Senha</a></li>
                                     <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
                                     </li>
                                 @else
@@ -161,7 +165,7 @@
                         @if (Auth::user())
                             <a class="dropdown-item" href="#">Perfil</a>
 
-                            <a class="dropdown-item" href="#">Alterar Senha</a>
+                            <a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar Senha</a>
 
                             <a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
                         @else
