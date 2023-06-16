@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\tshirt_images;
 use App\Models\colors;
 use Illuminate\Support\Facades\Log;
@@ -49,7 +50,7 @@ class tshirt_imagesController extends Controller
         }
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
         $tshirts = $tshirtQuery->whereNull('customer_id')->paginate(16);
-        $imagensPrivadas = tshirt_images::where('customer_id', '=', 155)->paginate(16);
+        $imagensPrivadas = tshirt_images::where('customer_id', '=', Auth::user()->id ?? '')->paginate(16);
 
         return view('catalogo.index', compact(
             'tshirts',
@@ -119,7 +120,8 @@ class tshirt_imagesController extends Controller
             $newImage->name = $nome;
             $newImage->description = $descricao;
             $newImage->image_url = $imageUrl;
-            $newImage->customer_id = 155; // mudar quando os users tiverem a funcionar
+            $newImage->customer_id = Auth::user()->id ?? '';
+            //dd($newImage);
             $newImage->save();
 
             return redirect()->route('catalogo.index')->with('message', 'Estampa "' . $nome . '" guardada em ' . $path . '.');
@@ -129,7 +131,7 @@ class tshirt_imagesController extends Controller
     }
     public function edit(): View
     {
-        $tshirts = tshirt_images::where('customer_id', '=', 155 /* mudar quando users tiverem feitos */)->get();
+        $tshirts = tshirt_images::where('customer_id', '=', Auth::user()->id ?? '')->get();
         return view('catalogo.edit')->with('tshirts', $tshirts);
     }
 
@@ -140,7 +142,7 @@ class tshirt_imagesController extends Controller
             $nome = $_POST['updateNomeEstampa'];
             $descricao = $_POST['updateDescricaoEstampa'];
             
-            $estampa = tshirt_images::find($id); // Supondo que você queira atualizar o usuário com o ID 1
+            $estampa = tshirt_images::find($id);
 
             $estampa->name = $nome;
             $estampa->description = $descricao;
@@ -157,7 +159,7 @@ class tshirt_imagesController extends Controller
     {
         try{
             
-            $estampa = tshirt_images::find($id); // Supondo que você queira atualizar o usuário com o ID 1
+            $estampa = tshirt_images::find($id);
 
             if($estampa != null){
                 tshirt_images::where('id',$id)->delete();
