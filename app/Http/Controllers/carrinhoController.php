@@ -30,6 +30,35 @@ class carrinhoController extends Controller
         return view('carrinho.cart', compact('cart', 'price'));
     }
 
+    public function checkout(Request $request): View
+    {
+        $total = $request->input('total');
+        $array = $request->session()->get('cart');
+
+        $iterator = 0;
+        foreach ($array as $item) {
+
+            $array[$item["image_url"] . $item["cor"] . $item["size"]] = array(
+                "image_url" => $item["image_url"],
+                "name" => $item["name"],
+                "cor" => $item["cor"],
+                "size" => $item["size"],
+                "qtd" => $request->input('qty' . $iterator),
+                "id" => $item["id"],
+                "colorCode" => $item["colorCode"],
+                "own" => $item["own"]
+            );
+            $iterator++;
+        }
+
+        if ($array == null)
+            return view('carrinho.cart')->with('cart', null);
+
+        $customer = customers::where('id', '=', Auth::user()->id ?? '')->first();
+        
+        return view('carrinho.checkout', compact('array', 'total', 'customer'));
+    }
+
     public function addToCart(Request $request, $id, $url, $nome, $cor, $size, $qtd, $corCode, $own): RedirectResponse
     {
         $arrayId = $url . $cor . $size;
@@ -97,29 +126,25 @@ class carrinhoController extends Controller
     }
 
     public function store(Request $request): RedirectResponse
-    {
+    {   
+        dd("teste");
+        $total = $request->input('total');
         try {
-            $total = $request->input('total');
 
             if ($request->session()->has('cart')) {
                 $array = $request->session()->get('cart');
                 $count = count($array);
+
                 if ($count < 1) {
                     $htmlMessage = "Não existem produtos no carrinho.";
                     $alertType = 'alert';
                 } else {
-                    $qtds = array();
-                    $iterator = 0;
-                    foreach ($array as $item) {
-                        $qtds['qty' . $iterator] = $request->input('qty' . $iterator); 
-                        $iterator++;
-                    }
-                    try{
+                    try {
                         $customer = customers::where('id', '=', Auth::user()->id ?? '')->first();
                     } catch (\Exception $error) {
                         $htmlMessage = "User não existe ou dados estão incorretos";
-                    } 
-                    $order = DB::transaction(function () use ($array, $total, $qtds, $customer) {
+                    }
+                    $order = DB::transaction(function () use ($array, $total, $customer) {
                         $newOrder = new orders();
                         $newOrder->status = "pending";
                         $newOrder->customer_id = $customer->id;
@@ -131,14 +156,14 @@ class carrinhoController extends Controller
                         $newOrder->payment_ref = $customer->default_payment_ref;
                         $newOrder->save();
                         $iterator = 0;
-                        foreach($array as $item){
+                        foreach ($array as $item) {
                             $newOrderItem = new order_items();
                             $newOrderItem->order_id = $newOrder->id;
                             $newOrderItem->tshirt_image_id = $item["id"];
                             $newOrderItem->color_code = $item["colorCode"];
                             $newOrderItem->size = $item["size"];
-                            $newOrderItem->qty = $qtds['qty' . $iterator];
-                            if($item["own"] == "True")
+                            $newOrderItem->qty = $item["qtd"];
+                            if ($item["own"] == "True")
                                 $newOrderItem->unit_price = prices::first()->unit_price_own;
                             else
                                 $newOrderItem->unit_price = prices::first()->unit_price_catalog;
@@ -155,7 +180,7 @@ class carrinhoController extends Controller
                     return redirect()->route('carrinho.cart')
                         ->with('message', $htmlMessage);
                 }
-            }else{
+            } else {
                 $htmlMessage = "Não existem produtos no carrinho.";
             }
         } catch (\Exception $error) {

@@ -41,6 +41,10 @@
     transition: transform 0.15s;
 }
 
+.boxSelected{
+    background-color: rgba(0, 182, 0, 0.6) !important;
+}
+
 .customShirtBack {
     background-color: rgb(255 255 255 / 10%);
     width: 100%;
@@ -127,6 +131,10 @@ img {
     content: '\f1ca'
 }
 
+.Padding5 {
+    padding: 5%;
+}
+
 .Paddingbt5 {
     padding-bottom: 5%;
 }
@@ -145,6 +153,14 @@ img {
 
 .Margintp5 {
     margin-top: 5%;
+}
+
+.marginb5 {
+    margin-bottom: 5%;
+}
+
+.marginb8 {
+    margin-bottom: 8% !important;
 }
 
 .marginr5 {
@@ -245,6 +261,19 @@ b {
     text-indent: 10px;
     color: white;
     font-size: 0.7vw;
+}
+
+.width80{
+    width: 80%;
+    font-family: "Poppins-Bold";
+}
+.width44{
+    width: 44.5%;
+    font-family: "Poppins-Bold";
+}
+.width30{
+    width: 30%;
+    font-family: "Poppins-Bold";
 }
 
 
