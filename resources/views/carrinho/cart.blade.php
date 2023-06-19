@@ -165,14 +165,18 @@ $valorTotal=0;
 								@foreach($cart as $item)
 								<tr class="table_row" style="border-bottom: 0px solid transparent;">
 										<td class="column-1">
-											<div class="how-itemcart1" onclick="expandirImagem('#img<?= $iterator; ?>')">
+											<div class="how-itemcart1" onclick="expandirImagem('#img<?= $iterator; ?>')" title="Click to Preview">
 												<img src="tshirt_images/{{$item["image_url"]}}" class="card-img-top center" alt="{{ $item["image_url"] }}" id="img<?= $iterator; ?>">
 											</div>
 											<!-- Pop-up -->
 											<div class="popup" onclick="fecharPopUp()">
 												<div class="popup-content">
-												<img class="popup-image" src="" alt="Imagem expandida">
-												</div>
+                                                    <img id="baseTshirt" src="/tshirt_base/{{ $item["colorCode"] }}.png" alt="IMG-PRODUCT" style="width: 80%; height: 80%; max-height: none;object-fit: contain; position:absolute; z-index: 1;">
+                                                    <div style="height: 350px; width: 300px;  position:absolute; z-index: 2; top: 50%; left: 50%; transform: translate(-52%,-50%);">
+                                                        <img id="fotoTshirt"src="/tshirt_images/{{$item["image_url"]}}" alt="IMG-PRODUCT" style="object-fit: cover; max-width:215px; max-height:410px;" class="popup-image">
+                                                    </div>
+                                                    <img id="fotoTshirt"src="/tshirt_images/{{$item["image_url"]}}" alt="IMG-PRODUCT" style="object-fit: cover; max-width:160px; max-height:350px;" class="popup-image">
+                                                </div>
 											</div>
 										</td>
 										<td class="column-2"><b><?= $item["name"]; ?></b><br><?= $item["cor"]; ?><br><?= $item["size"]; ?></td>
@@ -259,7 +263,7 @@ $valorTotal=0;
 						@else
 							<a class="flex-c-m stext-101 cl2 size-116 bg8 bor14 hov-btn3 p-lr-15 trans-04 pointer" href="{{ route('login') }}">Login</a>
                         @endif
-						
+
 					</div>
 				</div>
 			</div>

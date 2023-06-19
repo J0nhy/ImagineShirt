@@ -156,15 +156,17 @@
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
 							<div class="table-shopping-cart">
-								<div id="existingAddress" onclick="hideFields()" class="customShirtBack width44 Padding5 myBlowAnim marginb5 dis-inline-block marginr5 size-304">
-									<h5 class="linkBranco">Cliente: {{ Auth::user()->name }}</h5>
-									<h5 class="linkBranco">Nif: {{ $customer->nif }}</h5>
-									<h5 class="linkBranco">Morada: {{ $customer->address }}</h5>
-									<h5 class="linkBranco">Forma de Pagamento: {{ $customer->default_payment_type }}</h5>
-								</div>
-								<div id="newAddress" onclick="showFields()" style="vertical-align: top" class="customShirtBack width44 Padding5 myBlowAnim marginb5 dis-inline-block size-304">
-									<h5 class="linkBranco">Criar uma nova morada para esta encomenda</h5>
-								</div>
+                                @if($customer != null)
+                                    <div id="existingAddress" onclick="hideFields()" class="customShirtBack width44 Padding5 myBlowAnim marginb5 dis-inline-block marginr5 size-304">
+                                        <h5 class="linkBranco">Cliente: {{ Auth::user()->name }}</h5>
+                                        <h5 class="linkBranco">Nif: {{ $customer->nif }}</h5>
+                                        <h5 class="linkBranco">Morada: {{ $customer->address }}</h5>
+                                        <h5 class="linkBranco">Forma de Pagamento: {{ $customer->default_payment_type }}</h5>
+                                    </div>
+                                    <div id="newAddress" onclick="showFields()" style="vertical-align: top" class="customShirtBack width44 Padding5 myBlowAnim marginb5 dis-inline-block size-304">
+                                        <h5 class="linkBranco">Criar uma nova morada para esta encomenda</h5>
+                                    </div>
+                                @else
 									<div id="fields" class="hidden">
 										<input type="text" class="inputText width44 dis-inline marginr5" name="Nome" id="Nome" min="1"
 											max="20" placeholder="Nome Completo" required>
@@ -179,9 +181,8 @@
 										<input type="text" class="inputText width80" name="Descricao" id="Descricao"
 											min="1" max="200" placeholder="Observações">
                                         <input class="dis-inline" style="transform : scale(1.5); cursor: pointer;" type="checkbox" name="saveData" id="saveData"><h5 class="dis-inline linkBranco"> Definir estes dados como principais </span>
-
 									</div>
-
+                                @endif
 							</div>
 					</div>
 				</div>

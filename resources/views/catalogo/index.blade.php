@@ -136,7 +136,7 @@
                                                     <h5 class="card-title titleCardBack">{{ $tshirt['name'] }}</h5>
                                                 </div>
                                             </div>
-                                            <div class="row min-height100">
+                                            <div class="row min-height125">
                                                 <div>
                                                     <p class="card-text textCardBack center">{{ $tshirt['description'] }}
                                                     </p>
