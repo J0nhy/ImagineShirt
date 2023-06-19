@@ -138,12 +138,18 @@ class carrinhoController extends Controller
                     $htmlMessage = "Não existem produtos no carrinho.";
                     $alertType = 'alert';
                 } else {
-                    try {
+                    $qtds = array();
+                    $iterator = 0;
+                    foreach ($array as $item) {
+                        $qtds['qty' . $iterator] = $request->input('qty' . $iterator);
+                        $iterator++;
+                    }
+                    try{
                         $customer = customers::where('id', '=', Auth::user()->id ?? '')->first();
                     } catch (\Exception $error) {
                         $htmlMessage = "User não existe ou dados estão incorretos";
                     }
-                    $order = DB::transaction(function () use ($array, $total, $customer, $request) {
+                    $order = DB::transaction(function () use ($array, $total, $qtds, $customer) {
                         $newOrder = new orders();
                         $newOrder->status = "pending";
                         $newOrder->customer_id = $customer->id;

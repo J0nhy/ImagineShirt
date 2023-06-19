@@ -73,9 +73,10 @@
                                 $nameParts = explode(' ', Auth::user()->name);
                                 $firstName = $nameParts[0];
                             ?>
-                            {{ $firstName }}´
-
-
+                            {{ $firstName }}
+                        @else
+                            <img src="/img/avatar_unknown.png" alt="Avatar" class="bg-dark rounded-circle" width="45"
+                            height="45">
                         @endif
                     </div>
 
@@ -84,16 +85,17 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 @if (Auth::user())
-                                <img src="/photos/{{ Auth::user()->photo_url}}" alt="Avatar" class="bg-dark rounded-circle"
-                                    width="45" height="45">
-                                    @endif
-                                </a>
+                                    <img src="{{Auth::user()->fullPhotoUrl}}" alt="Avatar"
+                                        class="bg-dark rounded-circle" width="45" height="45">
+                                @endif
+                            </a>
 
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 @if (Auth::user())
                                     <li><a class="dropdown-item" href="">Perfil</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar Senha</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar
+                                            Senha</a></li>
                                     <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
                                     </li>
                                 @else
@@ -112,7 +114,8 @@
                                                     document.getElementById('logout-form').submit();">
                                         Sair
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
                                     </form>
                                 </li>

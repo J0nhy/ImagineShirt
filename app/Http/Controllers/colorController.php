@@ -14,4 +14,20 @@ class colorController extends Controller
         $allColors = colors::paginate(10);
         return view('admin.cores.index')->with('cores', $allColors);
     }
+
+    public function show(string $cor): View
+    {
+        //dd(strtok($categoria, '-'));
+        //$cor = colors::findOrFail($cor);
+
+        $cor =colors::findOrFail(strtok($cor));
+        return view('admin.cores.show', compact('cor'));
+        //return view('admin.cores.show', compact('cores'));
+    }
+
+    public function edit(colors $cor): View
+    {
+        //$this->authorize('update', $curso);
+        return view('admin.cores.edit')->withCor($cor);
+    }
 }
