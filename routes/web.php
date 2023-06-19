@@ -52,12 +52,24 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('admin', [tshirt_imagesController::class, 'admin'])->name('admin.index');
 
+
+Route::resource('admin/categorias', categoryController::class);
+Route::resource('admin/cores', colorController::class);
+Route::resource('admin/encomendas', orderController::class);
+
+
+
 Route::get('admin/users', [userController::class, 'index'])->name('users.index');
-Route::get('admin/categorias', [categoryController::class, 'index'])->name('categorias.index');
-Route::get('admin/cores', [colorController::class, 'index'])->name('cores.index');
-Route::get('admin/encomendas', [orderController::class, 'index'])->name('encomendas.index');
-Route::get('admin/categorias/create', [categoryController::class, 'create'])->name('categorias.create');
-Route::post('admin/categorias/store', [categoryController::class, 'store'])->name('categorias.store');
+//Route::get('admin/categorias', [categoryController::class, 'index'])->name('categorias.index');
+//Route::get('admin/cores', [colorController::class, 'index'])->name('cores.index');
+//Route::get('admin/encomendas', [orderController::class, 'index'])->name('encomendas.index');
+//Route::get('admin/categorias/create', [categoryController::class, 'create'])->name('categorias.create');
+//Route::post('admin/categorias/store', [categoryController::class, 'store'])->name('categorias.store');
+//Route::post('admin/categorias/destroy', [categoryController::class, 'destroy'])->name('categorias.destroy');
+//Route::get('admin/categorias/{categorias}', [categoryController::class, 'show'])->name('categorias.show');
+//Route::get('admin/categorias/edit/{categorias}', [categoryController::class, 'edit'])->name('categorias.edit');
+//Route::put('admin/categorias/update/{categorias}', [categoryController::class, 'update'])->name('categorias.update');
+//Route::put('update/{categorias}', [categoryController::class, 'update'])->name('categorias.update');
 
 //teste
 //Route::resource('docentes', tshirt_imagesController::class);

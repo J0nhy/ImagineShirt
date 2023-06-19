@@ -28,7 +28,7 @@
   ======================================================== -->
 </head>
 
-<body>
+<body style="background-color:#171923">
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
