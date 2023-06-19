@@ -73,7 +73,7 @@
                                 $nameParts = explode(' ', Auth::user()->name);
                                 $firstName = $nameParts[0];
                             ?>
-                            {{ $firstName }}´
+                            {{ $firstName }}
 
 
                         @endif

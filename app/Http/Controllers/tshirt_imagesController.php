@@ -141,7 +141,7 @@ class tshirt_imagesController extends Controller
             $id = $_POST['updateIdEstampa'];
             $nome = $_POST['updateNomeEstampa'];
             $descricao = $_POST['updateDescricaoEstampa'];
-            
+
             $estampa = tshirt_images::find($id);
 
             $estampa->name = $nome;
@@ -158,7 +158,7 @@ class tshirt_imagesController extends Controller
     public function removerEstampa($id) : RedirectResponse
     {
         try{
-            
+
             $estampa = tshirt_images::find($id);
 
             if($estampa != null){
