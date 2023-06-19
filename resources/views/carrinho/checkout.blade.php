@@ -156,7 +156,8 @@
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
 							<div class="table-shopping-cart">
-                                @if($customer != null)
+                                @if($customer->address != null)
+
                                     <div id="existingAddress" onclick="hideFields()" class="customShirtBack width44 Padding5 myBlowAnim marginb5 dis-inline-block marginr5 size-304">
                                         <h5 class="linkBranco">Cliente: {{ Auth::user()->name }}</h5>
                                         <h5 class="linkBranco">Nif: {{ $customer->nif }}</h5>
@@ -166,8 +167,8 @@
                                     <div id="newAddress" onclick="showFields()" style="vertical-align: top" class="customShirtBack width44 Padding5 myBlowAnim marginb5 dis-inline-block size-304">
                                         <h5 class="linkBranco">Criar uma nova morada para esta encomenda</h5>
                                     </div>
-                                @else
-									<div id="fields" class="hidden">
+                                @endif
+									<div id="fields" class="<?php  $customer->address != null ? 'hidden' : ''; ?>">
 										<input type="text" class="inputText width44 dis-inline marginr5" name="Nome" id="Nome" min="1"
 											max="20" placeholder="Nome Completo" required>
 										<input type="text" class="inputText width30 dis-inline marginb8" name="NIF" id="NIF" min="1"
@@ -182,7 +183,6 @@
 											min="1" max="200" placeholder="Observações">
                                         <input class="dis-inline" style="transform : scale(1.5); cursor: pointer;" type="checkbox" name="saveData" id="saveData"><h5 class="dis-inline linkBranco"> Definir estes dados como principais </span>
 									</div>
-                                @endif
 							</div>
 					</div>
 				</div>

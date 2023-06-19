@@ -172,10 +172,9 @@ $valorTotal=0;
 											<div class="popup" onclick="fecharPopUp()">
 												<div class="popup-content">
                                                     <img id="baseTshirt" src="/tshirt_base/{{ $item["colorCode"] }}.png" alt="IMG-PRODUCT" style="width: 80%; height: 80%; max-height: none;object-fit: contain; position:absolute; z-index: 1;">
-                                                    <div style="height: 350px; width: 300px;  position:absolute; z-index: 2; top: 50%; left: 50%; transform: translate(-52%,-50%);">
+                                                    <div style="height: 350px; width: 300px;  position:absolute; z-index: 2; top: 50%; left: 50.5%; transform: translate(-52%,-50%);">
                                                         <img id="fotoTshirt"src="/tshirt_images/{{$item["image_url"]}}" alt="IMG-PRODUCT" style="object-fit: cover; max-width:215px; max-height:410px;" class="popup-image">
                                                     </div>
-                                                    <img id="fotoTshirt"src="/tshirt_images/{{$item["image_url"]}}" alt="IMG-PRODUCT" style="object-fit: cover; max-width:160px; max-height:350px;" class="popup-image">
                                                 </div>
 											</div>
 										</td>

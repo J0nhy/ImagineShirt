@@ -149,7 +149,7 @@ class carrinhoController extends Controller
                     } catch (\Exception $error) {
                         $htmlMessage = "User não existe ou dados estão incorretos";
                     }
-                    $order = DB::transaction(function () use ($array, $total, $qtds, $customer) {
+                    $order = DB::transaction(function () use ($array, $total, $qtds, $customer, $request) {
                         $newOrder = new orders();
                         $newOrder->status = "pending";
                         $newOrder->customer_id = $customer->id;
@@ -160,7 +160,7 @@ class carrinhoController extends Controller
                         $newOrder->address = $request->input('Morada');
                         $newOrder->payment_type = $request->input('payment');
 
-                        $newOrder->payment_ref = $customer->default_payment_ref;
+                        $newOrder->payment_ref = $customer->default_payment_ref ?? (Auth::user()->mail ?? '');
                         $newOrder->save();
                         $iterator = 0;
                         foreach ($array as $item) {
@@ -185,6 +185,7 @@ class carrinhoController extends Controller
                         $customerUpdate->default_payment_type = $request->input('payment');
                         $customerUpdate->address = $request->input('Morada');
                         $customerUpdate->nif = $request->input('NIF');
+                        $customerUpdate->default_payment_ref = $customer->default_payment_ref ?? (Auth::user()->mail ?? '');
                         $customerUpdate->save();
                     }
                     $htmlMessage = "<strong>A sua encomenda foi concluida com sucesso: " . $total . "produto(s).</strong>";

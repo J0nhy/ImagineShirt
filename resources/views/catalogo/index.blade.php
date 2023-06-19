@@ -131,12 +131,12 @@
                                             </a>
                                         </div>
                                         <div>
-                                            <div class="row">
+                                            <div class="row min-height90">
                                                 <div>
                                                     <h5 class="card-title titleCardBack">{{ $tshirt['name'] }}</h5>
                                                 </div>
                                             </div>
-                                            <div class="row min-height125">
+                                            <div class="row min-height130">
                                                 <div>
                                                     <p class="card-text textCardBack center">{{ $tshirt['description'] }}
                                                     </p>
@@ -171,12 +171,12 @@
                             </a>
                         </div>
                         <div>
-                            <div class="row">
+                            <div class="row min-height90">
                                 <div>
                                     <h5 class="card-title titleCardBack">{{ $tshirt['name'] }}</h5>
                                 </div>
                             </div>
-                            <div class="row min-height100">
+                            <div class="row min-height130">
                                 <div>
                                     <p class="card-text textCardBack center">{{ $tshirt['description'] }}</p>
                                 </div>
