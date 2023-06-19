@@ -25,12 +25,91 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="email"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Nif') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="nif" type="text"
+                                    class="form-control @error('nif') is-invalid @enderror" name="nif"
+                                    value="{{ old('nif') }}" autocomplete="nif">
+
+                                @error('nif')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="email"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Morada') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="address" type="text"
+                                    class="form-control @error('address') is-invalid @enderror" name="address"
+                                    value="{{ old('address') }}" autocomplete="address">
+
+                                @error('address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="email"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Tipo de Pagamento Padrão') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-select @error('default_payment_type') is-invalid @enderror"
+                                    name="default_payment_type" id="inputDefault_payment_type" >
+                                    <option {{ old('default_payment_type') == '' ? 'selected' : '' }}
+                                        value="">
+                                    </option>
+                                    <option {{ old('default_payment_type') == 'VISA' ? 'selected' : '' }}
+                                        value="VISA">VISA
+                                    </option>
+                                    <option {{ old('default_payment_type') == 'MC' ? 'selected' : '' }} value="MC">
+                                        MasterCard
+                                    </option>
+                                    <option {{ old('default_payment_type') == 'PAYPAL' ? 'selected' : '' }}
+                                        value="PAYPAL">PAYPAL
+                                    </option>
+                                </select>
+                                @error('default_payment_type')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputDefault_payment_ref"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Referência de Pagamento Padrão') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="inputDefault_payment_ref" type="text"
+                                    class="form-control @error('default_payment_ref') is-invalid @enderror" name="default_payment_ref"
+                                    value="{{ old('default_payment_ref') }}" autocomplete="default_payment_ref">
+
+                                @error('default_payment_ref')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

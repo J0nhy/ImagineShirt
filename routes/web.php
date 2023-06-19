@@ -64,3 +64,5 @@ Route::post('admin/categorias/store', [categoryController::class, 'store'])->nam
 
 Route::get('/password/change', [ChangePasswordController::class, 'show'])->name('password.change.show');
 Route::post('/password/change', [ChangePasswordController::class, 'store'])->name('password.change.store');
+
+Auth::routes(['verify'=> true]);
