@@ -13,10 +13,11 @@
         <div class="container bg0 p-t-65 background">
             <div class="row customShirtBack">
 
-                <div class="col-md-6 myBlowAnim position-relative">
+                <div class="col-md-6 myBlowAnim position-relative" onclick="expandirImagem('#fotoTshirt')">
 
                     <!--put one image that occopy the whole div and center it-->
                     <img id="baseTshirt" src="/tshirt_base/{{ $allColors['0']['code'] }}.png" alt="IMG-PRODUCT"
+                        
                         style="width: 80%; height: 80%; max-height: none;object-fit: contain; position:absolute; z-index: 1;">
                     <div
                         style="height: 250px;
@@ -27,6 +28,12 @@
                     </div>
 
 
+                </div>
+                <!-- Pop-up -->
+                <div class="popup" onclick="fecharPopUp()">
+                    <div class="popup-content">
+                        <img class="popup-image" src="" alt="Imagem expandida">
+                    </div>
                 </div>
 
                 <div class="col-md-6 col-lg-5 p-b-30 ">
@@ -43,7 +50,7 @@
                             {{ $tshirt->description }}
                         </p>
 
-                        <!--  -->
+                        <!-- Dropdown -->
                         <div class="p-t-33">
                             <div class="dropdown" style="float: left;">
                                 <div class="select">
@@ -128,7 +135,8 @@
         }
 
         function changeURL() {
-            size.href = "/addToCart/{{ $tshirt->id }}/{{ $tshirt->image_url }}/{{ $tshirt->name }}/" + cor + "/" + tamanho + "/" + qtd + "/" + corCode + "/{{ $tshirt->customer_id != null ? 'True' : 'False' }}";
+            size.href = "/addToCart/{{ $tshirt->id }}/{{ $tshirt->image_url }}/{{ $tshirt->name }}/" + cor + "/" +
+                tamanho + "/" + qtd + "/" + corCode + "/{{ $tshirt->customer_id != null ? 'True' : 'False' }}";
         }
 
         function changeQty($op) {
@@ -160,5 +168,23 @@
             $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
         });
         /*End Dropdown Menu*/
+
+        /* espandir a imagem da tshirt */
+        function expandirImagem(img) {
+            var imagem = document.querySelector(img);
+            var popup = document.querySelector('.popup');
+            var popupImage = document.querySelector('.popup-image');
+
+            // Define a imagem expandida
+            popupImage.src = imagem.src;
+
+            // Exibe o pop-up
+            popup.style.display = 'flex';
+        }
+
+        function fecharPopUp() {
+            var popup = document.querySelector('.popup');
+            popup.style.display = 'none';
+        }
     </script>
 @endsection
