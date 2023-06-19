@@ -37,6 +37,7 @@ Route::post('editarEstampa', [tshirt_imagesController::class, 'editarEstampa'])-
 Route::get('removerEstampa/{id}', [tshirt_imagesController::class, 'removerEstampa'])->name('catalogo.removerEstampa');
 
 Route::get('cart', [carrinhoController::class, 'index'])->name('carrinho.cart');
+Route::post('checkout', [carrinhoController::class, 'checkout'])->name('carrinho.checkout');
 Route::get('/addToCart/{id}/{url}/{nome}/{cor}/{size}/{qtd}/{corCode}/{own}', [carrinhoController::class, 'addToCart']);
 Route::get('/removeFromCart/{id}', [carrinhoController::class, 'removeFromCart']);
 Route::post('store', [carrinhoController::class, 'store']);
