@@ -37,7 +37,69 @@
 		</script>
 	<!--===============================================================================================-->
 		<script src="js/main.js"></script>
+<script>
+    function showFields(){
+		var divFields = document.querySelector('#fields');
+		var divExisting = document.querySelector('#existingAddress');
+		var divNew = document.querySelector('#newAddress');
+        var paymentObj = document.querySelector('#payment');
+        var paymentTxt = document.querySelector('#paymentTxt');
 
+		var nome = document.querySelector('#Nome');
+		var nif = document.querySelector('#NIF');
+		var morada = document.querySelector('#Morada');
+		var cod = document.querySelector('#cod');
+		var localidade = document.querySelector('#Localidade');
+		var descricao = document.querySelector('#Descricao');
+
+		divFields.classList.remove('hidden');
+		divNew.classList.add('boxSelected');
+		divExisting.classList.remove('boxSelected');
+
+		nome.value = '';
+        nif.value = '';
+        morada.value = '';
+        cod.value = '';
+        localidade.value = '';
+        descricao.value = '';
+        paymentObj.value = "";
+        paymentTxt.innerHTML = "Pagamento <i class='zmdi zmdi-chevron-down icon' style='vertical-align: middle;'></i>";
+
+        var btnSubmit = document.querySelector('#btnSubmit');
+
+		Payment = "";
+		btnSubmit.type = "button"
+
+	}
+	function hideFields(){
+		var divFields = document.querySelector('#fields');
+		var divExisting = document.querySelector('#existingAddress');
+		var divNew = document.querySelector('#newAddress');
+        var paymentObj = document.querySelector('#payment');
+        var paymentTxt = document.querySelector('#paymentTxt');
+
+		var nome = document.querySelector('#Nome');
+		var nif = document.querySelector('#NIF');
+		var morada = document.querySelector('#Morada');
+		var descricao = document.querySelector('#Descricao');
+
+		divFields.classList.add('hidden');
+		divExisting.classList.add('boxSelected');
+		divNew.classList.remove('boxSelected');
+
+		nome.value = "{{ Auth::user()->name }}";
+        nif.value = "{{ $customer->nif ?? ''}}";
+        morada.value = "{{ $customer->address ?? ''}}";
+        descricao.value = "{{ $customer->descricao ?? ''}}";
+        paymentObj.value = "{{ $customer->default_payment_type ?? ''}}";
+        paymentTxt.innerHTML = "{{$customer->default_payment_type ?? ''}} <i class='zmdi zmdi-chevron-down icon' style='vertical-align: middle;'></i>";
+
+        var btnSubmit = document.querySelector('#btnSubmit');
+
+		Payment = "{{ $customer->default_payment_type ?? ''}}}";
+		btnSubmit.type = "submit"
+	}
+</script>
 
 @extends('layout')
 @section('main')
@@ -89,7 +151,7 @@
 		<div class="container">
 			<div class="row">
 				<h4 class="mtext-109 cl2 p-b-30 linkBranco">
-					Selecionar os dados de envio: 
+					Selecionar os dados de envio:
 				</h4>
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
@@ -105,18 +167,21 @@
 								</div>
 									<div id="fields" class="hidden">
 										<input type="text" class="inputText width44 dis-inline marginr5" name="Nome" id="Nome" min="1"
-											max="20" placeholder="Nome Completo" value="" required>
+											max="20" placeholder="Nome Completo" required>
 										<input type="text" class="inputText width30 dis-inline marginb8" name="NIF" id="NIF" min="1"
-											max="9" placeholder="NIF" value="">
+											max="9" placeholder="NIF">
 										<input type="text" class="inputText width80" name="Morada" id="Morada"
-											min="10" max="100" placeholder="Morada" value="" required>
+											min="10" max="100" placeholder="Morada" required>
 										<input type="text" class="inputText width30 dis-inline marginr5" name="cod" id="cod"
-											min="8" max="8" placeholder="Codigo Postal" value="" required>
+											min="8" max="8" placeholder="Codigo Postal">
 										<input type="text" class="inputText width44 dis-inline marginb8" name="Localidade" id="Localidade"
-											min="10" max="40" placeholder="Localidade" value="" required>
+											min="10" max="40" placeholder="Localidade">
 										<input type="text" class="inputText width80" name="Descricao" id="Descricao"
-											min="1" max="200" placeholder="Observações" value="">
+											min="1" max="200" placeholder="Observações">
+                                        <input class="dis-inline" style="transform : scale(1.5); cursor: pointer;" type="checkbox" name="saveData" id="saveData"><h5 class="dis-inline linkBranco"> Definir estes dados como principais </span>
+
 									</div>
+
 							</div>
 					</div>
 				</div>
@@ -140,7 +205,7 @@
 						<div class="flex-w flex-t p-t-27 p-b-33">
 							<div class="size-208">
 								<span class="mtext-101 cl2">
-									Total a pagar: 
+									Total a pagar:
 								</span>
 								<input type="hidden" id="valSomaTotal" name="total" value="<?= $total; ?>">
 							</div>
@@ -153,19 +218,19 @@
 
 							<div class="p-t-33 size-210 dis-inline">
 								<span class="mtext-101 cl2 dis-inline">
-									A pagar com: 
+									A pagar com:
 								</span>
 							</div>
 
 							<!-- Dropdown -->
-							<div class="p-t-33 width44 dis-inline"> 
+							<div class="p-t-33 width44 dis-inline">
 								<div class="dropdown dis-inline" style="float: left;">
 									<div class="select">
-										<span style="color:black !important;">Pagamento <i class="zmdi zmdi-chevron-down icon"
+										<span style="color:black !important;" id="paymentTxt">Pagamento <i class="zmdi zmdi-chevron-down icon"
 												style="vertical-align: middle;"></i></span>
 										<i class="fa fa-chevron-left"></i>
 									</div>
-									<input type="hidden" name="payment">
+									<input type="hidden" name="payment" id="payment">
 									<ul class="dropdown-menu">
 										<li onclick="changePayment('VISA')" id="VISA">VISA</li>
 										<li onclick="changePayment('PAYPAL')"id="PAYPAL">PAYPAL</li>
@@ -184,18 +249,12 @@
 						@else
 							<a class="flex-c-m stext-101 cl2 size-116 bg8 bor14 hov-btn3 p-lr-15 trans-04 pointer" href="{{ route('login') }}">Login</a>
                         @endif
-						
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
-
-
-
-<?php
-
-?>
 
 	<!-- Back to top -->
 	<div class="btn-back-to-top" id="myBtn">
@@ -221,45 +280,7 @@
         });
         /*End Dropdown Menu*/
 
-	function showFields(){
-		var divFields = document.querySelector('#fields');
-		var divExisting = document.querySelector('#existingAddress');
-		var divNew = document.querySelector('#newAddress');
 
-		var nome = document.querySelector('#Nome');
-		var morada = document.querySelector('#Morada');
-		var cod = document.querySelector('#cod');
-		var localidade = document.querySelector('#Localidade');
-		
-		divFields.classList.remove('hidden');
-		divNew.classList.add('boxSelected');
-		divExisting.classList.remove('boxSelected');
-
-		nome.prop("required", true);
-		morada.prop("required", true);
-		cod.prop("required", true);
-		localidade.prop("required", true);
-	}
-	function hideFields(){
-		var divFields = document.querySelector('#fields');
-		var divExisting = document.querySelector('#existingAddress');
-		var divNew = document.querySelector('#newAddress');
-
-		var nome = document.querySelector('#Nome');
-		var morada = document.querySelector('#Morada');
-		var cod = document.querySelector('#cod');
-		var localidade = document.querySelector('#Localidade');
-		
-		divFields.classList.add('hidden');
-		divExisting.classList.add('boxSelected');
-		divNew.classList.remove('boxSelected');
-
-		nome.prop("required", false);
-		morada.prop("required", false);
-		cod.prop("required", false);
-		localidade.prop("required", false);
-		//nao funciona, arranjar maneira de tirar o required ou fazer verificacao manual pelo metodo verificacao()
-	}
 	var Payment="";
 
 	function changePayment($paymentMethod){

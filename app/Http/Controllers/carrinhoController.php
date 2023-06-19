@@ -55,7 +55,7 @@ class carrinhoController extends Controller
             return view('carrinho.cart')->with('cart', null);
 
         $customer = customers::where('id', '=', Auth::user()->id ?? '')->first();
-        
+
         return view('carrinho.checkout', compact('array', 'total', 'customer'));
     }
 
@@ -126,8 +126,7 @@ class carrinhoController extends Controller
     }
 
     public function store(Request $request): RedirectResponse
-    {   
-        dd("teste");
+    {
         $total = $request->input('total');
         try {
 
@@ -144,15 +143,17 @@ class carrinhoController extends Controller
                     } catch (\Exception $error) {
                         $htmlMessage = "User não existe ou dados estão incorretos";
                     }
-                    $order = DB::transaction(function () use ($array, $total, $customer) {
+                    $order = DB::transaction(function () use ($array, $total, $customer, $request) {
                         $newOrder = new orders();
                         $newOrder->status = "pending";
                         $newOrder->customer_id = $customer->id;
                         $newOrder->date = date("Y-m-d");
                         $newOrder->total_price = $total;
-                        $newOrder->nif = $customer->nif;
-                        $newOrder->address = $customer->address;
-                        $newOrder->payment_type = $customer->default_payment_type;
+
+                        $newOrder->nif = $request->input('NIF');
+                        $newOrder->address = $request->input('Morada');
+                        $newOrder->payment_type = $request->input('payment');
+
                         $newOrder->payment_ref = $customer->default_payment_ref;
                         $newOrder->save();
                         $iterator = 0;
@@ -173,6 +174,13 @@ class carrinhoController extends Controller
                         }
                         return $newOrder->id;
                     });
+                    if($request->input('saveData') == "on"){
+                       $customerUpdate = customers::find(Auth::user()->id ?? '');
+                        $customerUpdate->default_payment_type = $request->input('payment');
+                        $customerUpdate->address = $request->input('Morada');
+                        $customerUpdate->nif = $request->input('NIF');
+                        $customerUpdate->save();
+                    }
                     $htmlMessage = "<strong>A sua encomenda foi concluida com sucesso: " . $total . "produto(s).</strong>";
 
                     $request->session()->forget('cart');
