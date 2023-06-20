@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,6 +42,66 @@
     </div>
 
       </ul>
+      <div class="wrap-icon-header flex-w flex-r-m">
+
+
+
+        <div style="padding-left: 13px;">
+            @if (Auth::user())
+                <?php
+                    $nameParts = explode(' ', Auth::user()->name);
+                    $firstName = $nameParts[0];
+                ?>
+                {{ $firstName }}
+            @else
+                <img src="/img/avatar_unknown.png" alt="Avatar" class="bg-dark rounded-circle" width="45"
+                height="45">
+            @endif
+        </div>
+
+        <ul class="navbar-nav me-1 me-lg-3">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    @if (Auth::user())
+                        <img src="{{Auth::user()->fullPhotoUrl}}" alt="Avatar"
+                            class="bg-dark rounded-circle" width="45" height="45">
+                    @endif
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    @if (Auth::user())
+                        <li><a class="dropdown-item" href="">Perfil</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar
+                                Senha</a></li>
+                        <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
+                        </li>
+                    @else
+                        <li><a class="dropdown-item" href="{{ route('login') }}">Login</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{ route('register') }}">Registar</a>
+                        </li>
+                    @endif
+
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li>
+                        <a class="dropdown-item"
+                            onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                            Sair
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                            class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
     </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
@@ -49,43 +110,50 @@
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
-
+        @can('viewAny', \App\Models\Category::class)
       <li class="nav-item">
         <a class="nav-link  collapsed" href="{{ route('admin.index')}}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
+        @endcan
 
+      @can('viewAny', \App\Models\users::class)
       <li class="nav-item">
         <a class="nav-link  collapsed" href="{{ route('users.index')}}">
             <i class="bi bi-grid"></i>
             <span>Users</span>
           </a>
       </li><!-- End Components Nav -->
+      @endcan
 
-
+      @can('viewAny', \App\Models\Category::class)
       <li class="nav-item">
         <a class="nav-link  collapsed" href="{{ route('categorias.index')}}">
             <i class="bi bi-grid"></i>
             <span>Categorias</span>
           </a>
       </li>
+      @endcan
 
-
+        @can('viewAny', \App\Models\colors::class)
       <li class="nav-item">
         <a class="nav-link  collapsed" href="{{ route('cores.index')}}">
             <i class="bi bi-grid"></i>
             <span>Cores</span>
           </a>
       </li>
+        @endcan
 
+        @can('viewAny', \App\Models\orders::class)
       <li class="nav-item">
         <a class="nav-link  collapsed" href="{{ route('encomendas.index')}}">
             <i class="bi bi-grid"></i>
             <span>Encomendas</span>
           </a>
       </li>
+        @endcan
 <!-- Talvez adicionar...
 
       <li class="nav-heading">Pages</li>

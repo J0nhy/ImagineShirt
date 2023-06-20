@@ -1,3 +1,4 @@
+@can('viewAny', \App\Models\orders::class)
 @extends('adminLayout')
 @section('main')
 
@@ -9,3 +10,4 @@
 
 </section>
 @endsection
+@endcan

@@ -116,12 +116,14 @@ class tshirt_imagesController extends Controller
             $imagem = $request->file('Estampa');
             $path = $imagem->storeAs('tshirt_images', $imageUrl);
 
+
             $newImage = new tshirt_images();
             $newImage->name = $nome;
             $newImage->description = $descricao;
             $newImage->image_url = $imageUrl;
             $newImage->customer_id = Auth::user()->id ?? '';
             //dd($newImage);
+
             $newImage->save();
 
             return redirect()->route('catalogo.index')->with('message', 'Estampa "' . $nome . '" guardada em ' . $path . '.');
