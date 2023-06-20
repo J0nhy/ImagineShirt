@@ -9,6 +9,12 @@ use Illuminate\View\View;
 
 class orderController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(orders::class, 'order');
+    }
+
     public function index(): View
     {
         $allEncomendas = orders::paginate(10);

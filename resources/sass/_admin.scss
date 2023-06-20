@@ -1231,3 +1231,9 @@
     font-size: 13px;
     color: #fff;
 }
+
+.button-icon-col {
+    width: 70px; /* Largura fixa das colunas */
+    text-align: right; /* Alinhamento à direita do conteúdo */
+    padding-right: 0; /* Remover o preenchimento direito para encostar na borda */
+}
