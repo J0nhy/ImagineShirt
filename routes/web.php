@@ -78,3 +78,4 @@ Route::get('/password/change', [ChangePasswordController::class, 'show'])->name(
 Route::post('/password/change', [ChangePasswordController::class, 'store'])->name('password.change.store');
 
 Auth::routes(['verify'=> true]);
+

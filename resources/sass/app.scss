@@ -22,7 +22,7 @@
         justify-content: center;
         align-items: center;
 
-        &:has(.cart-form){
+        &:has(.cart-form), :has(.checkout-container){
             display: block;
         }
     }
