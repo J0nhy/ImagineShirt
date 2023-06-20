@@ -15,6 +15,21 @@
 @import 'admin';
 @import 'show';
 
+.content{
+    &.background{
+        min-height: calc(100vh - 84px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:has(.cart-form){
+            display: block;
+        }
+    }
+
+}
+
+
 // Custom Styles
 .imgCardBack {
     background-color: rgb(255 255 255 / 10%);

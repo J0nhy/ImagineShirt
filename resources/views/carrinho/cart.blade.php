@@ -145,7 +145,7 @@ $valorTotal=0;
 
 
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85 background" method="POST" action="checkout">
+	<form class="cart-form bg0 p-t-75 p-b-85 background" method="POST" action="checkout">
         @csrf <!-- {{ csrf_field() }} -->
 		<div class="container">
 			<div class="row">
