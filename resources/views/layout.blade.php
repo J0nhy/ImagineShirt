@@ -70,13 +70,13 @@
                     <div style="padding-left: 13px;">
                         @if (Auth::user())
                             <?php
-                                $nameParts = explode(' ', Auth::user()->name);
-                                $firstName = $nameParts[0];
+                            $nameParts = explode(' ', Auth::user()->name);
+                            $firstName = $nameParts[0];
                             ?>
                             {{ $firstName }}
                         @else
-                            <img src="/img/avatar_unknown.png" alt="Avatar" class="bg-dark rounded-circle" width="45"
-                            height="45">
+                            <img src="/img/avatar_unknown.png" alt="Avatar" class="bg-dark rounded-circle"
+                                width="45" height="45">
                         @endif
                     </div>
 
@@ -85,7 +85,7 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 @if (Auth::user())
-                                    <img src="{{Auth::user()->fullPhotoUrl}}" alt="Avatar"
+                                    <img src="{{ Auth::user()->fullPhotoUrl }}" alt="Avatar"
                                         class="bg-dark rounded-circle" width="45" height="45">
                                 @endif
                             </a>
@@ -98,27 +98,26 @@
                                             Senha</a></li>
                                     <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
                                     </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                            onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                            Sair
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
                                 @else
                                     <li><a class="dropdown-item" href="{{ route('login') }}">Login</a>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('register') }}">Registar</a>
                                     </li>
                                 @endif
-
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-                                <li>
-                                    <a class="dropdown-item"
-                                        onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                        Sair
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
-                                        @csrf
-                                    </form>
-                                </li>
                             </ul>
                         </li>
                     </ul>
