@@ -15,9 +15,11 @@ class CategoryPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user): bool
+    public function view(User $user, Category $categoria): bool
     {
-        return $user->user_type == 'A';
+        //$categoria = Category::findOrFail($category);
+        return $user->user_type == 'A' ;
+        //return true;
     }
 
     /**
@@ -31,7 +33,7 @@ class CategoryPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user): bool
+    public function update(User $user, Category $categoria): bool
     {
         return $user->user_type == 'A';
     }
@@ -39,8 +41,9 @@ class CategoryPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user): bool
+    public function delete(User $user, Category $categoria): bool
     {
         return $user->user_type == 'A';
     }
+
 }

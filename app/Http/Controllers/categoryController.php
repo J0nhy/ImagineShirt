@@ -13,7 +13,7 @@ class categoryController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(Category::class, 'categoria');
+       $this->authorizeResource(Category::class, 'categoria');
     }
 
     public function index(): View
@@ -22,12 +22,12 @@ class categoryController extends Controller
         return view('admin.categoria.index')->with('categorias', $allCategorias);
     }
 
-    public function show(String $categoria): View
+    public function show(Category $categoria): View
     {
         //dd(strtok($categoria, '-'));
-        $categoria = Category::findOrFail(strtok($categoria, '-'));
 
         return view('admin.categoria.show')->with('categoria', $categoria);
+
     }
 
     public function create(): View
@@ -73,15 +73,14 @@ class categoryController extends Controller
 
     }
 
-    public function destroy(string $categoria): RedirectResponse
+    public function destroy(Category $categoria): RedirectResponse
     {
 
             try{
 
-                $categoriaAEliminar = Category::find($categoria);
 
-                if($categoriaAEliminar != null){
-                    Category::where('id',$categoria)->delete();
+                if($categoria != null){
+                    Category::where('id',$categoria->id)->delete();
                 }
 
                 return redirect()->route('categorias.index')->with('message', "Categoria eliminada com sucesso.");

@@ -4,8 +4,6 @@ namespace App\Policies;
 
 use App\Models\User;
 
-use function Psy\debug;
-
 class OrdersPolicy
 {
     /**

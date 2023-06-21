@@ -76,7 +76,5 @@ Route::put('admin/categorias/recover/{categoria}', [categoryController::class, '
 
 Route::get('/password/change', [ChangePasswordController::class, 'show'])->name('password.change.show');
 Route::post('/password/change', [ChangePasswordController::class, 'store'])->name('password.change.store');
-Route::get('perfil', [perfilController::class, 'index'])->name('perfil.index');
 
 Auth::routes(['verify'=> true]);
-

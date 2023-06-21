@@ -1,4 +1,4 @@
-@can('view', \App\Models\colors::class)
+@can('view', $categoria)
 @extends('adminLayout')
 @section('main')
     <div>
@@ -11,7 +11,7 @@
             data-action="{{ route('categorias.destroy', ['categoria' => $categoria]) }}">
             Apagar Categoria
         </button>
-        <a href="{{ route('categorias.edit', ['categoria' => $categoria->slug]) }}" class="btn btn-secondary ms-3">Alterar Categoria</a>
+        <a href="{{ route('categorias.edit', ['categoria' => $categoria]) }}" class="btn btn-secondary ms-3">Alterar Categoria</a>
     </div>
 
 
