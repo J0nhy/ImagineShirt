@@ -11,10 +11,23 @@ use Illuminate\Support\Facades\DB;
 
 class categoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Category::class, 'categoria');
+    }
+
     public function index(): View
     {
         $allCategorias = Category::withTrashed()->paginate(10);
         return view('admin.categoria.index')->with('categorias', $allCategorias);
+    }
+
+    public function show(String $categoria): View
+    {
+        //dd(strtok($categoria, '-'));
+        $categoria = Category::findOrFail(strtok($categoria, '-'));
+
+        return view('admin.categoria.show')->with('categoria', $categoria);
     }
 
     public function create(): View
@@ -38,13 +51,6 @@ class categoryController extends Controller
             return redirect()->route('categorias.index');
 
 
-    }
-    public function show(String $categoria): View
-    {
-        //dd(strtok($categoria, '-'));
-        $categoria = Category::findOrFail(strtok($categoria, '-'));
-
-        return view('admin.categoria.show', compact('categoria'));
     }
 
     public function edit(Category $categoria): View

@@ -2,6 +2,39 @@
 @section('main')
     <section class="section dashboard">
         <h1>Encomendas</h1>
+        <form method="GET" action="{{ route('encomendas.index') }}" id="">
+            <div class="flex-grow-1 pe-2">
+                <div class="d-flex justify-content-between">
+                    <div class="flex-grow-1 mb-3 me-2 form-floating">
+                        <select class="form-select" name="status" id="inputType">
+                            <option {{ old('allOrders', $allOrders) === '' ? 'selected' : '' }}
+                                value="">Todos os tipos </option>
+                                @foreach ($allOrders->unique('status')->pluck('status') as $order)
+                                <option
+                                    {{ old('order', $filterByStatus) == $order ? 'selected' : '' }}
+                                    value="{{ $order }}">{{ $order }}</option>
+                            @endforeach
+                        </select>
+                        <label for="inputCategoria" class="form-label">Tipo</label>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="mb-3 me-2 flex-grow-1 form-floating">
+                        <input type="text" class="form-control" name="CostumerID" id="inputCostumerID"
+                            value="{{ old('CostumerID', $filterByCostumerID) }}">
+                        <label for="inputCostumerID" class="form-label">CostumerID</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="flex-shrink-1 d-flex flex-column justify-content-between">
+                <a class="btn btn-secondary mb-2 px-4 flex-shrink-1" style="visibility: hidden;">ffff</a>
+                <button type="submit" class="btn btn-primary mb-3 px-4 flex-grow-1"
+                    name="filtrar">Filtrar</button>
+                <a href="{{ route('encomendas.index') }}"
+                    class="btn btn-secondary mb-3 py-3 px-4 flex-shrink-1">Limpar</a>
+            </div>
+            </form>
         <table class="table">
             <thead class="table-dark">
                 <tr>
@@ -55,3 +88,4 @@
         </div>
     </section>
 @endsection
+

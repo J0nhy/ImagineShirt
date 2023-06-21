@@ -15,9 +15,9 @@ class CategoryPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Category $category): bool
+    public function view(User $user): bool
     {
-        return true;
+        return $user->user_type == 'A';
     }
 
     /**
@@ -31,16 +31,16 @@ class CategoryPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Curso $curso): bool
+    public function update(User $user): bool
     {
-        return $user->admin;
+        return $user->user_type == 'A';
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Curso $curso): bool
+    public function delete(User $user): bool
     {
-        return $user->admin;
+        return $user->user_type == 'A';
     }
 }

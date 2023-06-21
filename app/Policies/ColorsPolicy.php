@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\colors;
 use App\Models\User;
 
 class ColorsPolicy
@@ -17,9 +18,9 @@ class ColorsPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Category $category): bool
+    public function view(User $user): bool
     {
-        return true;
+        return $user->user_type == 'A';
     }
 
     /**
@@ -33,7 +34,7 @@ class ColorsPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Curso $curso): bool
+    public function update(User $user): bool
     {
         return $user->admin;
     }
