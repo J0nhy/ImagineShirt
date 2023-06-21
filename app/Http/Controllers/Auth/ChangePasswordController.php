@@ -21,8 +21,6 @@ class ChangePasswordController extends Controller
         $user = $request->user();
         $user->password = Hash::make($request->validated()['password']);
         $user->save();
-        return back()
-            ->with('alert-msg', 'A senha foi alterada com sucesso')
-            ->with('alert-type', 'success');
+        return back()->with('message', 'A senha foi alterada com sucesso');
     }
 }
