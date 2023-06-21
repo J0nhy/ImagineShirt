@@ -1,3 +1,4 @@
+@can('create', \App\Models\Category::class)
 @extends('adminLayout')
 @section('main')
 
@@ -11,3 +12,4 @@
         </div>
     </form>
 @endsection
+@endcan

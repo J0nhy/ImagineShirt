@@ -35,7 +35,7 @@ class UsersPolicy
      */
     public function update(User $user): bool
     {
-        return $user->admin;
+        return $user->user_type == 'A';
     }
 
     /**

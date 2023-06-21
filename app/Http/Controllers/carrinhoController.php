@@ -122,7 +122,7 @@ class carrinhoController extends Controller
 
         $output = $request->session()->get('cart');
         $request->session()->put('itemCount', count($array));
-        return redirect()->back()->with('message', "Artigo(s) adicionado(s): " . $id);
+        return redirect()->back()->with('message', "Artigo(s) removido(s): " . $id);
     }
 
     public function store(Request $request): RedirectResponse

@@ -56,7 +56,6 @@ Route::get('admin', [tshirt_imagesController::class, 'admin'])->name('admin.inde
 Route::resource('admin/categorias', categoryController::class);
 Route::resource('admin/cores', colorController::class);
 Route::resource('admin/encomendas', orderController::class);
-
 Route::resource('admin/users', UserController::class);
 
 Route::put('admin/cores/recover/{cor}', [colorController::class, 'recover'])->name('cores.recover');

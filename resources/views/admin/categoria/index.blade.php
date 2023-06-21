@@ -1,4 +1,3 @@
-
 @can('viewAny', \App\Models\Category::class)
 @extends('adminLayout')
 @section('main')
