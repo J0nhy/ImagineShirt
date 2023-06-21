@@ -56,7 +56,6 @@ Route::get('admin', [tshirt_imagesController::class, 'admin'])->name('admin.inde
 Route::resource('admin/categorias', categoryController::class);
 Route::resource('admin/cores', colorController::class);
 Route::resource('admin/encomendas', orderController::class);
-
 Route::resource('admin/users', UserController::class);
 
 Route::put('admin/cores/recover/{cor}', [colorController::class, 'recover'])->name('cores.recover');
@@ -77,6 +76,9 @@ Route::put('admin/categorias/recover/{categoria}', [categoryController::class, '
 
 Route::get('/password/change', [ChangePasswordController::class, 'show'])->name('password.change.show');
 Route::post('/password/change', [ChangePasswordController::class, 'store'])->name('password.change.store');
+Route::get('perfil', [perfilController::class, 'index'])->name('perfil.index');
+Route::post('update', [perfilController::class, 'update'])->name('perfil.update');
+Route::get('desativa', [perfilController::class, 'desativa'])->name('perfil.desativa');
 
 Auth::routes(['verify'=> true]);
 

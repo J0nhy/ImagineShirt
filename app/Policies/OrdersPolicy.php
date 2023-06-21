@@ -4,6 +4,8 @@ namespace App\Policies;
 
 use App\Models\User;
 
+use function Psy\debug;
+
 class OrdersPolicy
 {
     /**
@@ -11,6 +13,7 @@ class OrdersPolicy
      */
     public function viewAny(User $user): bool
     {
+
         return $user->user_type == 'A' || $user->user_type == 'E';
     }
 
@@ -19,6 +22,7 @@ class OrdersPolicy
      */
     public function view(User $user): bool
     {
+
         return $user->user_type == 'A' || $user->user_type == 'E';
     }
 
@@ -27,6 +31,7 @@ class OrdersPolicy
      */
     public function create(User $user): bool
     {
+
         return $user->user_type == 'A';
     }
 
@@ -35,6 +40,7 @@ class OrdersPolicy
      */
     public function update(User $user): bool
     {
+
         return $user->admin;
     }
 
@@ -43,6 +49,7 @@ class OrdersPolicy
      */
     public function delete(User $user): bool
     {
+
         return $user->admin;
     }
 }

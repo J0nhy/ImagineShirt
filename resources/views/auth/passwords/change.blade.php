@@ -1,5 +1,12 @@
 @extends('layout')
 @section('main')
+    {{-- inicio da Zona de testes para o carrinho --}}
+    @if (session('message'))
+        <script>
+            alert('{{ session('message') }}');
+        </script>
+    @endif
+    {{-- fim da Zona de testes para o carrinho --}}
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">

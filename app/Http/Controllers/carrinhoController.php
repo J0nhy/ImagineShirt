@@ -122,7 +122,7 @@ class carrinhoController extends Controller
 
         $output = $request->session()->get('cart');
         $request->session()->put('itemCount', count($array));
-        return redirect()->back()->with('message', "Artigo(s) adicionado(s): " . $id);
+        return redirect()->back()->with('message', "Artigo(s) removido(s): " . $id);
     }
 
     public function store(Request $request): RedirectResponse
@@ -157,8 +157,11 @@ class carrinhoController extends Controller
                         $newOrder->total_price = $total;
 
                         $newOrder->nif = $request->input('NIF');
-                        $newOrder->address = $request->input('Morada');
+                        $newOrder->address = $request->input('Morada') . 
+                        (isset($request->input('cod')) ? ", " . $request->input('cod') : "") . 
+                        (isset($request->input('Localidade')) ? ", " . $request->input('Localidade') : "");
                         $newOrder->payment_type = $request->input('payment');
+                        $newOrder->notes = $request->input('Descricao') ?? "";
 
                         $newOrder->payment_ref = $customer->default_payment_ref ?? (Auth::user()->mail ?? '');
                         $newOrder->save();

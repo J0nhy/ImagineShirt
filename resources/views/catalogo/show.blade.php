@@ -80,6 +80,7 @@
 
                         </div>
                         <br>
+
                         <div class="flex-w flex-c-str p-b-10">
                             <div class=" flex-w flex-m respon6-next">
                                 <div class="wrap-num-product flex-w  m-r-20 m-tb-10">
@@ -102,6 +103,7 @@
 
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

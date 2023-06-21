@@ -237,8 +237,6 @@
                                                 <li onclick="changePayment('VISA')" id="VISA">VISA</li>
                                                 <li onclick="changePayment('PAYPAL')"id="PAYPAL">PAYPAL</li>
                                                 <li onclick="changePayment('MC')"id="MC">MC</li>
-                                                <li onclick="changePayment('MB')"id="MB">MB</li>
-                                                <li onclick="changePayment('MBway')"id="MBway">MBway</li>
                                             </ul>
                                         </div>
                                     </div>

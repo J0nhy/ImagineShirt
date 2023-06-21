@@ -1,5 +1,5 @@
+@can('view', \App\Models\colors::class)
 @extends('adminLayout')
-
 @section('main')
     <div>
         @include('admin.categoria.shared.fields', ['readonlyData' => true])
@@ -16,3 +16,4 @@
 
 
 @endsection
+@endcan
