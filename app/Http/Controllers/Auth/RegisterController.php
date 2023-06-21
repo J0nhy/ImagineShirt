@@ -53,10 +53,6 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name'=> ['required', 'string', 'max:255'],
             'email'=> ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'Morada'=> 'string',
-            'Nif'=> ['integer', 'max:999999999','min:100000000','unique:customers'],
-            'Tipo de Pagamento Padrão'=> 'string',
-            'Referência de Pagamento Padrão'=>['string','unique:customers']
     ]);}
 
     /**

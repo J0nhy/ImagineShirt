@@ -76,5 +76,6 @@ Route::get('admin/users', [userController::class, 'index'])->name('users.index')
 
 Route::get('/password/change', [ChangePasswordController::class, 'show'])->name('password.change.show');
 Route::post('/password/change', [ChangePasswordController::class, 'store'])->name('password.change.store');
+Route::get('perfil', [perfilController::class, 'index'])->name('perfil.index');
 
 Auth::routes(['verify'=> true]);

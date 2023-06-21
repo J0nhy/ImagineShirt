@@ -92,7 +92,7 @@
 
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 @if (Auth::user())
-                                    <li><a class="dropdown-item" href="">Perfil</a>
+                                    <li><a class="dropdown-item" href="{{ route('perfil.index') }}">Perfil</a>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar
                                             Senha</a></li>
