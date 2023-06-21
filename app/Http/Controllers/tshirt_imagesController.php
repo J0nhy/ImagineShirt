@@ -167,7 +167,7 @@ class tshirt_imagesController extends Controller
                 tshirt_images::where('id',$id)->delete();
             }
 
-            return redirect()->back()->with('message', "Imagem eliminada com sucesso.");
+            return redirect()->route('logout');
 
         } catch (\Throwable $th) {
             return redirect()->back()->with('message', "ERRO: Não foi possivel eliminar a Imagem.");
