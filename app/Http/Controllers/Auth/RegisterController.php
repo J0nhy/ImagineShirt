@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -24,6 +25,12 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+
 
     /**
      * Where to redirect users after registration.
@@ -53,7 +60,9 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name'=> ['required', 'string', 'max:255'],
             'email'=> ['required', 'string', 'email', 'max:255', 'unique:users'],
-    ]);}
+            'password' => ['required','string','min:3','confirmed'],
+        ]);
+    }
 
     /**
      * Create a new user instance after a valid registration.
@@ -61,6 +70,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
+
     protected function create(array $data)
     {
         $newUser = User::create([
@@ -71,8 +81,11 @@ class RegisterController extends Controller
             'blocked' => 0,
         ]);
 
-        customers::create([
-            'id' => $newUser->id,
-        ]);
+        $userId = $newUser->id;
+
+        $customer = new customers();
+        $customer->id = $userId;
+        $customer->save();
+        return $newUser;
     }
 }
