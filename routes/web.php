@@ -57,9 +57,10 @@ Route::resource('admin/categorias', categoryController::class);
 Route::resource('admin/cores', colorController::class);
 Route::resource('admin/encomendas', orderController::class);
 
+Route::resource('admin/users', UserController::class);
 
-
-Route::get('admin/users', [userController::class, 'index'])->name('users.index');
+Route::put('admin/cores/recover/{cor}', [colorController::class, 'recover'])->name('cores.recover');
+Route::put('admin/categorias/recover/{categoria}', [categoryController::class, 'recover'])->name('categorias.recover');
 //Route::get('admin/categorias', [categoryController::class, 'index'])->name('categorias.index');
 //Route::get('admin/cores', [colorController::class, 'index'])->name('cores.index');
 //Route::get('admin/encomendas', [orderController::class, 'index'])->name('encomendas.index');
@@ -79,3 +80,4 @@ Route::post('/password/change', [ChangePasswordController::class, 'store'])->nam
 Route::get('perfil', [perfilController::class, 'index'])->name('perfil.index');
 
 Auth::routes(['verify'=> true]);
+

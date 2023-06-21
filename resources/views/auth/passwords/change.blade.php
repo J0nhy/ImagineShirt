@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header bg-dark text-light">Alterar Senha</div>
+                    <div class="card-header bg-white text-dark" style="margin-bottom: 20px;">Alterar Senha</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('password.change.store') }}" novalidate>

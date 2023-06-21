@@ -13,7 +13,7 @@ class categoryController extends Controller
 {
     public function index(): View
     {
-        $allCategorias = Category::paginate(10);
+        $allCategorias = Category::withTrashed()->paginate(10);
         return view('admin.categoria.index')->with('categorias', $allCategorias);
     }
 
@@ -26,16 +26,7 @@ class categoryController extends Controller
 
     public function store(CategoryRequest $request): RedirectResponse
     {
-        //$this->authorize('create', CursoController::class);
-        /*
-        $newCategoria = Category::create($request->validated());
-        $url = route('admin.categorias.create', ['categoria' => $newCategoria]);
-        $htmlMessage = "Categoria <a href='$url'>{$newCategoria->nome}</a>
-                        <strong>\"{$newCategoria->nome}\"</strong> foi criado com sucesso!";
-        return redirect()->route('admin.categorias.index')
-            ->with('alert-msg', $htmlMessage)
-            ->with('alert-type', 'success');
-        */
+
 
             $nome = $_POST['name'];
 
@@ -73,28 +64,43 @@ class categoryController extends Controller
         return redirect()->route('categorias.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
-            /*
-            $formData = $request->validated();
-            $category = DB::transaction(function () use ($formData, $categoria, $request) {
-                $categoria->name = $formData['inputNome'];
-                $categoria->save();
-                return $categoria;
-            });
-            $url = route('admin.categorias.show', ['categoria' => $categoria]);
-            $htmlMessage = "Category <a href='$url'>{$category->name}</a> foi alterada com sucesso!";
-            return redirect()->route('admin.categorias.index')
-                ->with('alert-msg', $htmlMessage)
-                ->with('alert-type', 'success');
-            */
-            /*
-            @dump($categoria);
-            $category = Category::where('name', '=', $categoria->name )->first();
-            if ($category) {
-                $category->name = $request->input('inputNome');
-                dd($category);
-                $category->save();
 
-            }*/
+    }
+
+    public function destroy(string $categoria): RedirectResponse
+    {
+
+            try{
+
+                $categoriaAEliminar = Category::find($categoria);
+
+                if($categoriaAEliminar != null){
+                    Category::where('id',$categoria)->delete();
+                }
+
+                return redirect()->route('categorias.index')->with('message', "Categoria eliminada com sucesso.");
+
+            } catch (\Throwable $th) {
+                return redirect()->route('categorias.index')->with('message', "ERRO: Não foi possivel eliminar a categoria.");
+            }
+
+    }
+
+    public function recover(string $categoria): RedirectResponse
+    {
+        try{
+
+            if(Category::where('id',$categoria) != null){
+                Category::where('id',$categoria)->restore();
+            }
+
+            return redirect()->route('categorias.index')->with('message', "Categoria restaurada com sucesso.");
+
+        } catch (\Throwable $th) {
+            return redirect()->route('categorias.index')->with('message', "ERRO: Não foi possivel restaurar a categoria.");
+        }
+
+
 
     }
 
