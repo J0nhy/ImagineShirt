@@ -34,16 +34,24 @@ class pedidosController extends Controller
             $imageId = order_items::where('order_id', '=', $id)->pluck('tshirt_image_id');
             $colorCode = order_items::where('order_id', '=', $id)->pluck('color_code');
 
-            $image = tshirt_images::whereIn('id', $imageId)->withTrashed()->get();
-            $cor = colors::whereIn('code', $colorCode)->withTrashed()->pluck("name");
+            $iterator = 0;
+            foreach($imageId as $img){
+                $image[$iterator] = tshirt_images::where('id', $img)->withTrashed()->first();
+                $iterator++;
+            }
+            $iterator = 0;
+            foreach($colorCode as $color){
+                $cor[$iterator] = colors::where('code', $color)->withTrashed()->first();
+                $iterator++;
+            }
 
             $iterator = 0;
             foreach ($products as $produto) {
                 $produtos[$produto->id] = array(
                     "image_url" => $image[$iterator]["image_url"],
                     "name" => $image[$iterator]["name"],
-                    "cor" => isset($cor[$iterator]) ?  $cor[$iterator] : 'null',
-                    "colorCode" => isset($colorCode) ?  $colorCode[0] : 'null',
+                    "cor" => isset($cor[$iterator]["name"]) ?  $cor[$iterator]["name"] : 'null',
+                    "colorCode" => isset($colorCode[$iterator]) ?  $colorCode[$iterator] : 'null',
                     "size" => $produto->size,
                     "id" => $produto->id,
                     "qtd" => $produto->qty,
@@ -52,8 +60,8 @@ class pedidosController extends Controller
                 );
                 $iterator++;
             }
-
             return view('pedidos.orderDetails')->with('produtos', $produtos);
+
         } else {
             return abort(403, 'This action is Unauthorized');
         }

@@ -38,18 +38,18 @@ $iterator = 0;
                 @foreach ($produtos as $item)
                     <tr class="table_row" style="border-bottom: 0px solid transparent;">
                         <td class="column-1">
-                            <div class="how-itemcart1" onclick="expandirImagem('#img<?= $iterator ?>')">
+                            <div class="how-itemcart1" onclick="expandirImagem('<?= $iterator ?>')">
                                 <img src="/tshirt_images/{{ $item['image_url'] }}" class="card-img-top center"
                                     alt="{{ $item['image_url'] }}" id="img<?= $iterator ?>">
                             </div>
                             <!-- Pop-up -->
-                            <div class="popup" onclick="fecharPopUp()">
+                            <div class="popup" id="popup<?= $iterator ?>" onclick="fecharPopUp('<?= $iterator ?>')">
                                 <div class="popup-content">
                                     <img id="baseTshirt" src="/tshirt_base/{{ $item['colorCode'] }}.png" alt="IMG-PRODUCT"
                                         style="width: 80%; height: 80%; max-height: none;object-fit: contain; position:absolute; z-index: 1;">
                                     <div
                                         style="height: 350px; width: 300px;  position:absolute; z-index: 2; top: 50%; left: 50.5%; transform: translate(-52%,-50%);">
-                                        <img id="fotoTshirt"src="/tshirt_images/{{ $item['image_url'] }}" alt="IMG-PRODUCT"
+                                        <img id="fotoTshirt<?= $iterator ?>" src="/tshirt_images/{{ $item['image_url'] }}" alt="IMG-PRODUCT"
                                             style="object-fit: cover; max-width:215px; max-height:410px;"
                                             class="popup-image">
                                     </div>
@@ -70,9 +70,9 @@ $iterator = 0;
     </div>
     <script>
         function expandirImagem(img) {
-            var imagem = document.querySelector(img);
-            var popup = document.querySelector('.popup');
-            var popupImage = document.querySelector('.popup-image');
+            var imagem = document.querySelector('#img'+img);
+            var popup = document.querySelector('#popup'+img);
+            var popupImage = document.querySelector('#fotoTshirt'+img);
 
             // Define a imagem expandida
             popupImage.src = imagem.src;
@@ -81,8 +81,8 @@ $iterator = 0;
             popup.style.display = 'flex';
         }
 
-        function fecharPopUp() {
-            var popup = document.querySelector('.popup');
+        function fecharPopUp(img) {
+            var popup = document.querySelector('#popup'+img);
             popup.style.display = 'none';
         }
     </script>

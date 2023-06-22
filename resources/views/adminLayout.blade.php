@@ -73,12 +73,17 @@
 
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         @if (Auth::user())
-                            <li><a class="dropdown-item" href="">Perfil</a>
-                            </li>
+
+                           @if(Auth::user()->user_type == 'C')
+                              <li><a class="dropdown-item" href="">Perfil</a>
+                              </li>
+                            @endif
                             <li><a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar
                                     Senha</a></li>
-                            <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
-                            </li>
+                            @if(Auth::user()->user_type == 'C')
+                              <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
+                              </li>
+                            @endif
                         @else
                             <li><a class="dropdown-item" href="{{ route('login') }}">Login</a>
                             </li>

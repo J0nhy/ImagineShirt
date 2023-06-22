@@ -101,19 +101,28 @@
             </div>
             <div class="col-sm-9">
                 <div class="row background">
-                    <div style="text-align: right;">
-                        <h3 style="cursor: pointer; display: inline;" class="marginr5 hoverEffect"
-                            onclick="expandirOuRecolher()">As Minhas Imagens
-                            <i class="zmdi zmdi-caret-down icon" style="height: 85%;"> </i>
-                        </h3>
-                        <h3 style="display: inline; cursor: default;">|
-                            <a style="text-decoration: none; color: #444444;" href="{{ route('catalogo.edit') }}">
-                                <i class="zmdi zmdi-edit hoverEffect" style="cursor: pointer;"></i>
-                            </a>
-                        </h3>
-                    </div>
-                    <hr>
-                    <br>
+                    @if (Auth::user())
+                        
+                        @if(Auth::user()->user_type != 'E')
+                            <div style="text-align: right;">
+                                @if(Auth::user()->user_type == 'C')
+                                    <h3 style="cursor: pointer; display: inline;" class="marginr5 hoverEffect"
+                                        onclick="expandirOuRecolher()">As Minhas Imagens
+                                        <i class="zmdi zmdi-caret-down icon" style="height: 85%;"> </i>
+                                    </h3>
+                                @else
+                                    <h3 style="display: inline;" class="marginr5">Gerir imagens </h3>
+                                @endif
+                                <h3 style="display: inline; cursor: default;">|
+                                    <a style="text-decoration: none; color: #444444;" href="{{ route('catalogo.edit') }}">
+                                        <i class="zmdi zmdi-edit hoverEffect" style="cursor: pointer;"></i>
+                                    </a>
+                                </h3>
+                            </div>
+                            <hr>
+                            <br>
+                        @endif
+                    @endif
                     <div class="expansivel background" id="minhaDiv">
                         <div class="ver-mais background">
                             @if (count($imagensPrivadas) >= 1)
