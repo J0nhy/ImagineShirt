@@ -44,7 +44,7 @@
                         <div class="mb-3 me-2 flex-grow-1 form-floating">
                             <input type="text" class="form-control" name="name" id="inputName"
                                 value="{{ old('name', $filterByNome) }}">
-                            <label for="inputName" class="form-label">Nome</label>
+                            <label for="inputName" class="form-label">Pesquisar</label>
                         </div>
                     </div>
 
