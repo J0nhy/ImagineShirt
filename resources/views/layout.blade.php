@@ -45,10 +45,20 @@
                                 <a href="{{ route('carrinho.cart') }}">Carrinho</a>
                             </li>
                         @endif
-                        @if (Auth::user()->user_type == 'A' || Auth::user()->user_type == 'E')
-                            <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Admin</a>
-                            </li>
+                        @if (Auth::user())
+                            @if (Auth::user()->user_type == 'A')
+                                <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Admin</a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->user_type == 'E')
+                                <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Empregado</a>
+                                </li>
+                            @endif
                         @endif
+
+
+
+
 
                     </ul>
 
@@ -101,13 +111,14 @@
                                 @if (Auth::user())
                                     <li><a class="dropdown-item" href="{{ route('perfil.index') }}">Perfil</a>
                                     </li>
-                                    @if(Auth::user()->user_type == 'A')
-                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Admin</a>
-                                    </li>
+                                    @if (Auth::user()->user_type == 'A')
+                                        <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Admin</a>
+                                        </li>
                                     @endif
-                                    @if(Auth::user()->user_type == 'E')
-                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Empregado</a>
-                                    </li>
+                                    @if (Auth::user()->user_type == 'E')
+                                        <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu
+                                                Empregado</a>
+                                        </li>
                                     @endif
                                     <li><a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar
                                             Senha</a></li>
@@ -221,9 +232,15 @@
                         <a href="{{ route('carrinho.cart') }}">Carrinho</a>
                     </li>
                 @endif
-                @if (Auth::user()->user_type == 'A' || Auth::user()->user_type == 'E')
-                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Admin</a>
-                    </li>
+                @if (Auth::user())
+                    @if (Auth::user()->user_type == 'A')
+                        <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Admin</a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->user_type == 'E')
+                        <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Empregado</a>
+                        </li>
+                    @endif
                 @endif
             </ul>
         </div>
