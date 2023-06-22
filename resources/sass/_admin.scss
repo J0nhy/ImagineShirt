@@ -1237,3 +1237,23 @@
     text-align: right; /* Alinhamento à direita do conteúdo */
     padding-right: 0; /* Remover o preenchimento direito para encostar na borda */
 }
+
+.my-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.my-table th, .my-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.my-table th {
+    background-color: #171923;
+    font-weight: bold;
+}
+
+.my-table tr:hover {
+    background-color: #171923;
+}

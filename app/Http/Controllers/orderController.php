@@ -57,9 +57,6 @@ class orderController extends Controller
                 $orderQuery->where('status', $filterByStatus);
             }
 
-
-
-
             if ($filterByCostumerID !== '') {
                 $encomendas = orders::where('customer_id', 'like', "%$filterByCostumerID%")->pluck('id');
                 $orderQuery->whereIntegerInRaw('id', $encomendas);

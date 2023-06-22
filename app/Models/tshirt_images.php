@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Models\order_items;
+
 
 class tshirt_images extends Model
 {
@@ -24,4 +26,5 @@ class tshirt_images extends Model
 
         return $this->id . '-' . Str::slug($this->name , "-");
     }
+
 }
