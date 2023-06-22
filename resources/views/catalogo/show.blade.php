@@ -1,14 +1,23 @@
 @extends('layout')
 @section('main')
-    {{-- inicio da Zona de testes para o carrinho --}}
-    @if (session('message'))
-        <script>
-            alert('{{ session('message') }}');
-        </script>
-    @endif
-    {{-- fim da Zona de testes para o carrinho --}}
+<div class="container">
 
-    <section class="sec-product-detail bg0 background">
+    <!-- breadcrumb -->
+    <div class="bread-crumb flex-w p-l-25 p-r-15 p-lr-0-lg breadcrumbs" style="margin-bottom: 0%">
+        <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+            Home
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <a href="{{ route('catalogo.index') }}" class="stext-109 cl8 hov-cl1 trans-04">
+            Catálogo
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <span class="stext-109 cl4">
+            Personalizar
+        </span>
+    </div>
 
         <div class="container bg0 p-t-65 background">
             <div class="row customShirtBack">

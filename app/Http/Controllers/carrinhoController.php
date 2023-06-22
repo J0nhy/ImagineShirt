@@ -158,8 +158,8 @@ class carrinhoController extends Controller
 
                         $newOrder->nif = $request->input('NIF');
                         $newOrder->address = $request->input('Morada') . 
-                        (isset($request->input('cod')) ? ", " . $request->input('cod') : "") . 
-                        (isset($request->input('Localidade')) ? ", " . $request->input('Localidade') : "");
+                        ($request->input('cod') !== null ? ", " . $request->input('cod') : "") . 
+                        ($request->input('Localidade') !== null ? ", " . $request->input('Localidade') : "");
                         $newOrder->payment_type = $request->input('payment');
                         $newOrder->notes = $request->input('Descricao') ?? "";
 

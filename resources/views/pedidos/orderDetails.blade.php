@@ -3,44 +3,30 @@ $iterator = 0;
 ?>
 @extends('layout')
 @section('main')
-    <div class="background">
+    <div class="container">
         @if (session('message'))
             <script>
                 alert('{{ session('message') }}');
             </script>
         @endif
-        <!-- Modal Search -->
-        <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-            <div class="container-search-header">
-                <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-                    <img src="images/icons/icon-close2.png" alt="CLOSE">
-                </button>
-
-                <form class="wrap-search-header flex-w p-l-15">
-                    <button class="flex-c-m trans-04">
-                        <i class="zmdi zmdi-search"></i>
-                    </button>
-                    <input class="plh3" type="text" name="search" placeholder="Search...">
-                </form>
-            </div>
-        </div>
-        </header>
-
         <!-- breadcrumb -->
-        <div class="container">
-            <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-                <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
-                    Home
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
+        <div class="bread-crumb flex-w p-l-25 p-r-15 p-lr-0-lg breadcrumbs">
+            <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+                Home
+                <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+            </a>
 
-                <span class="stext-109 cl4">
-                    Shoping Cart
-                </span>
-            </div>
+            <a href="{{ route('pedidos.orders') }}" class="stext-109 cl8 hov-cl1 trans-04">
+                Pedidos
+                <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+            </a>
+
+            <span class="stext-109 cl4">
+                Detalhes
+            </span>
         </div>
 
-        <div class="tableList background" style="margin: 5% 20% 0% 20%; ">
+        <div class="tableList background" style="margin: 5% 10% 0% 10%; ">
             <table class="table-shopping-cart">
                 <tr class="table_head" style="border-top: 0px solid transparent;">
                     <th class="column-1">Product</th>
@@ -100,6 +86,7 @@ $iterator = 0;
             popup.style.display = 'none';
         }
     </script>
-    </body>
+@endsection
+</body>
 
-    </html>
+</html>
