@@ -20,7 +20,7 @@
         min-height: calc(100vh - 84px);
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
 
         &:has(.cart-form), :has(.checkout-container){
             display: block;
@@ -304,7 +304,11 @@ b {
     font-family: "Poppins-Bold";
 }
 
-
+.breadcrumbs{
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 7.5%;
+}
 /* tabela tipo lista */
 
 .cols {

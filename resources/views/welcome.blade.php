@@ -1,6 +1,6 @@
 @extends('layout')
 @section('main')
-<body class="bg0">
+<div style="width: 100%; padding: 0%; margin: 0%;">
     <section class="carousel" aria-label="Gallery">
         <ol class="carousel__viewport">
             <li id="carousel__slide1" tabindex="0" class="carousel__slide">
@@ -26,7 +26,13 @@
             </li>
         </ol>
     </section>
+    <h3 class="center linkBranco" style="margin-top: -20%;">Projeto Desenvolvido no âmbito de Aplicações para a Internet</h3><br>
+    <h4 class="center" style="color: rgb(175, 0, 0)">Developers:  
+        <span class="textCardBack">João Lopes | </span>
+        <span class="textCardBack">João Custódio | </span>
+        <span class="textCardBack">Diogo Leonardo</span>
+    </h4>
+</div>
     </body>
-
-
     </html>
+@endsection

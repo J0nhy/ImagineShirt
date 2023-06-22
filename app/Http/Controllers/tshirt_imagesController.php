@@ -126,9 +126,9 @@ class tshirt_imagesController extends Controller
 
             $newImage->save();
 
-            return redirect()->route('catalogo.index')->with('message', 'Estampa "' . $nome . '" guardada em ' . $path . '.');
+            return redirect()->back()->with('message', 'Estampa "' . $nome . '" guardada em ' . $path . '.');
         } catch (\Throwable $th) {
-            return redirect()->route('catalogo.index')->with('message', "Estampa não guardada. ERRO: " . $th . ".");
+            return redirect()->back()->with('message', "Estampa não guardada. ERRO: " . $th . ".");
         }
     }
     public function edit(): View
@@ -167,7 +167,7 @@ class tshirt_imagesController extends Controller
                 tshirt_images::where('id',$id)->delete();
             }
 
-            return redirect()->route('logout');
+            return redirect()->back()->with('message', "Imagem eliminada com sucesso.");
 
         } catch (\Throwable $th) {
             return redirect()->back()->with('message', "ERRO: Não foi possivel eliminar a Imagem.");
