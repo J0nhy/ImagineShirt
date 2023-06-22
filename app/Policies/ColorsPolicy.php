@@ -18,7 +18,7 @@ class ColorsPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user): bool
+    public function view(User $user, colors $core): bool
     {
         return $user->user_type == 'A';
     }
@@ -26,24 +26,16 @@ class ColorsPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user, colors $core): bool
     {
         return $user->user_type == 'A';
     }
 
     /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user): bool
-    {
-        return $user->admin;
-    }
-
-    /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Curso $curso): bool
+    public function delete(User $user, colors $core): bool
     {
-        return $user->admin;
+        return $user->user_type == 'A';
     }
 }

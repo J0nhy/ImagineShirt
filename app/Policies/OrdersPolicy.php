@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\orders;
 use App\Models\User;
 
 class OrdersPolicy
@@ -18,7 +19,7 @@ class OrdersPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user): bool
+    public function view(User $user, orders $encomenda): bool
     {
 
         return $user->user_type == 'A' || $user->user_type == 'E';

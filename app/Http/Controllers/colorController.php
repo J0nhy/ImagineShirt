@@ -18,7 +18,7 @@ class colorController extends Controller
 
     public function __construct()
     {
-        $this->authorizeResource(colors::class, 'cor');
+        $this->authorizeResource(colors::class, 'core');
     }
 
     public function index(): View
@@ -27,13 +27,12 @@ class colorController extends Controller
         return view('admin.cores.index')->with('cores', $allColors);
     }
 
-    public function show(string $cor): View
+    public function show(colors $core): View
     {
         //dd(strtok($categoria, '-'));
         //$cor = colors::findOrFail($cor);
 
-        $cor =colors::findOrFail($cor);
-        return view('admin.cores.show', compact('cor'));
+        return view('admin.cores.show')->with('core', $core);
         //return view('admin.cores.show', compact('cores'));
     }
 
@@ -75,15 +74,12 @@ class colorController extends Controller
 
 
     }
-    public function destroy(string $cor): RedirectResponse
+    public function destroy(colors $core): RedirectResponse
     {
 
             try{
-
-                $corAEliminar = colors::find($cor);
-
-                if($corAEliminar != null){
-                    colors::where('code',$cor)->delete();
+                if($core != null){
+                    colors::where('code',$core->code)->delete();
                 }
 
                 return redirect()->route('cores.index')->with('message', "Cor eliminada com sucesso.");

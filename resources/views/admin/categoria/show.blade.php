@@ -1,4 +1,4 @@
-@can('view', $categoria)
+@can('view', $categoria )
 @extends('adminLayout')
 @section('main')
     <div>

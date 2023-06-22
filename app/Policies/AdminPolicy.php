@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 
-class AdminPanelPolicy
+class AdminPolicy
 {
     /**
      * Create a new policy instance.

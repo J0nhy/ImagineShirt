@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\users;
+use Database\Factories\UserFactory;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
@@ -24,6 +25,9 @@ class userController extends Controller
         $users = users::paginate(10);
         $usersTypes = users::all();
         $filterByType = $request->user_type ?? '';
+        $filterByNome = $request->name ?? '';
+        $filterByBlocked = $request->blocked ?? '';
+
 
         $userQuery = users::query();
 
@@ -31,15 +35,30 @@ class userController extends Controller
             $userQuery->where('user_type', $filterByType);
         }
 
+        if ($filterByNome !== '') {
+            $users = users::where('name', 'like', "%$filterByNome%")->pluck('id');
+            $userQuery->whereIntegerInRaw('id', $users);
+        }
+        if ($filterByBlocked !== '') {
+            $userQuery->where('blocked', $filterByBlocked);
+        }
+
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
-        $users = $userQuery->paginate(10);
+        $users = $userQuery->withTrashed()->paginate(10);
 
         return view('admin.user.index', compact(
             'filterByType',
             'users',
-            'usersTypes'
+            'usersTypes',
+            'filterByNome',
+            'filterByBlocked'
         ));
 
+    }
+    public function show(users $user): View
+    {
+
+        return view('admin.user.show')->with('user', $user);
     }
 
     public function create(): View
@@ -55,6 +74,7 @@ class userController extends Controller
             $nome = $_POST['name'];
             $email = $_POST['email'];
             $password = $_POST['password'];
+            $tipo = $_POST['tipo'];
             //$imageUrl = basename($_FILES["imagem"]["name"]);
             $newUser = new users();
             if($_FILES["imagem"]["name"] == ""){
@@ -80,6 +100,7 @@ class userController extends Controller
 
             $newUser->name = $nome;
             $newUser->email = $email;
+            $newUser->user_type = $tipo;
              // password is form field
             $hashed = Hash::make($password);
             $newUser->password = $hashed;
@@ -95,31 +116,33 @@ class userController extends Controller
 
     }
 
-    public function show(string $user): View
-    {
-        //dd(strtok($categoria, '-'));
-        //$cor = colors::findOrFail($cor);
 
-        $user =users::findOrFail($user);
-        return view('admin.user.show', compact('user'));
-        //return view('admin.cores.show', compact('cores'));
+    public function update(UserRequest $request, users $user): RedirectResponse
+    {
+        //$this->authorize('update', $curso);
+        //dd($categoria);
+        $user->update($request->validated());
+        $url = route('users.show', ['user' => $user]);
+        $htmlMessage = "User <a href='$url'>{$user->name}</a>
+                        <strong>\"{$user->name}\"</strong> foi alterada com sucesso!";
+        return redirect()->route('users.index')
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
+
     }
 
     public function edit(users $user): View
     {
         //$this->authorize('update', $curso);
-        return view('admin.users.edit')->withUser($user);
+        return view('admin.user.edit')->withUser($user);
     }
 
-    public function destroy(string $user): RedirectResponse
+    public function destroy(users $user): RedirectResponse
     {
 
             try{
-
-                $userEliminar = users::find($user);
-
-                if($userEliminar != null){
-                    users::where('id',$user)->delete();
+                if($user != null){
+                    users::where('id',$user->id)->delete();
                 }
 
                 return redirect()->route('users.index')->with('message', "User eliminado com sucesso.");
@@ -127,6 +150,70 @@ class userController extends Controller
             } catch (\Throwable $th) {
                 return redirect()->route('users.index')->with('message', "ERRO: Não foi possivel eliminar a cor.");
             }
+
+    }
+
+    public function recover(string $user): RedirectResponse
+    {
+        try{
+
+            if($user != null){
+                users::where('id',$user)->restore();
+            }
+
+            return redirect()->route('users.index')->with('message', "User restaurado com sucesso.");
+
+        } catch (\Throwable $th) {
+            return redirect()->route('users.index')->with('message', "ERRO: Não foi possivel restaurar o user.");
+        }
+
+
+
+    }
+
+    public function block(string $user): RedirectResponse
+    {
+
+        try{
+            $userToChange = users::where('id','=' ,$user)->first();
+
+
+        if ($userToChange->deleted_at != null)
+            return redirect()->back()->with('errorMessage', "Não podes alterar um user apagado");
+        else
+            $userToChange->blocked = 1;
+
+        $userToChange->save();
+
+            return redirect()->route('users.index')->with('message', "User restaurado com sucesso.");
+
+        } catch (\Throwable $th) {
+            return redirect()->route('users.index')->with('message', "ERRO: Não foi possivel restaurar o user.");
+        }
+
+
+    }
+
+    public function unblock(string $user): RedirectResponse
+    {
+        try{
+            $userToChange = users::where('id','=' ,$user)->first();
+
+
+        if ($userToChange->deleted_at != null)
+            return redirect()->back()->with('errorMessage', "Não podes alterar um user apagado");
+        else
+            $userToChange->blocked = 0;
+
+        $userToChange->save();
+
+            return redirect()->route('users.index')->with('message', "User restaurado com sucesso.");
+
+        } catch (\Throwable $th) {
+            return redirect()->route('users.index')->with('message', "ERRO: Não foi possivel restaurar o user.");
+        }
+
+
 
     }
 }

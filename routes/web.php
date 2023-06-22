@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\tshirt_imagesController;
 use App\Http\Controllers\carrinhoController;
@@ -50,16 +51,26 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('admin', [tshirt_imagesController::class, 'admin'])->name('admin.index');
 
+//Route::get('admin', [tshirt_imagesController::class, 'admin'])->name('admin.index');
+Route::get('admin', [adminController::class, 'index'])->name('admin.index');
 
 Route::resource('admin/categorias', categoryController::class);
 Route::resource('admin/cores', colorController::class);
 Route::resource('admin/encomendas', orderController::class);
-Route::resource('admin/users', UserController::class);
+Route::resource('admin/users', userController::class);
 
 Route::put('admin/cores/recover/{cor}', [colorController::class, 'recover'])->name('cores.recover');
 Route::put('admin/categorias/recover/{categoria}', [categoryController::class, 'recover'])->name('categorias.recover');
+Route::put('admin/users/recover/{user}', [userController::class, 'recover'])->name('users.recover');
+
+Route::put('admin/users/block/{user}', [userController::class, 'block'])->name('users.block');
+Route::put('admin/users/unblock/{user}', [userController::class, 'unblock'])->name('users.unblock');
+
+Route::put('admin/users/paid/{encomenda}', [orderController::class, 'paid'])->name('encomendas.paid');
+Route::put('admin/users/closed/{encomenda}', [orderController::class, 'closed'])->name('encomendas.closed');
+Route::put('admin/users/canceled/{encomenda}', [orderController::class, 'canceled'])->name('encomendas.canceled');
+
 //Route::get('admin/categorias', [categoryController::class, 'index'])->name('categorias.index');
 //Route::get('admin/cores', [colorController::class, 'index'])->name('cores.index');
 //Route::get('admin/encomendas', [orderController::class, 'index'])->name('encomendas.index');
@@ -71,6 +82,8 @@ Route::put('admin/categorias/recover/{categoria}', [categoryController::class, '
 //Route::put('admin/categorias/update/{categorias}', [categoryController::class, 'update'])->name('categorias.update');
 //Route::put('update/{categorias}', [categoryController::class, 'update'])->name('categorias.update');
 
+//Route::post('admin/users/destroy', [UserController::class, 'destroy'])->name('users.destroy');
+//Route::get('admin/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
 //teste
 //Route::resource('docentes', tshirt_imagesController::class);
 

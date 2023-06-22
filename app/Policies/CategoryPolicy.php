@@ -7,6 +7,8 @@ use App\Models\Category;
 
 class CategoryPolicy
 {
+
+
     public function viewAny(User $user): bool
     {
         return $user->user_type == 'A';

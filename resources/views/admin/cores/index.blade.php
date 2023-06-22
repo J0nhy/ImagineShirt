@@ -1,3 +1,4 @@
+@can('viewAny', \App\Models\colors::class)
 @extends('adminLayout')
 @section('main')
 <div class="justify-content-end " style="display: flex">
@@ -20,13 +21,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($cores as $cor)
+                @foreach ($cores as $core)
                     <tr>
-                        <td>{{ $cor->name }}</td>
-                        <td>{{ $cor->deleted_at }}</td>
+                        <td>{{ $core->name }}</td>
+                        <td>{{ $core->deleted_at }}</td>
                         <td class="button-icon-col">
 
-                            <a class="btn btn-secondary" href="{{ route('cores.show', ['core' => $cor->code]) }}">
+                            <a class="btn btn-secondary" href="{{ route('cores.show', ['core' => $core]) }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-pen" viewBox="0 0 16 16">
                                     <path
@@ -35,7 +36,7 @@
 
                         </td>
                         <td class="button-icon-col">
-                            <form method="POST" action="{{ route('cores.destroy', ['core' => $cor->code]) }}">
+                            <form method="POST" action="{{ route('cores.destroy', ['core' => $core]) }}">
                                 @csrf
 
                                 @method('DELETE')
@@ -48,7 +49,7 @@
                             </form>
                         </td>
                         <td class="button-icon-col">
-                            <form method="POST" action="{{ route('cores.recover', ['cor' => $cor->code]) }}">
+                            <form method="POST" action="{{ route('cores.recover', ['cor' => $core->code]) }}">
                                 @csrf
 
                                 @method('PUT')
@@ -69,4 +70,4 @@
         </div>
     </section>
 @endsection
-
+@endcan

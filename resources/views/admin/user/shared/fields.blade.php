@@ -87,7 +87,6 @@
                 </div>
             @enderror
         </div>
-@dump($errors)
 
 
     </div>

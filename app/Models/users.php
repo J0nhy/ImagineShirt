@@ -11,6 +11,7 @@ class users extends Model
     use HasFactory;
     use SoftDeletes;
     public $timestamps = true;
+    protected $primaryKey = 'id';
     protected $fillable = [
-        'name', 'email', 'user_type', 'password', 'photo_url'];
+        'id','name', 'email', 'user_type', 'password', 'photo_url'];
 }
