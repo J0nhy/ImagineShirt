@@ -8,7 +8,7 @@
                 Home
                 <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
-    
+
             <span class="stext-109 cl4">
                 Catálogo
             </span>
@@ -25,7 +25,7 @@
                                         <select class="form-select" name="categoriaOrder" id="inputOrderCategoria">
                                             <option {{ old('categoriaOrder', $orderByCategoria) === '' ? 'selected' : '' }}
                                                 value="">Ordenar por</option>
-                                            @foreach ($table_names as $campo)
+                                            @foreach ($filteredColumns as $campo)
                                                 <option
                                                     {{ old('categoriaOrder', $orderByCategoria) == $campo ? 'selected' : '' }}
                                                     value="{{ $campo }}">{{ $campo }}</option>
@@ -35,18 +35,11 @@
 
                                     </div>
                                     <div class="flex-grow-1 mb-3 me-2 form-floating">
-                                        <select class="form-select" name="categoriaOrderAscDesc"
-                                            id="inputOrderCategoriaAscDesc">
-                                            <option
-                                                {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === '' ? 'selected' : '' }}
-                                                value="asc">Ascendente</option>
-                                            <option
-                                                {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === '' ? 'selected' : '' }}
-                                                value="desc">Descendente</option>
-
+                                        <select class="form-select" name="categoriaOrderAscDesc" id="inputOrderCategoriaAscDesc">
+                                            <option {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === 'asc' ? 'selected' : '' }} value="asc">Ascendente</option>
+                                            <option {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === 'desc' ? 'selected' : '' }} value="desc">Descendente</option>
                                         </select>
                                         <label for="inputOrderCategoriaAscDesc" class="form-label">Ordem</label>
-
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-between">
