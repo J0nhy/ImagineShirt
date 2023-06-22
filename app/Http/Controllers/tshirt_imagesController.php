@@ -116,13 +116,15 @@ class tshirt_imagesController extends Controller
             $imagem = $request->file('Estampa');
             $path = $imagem->storeAs('tshirt_images', $imageUrl);
 
-
             $newImage = new tshirt_images();
             $newImage->name = $nome;
             $newImage->description = $descricao;
             $newImage->image_url = $imageUrl;
-            $newImage->customer_id = Auth::user()->id ?? '';
-            //dd($newImage);
+            if(Auth::user()->user_type == 'C'){
+                $newImage->customer_id = Auth::user()->id ?? '';
+            }else{
+                $newImage->category_id =$nome = $_POST['categoriaEstampa'] ?? '';
+            }
 
             $newImage->save();
 
@@ -131,15 +133,66 @@ class tshirt_imagesController extends Controller
             return redirect()->back()->with('message', "Estampa não guardada. ERRO: " . $th . ".");
         }
     }
-    public function edit(): View
+    public function edit(Request $request): View
     {
-        $tshirts = tshirt_images::where('customer_id', '=', Auth::user()->id ?? '')->get();
-        return view('catalogo.edit')->with('tshirts', $tshirts);
+        if (Auth::user()->user_type != 'E') {
+            if (Auth::user()->user_type == 'C') {
+                $tshirts = tshirt_images::where('customer_id', '=', Auth::user()->id ?? '')->get();
+                return view('catalogo.edit')->with('tshirts', $tshirts);
+            } else {
+                $table_names = Schema::getColumnListing('tshirt_images');
+
+                $categorias = Category::all();
+                $filterByCategoria = $request->categoria ?? '';
+
+                $orderByCategoria = $request->categoriaOrder ?? '';
+                $orderByCategoriaAscDesc = $request->categoriaOrderAscDesc ?? '';
+
+                $filterByNome = $request->nome ?? '';
+                $filterByDescricao = $request->descricao ?? '';
+
+                $tshirtQuery = tshirt_images::query();
+
+
+                if ($filterByCategoria !== '') {
+                    $tshirtQuery->where('category_id', $filterByCategoria);
+                }
+                if ($filterByNome !== '') {
+                    $tshirtIds = tshirt_images::where('name', 'like', "%$filterByNome%")->pluck('id');
+                    $tshirtQuery->whereIntegerInRaw('id', $tshirtIds);
+                }
+                if ($filterByDescricao !== '') {
+                    $tshirtIds = tshirt_images::where('description', 'like', "%$filterByDescricao%")->pluck('id');
+                    $tshirtQuery->whereIntegerInRaw('id', $tshirtIds);
+                }
+                //order by categoria
+                if ($orderByCategoria !== '') {
+                    $tshirtQuery->orderBy($orderByCategoria, $orderByCategoriaAscDesc);
+                }
+                // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
+                $tshirts = $tshirtQuery->whereNull('customer_id')->paginate(16);
+                $imagensPrivadas = tshirt_images::where('customer_id', '=', Auth::user()->id ?? '')->paginate(16);
+
+                return view('catalogo.edit', compact(
+                    'tshirts',
+                    'imagensPrivadas',
+                    'filterByNome',
+                    'filterByDescricao',
+                    'filterByCategoria',
+                    'categorias',
+                    'table_names',
+                    'orderByCategoria',
+                    'orderByCategoriaAscDesc'
+                ));
+            }
+        } else {
+            return abort(403, 'This action is Unauthorized');
+        }
     }
 
-    public function editarEstampa() : RedirectResponse
+    public function editarEstampa(): RedirectResponse
     {
-        try{
+        try {
             $id = $_POST['updateIdEstampa'];
             $nome = $_POST['updateNomeEstampa'];
             $descricao = $_POST['updateDescricaoEstampa'];
@@ -148,27 +201,29 @@ class tshirt_imagesController extends Controller
 
             $estampa->name = $nome;
             $estampa->description = $descricao;
+            if(Auth::user()->user_type == 'A'){
+                $estampa->category_id = $_POST['updatecategoriaEstampa'] ?? '';
+            }
+
             $estampa->save();
 
             return redirect()->back()->with('message', "Imagem atualizada para: " . $nome . ".");
-
         } catch (\Throwable $th) {
             return redirect()->back()->with('message', "ERRO: Não foi possivel atualizar a Imagem: " . $nome . ".");
         }
     }
 
-    public function removerEstampa($id) : RedirectResponse
+    public function removerEstampa($id): RedirectResponse
     {
-        try{
+        try {
 
             $estampa = tshirt_images::find($id);
 
-            if($estampa != null){
-                tshirt_images::where('id',$id)->delete();
+            if ($estampa != null) {
+                tshirt_images::where('id', $id)->delete();
             }
 
             return redirect()->back()->with('message', "Imagem eliminada com sucesso.");
-
         } catch (\Throwable $th) {
             return redirect()->back()->with('message', "ERRO: Não foi possivel eliminar a Imagem.");
         }
