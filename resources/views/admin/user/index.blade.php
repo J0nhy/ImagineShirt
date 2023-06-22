@@ -78,6 +78,10 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->user_type }}</td>
                             <td>{{ $user->deleted_at }}</td>
+
+                            @if($user->user_type=='C')
+                            <td></td>
+                            @else
                             <td class="button-icon-col">
 
                                 <a class="btn btn-secondary" href="{{ route('users.show', ['user' => $user]) }}">
@@ -88,7 +92,7 @@
                                     </svg></a>
 
                             </td>
-
+                            @endif
 
                             @if ($user->blocked == 1)
                                 <td class="button-icon-col">
@@ -110,8 +114,6 @@
                                 </td>
                             @else
                                 <td class="button-icon-col">
-
-
 
                                     <form method="POST" action="{{ route('users.block', ['user' => $user]) }}">
                                         @csrf

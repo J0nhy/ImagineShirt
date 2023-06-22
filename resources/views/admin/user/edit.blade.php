@@ -13,7 +13,6 @@
                 class="btn btn-secondary ms-3">Cancelar</a>
         </div>
     </form>
-    @dump($errors)
 
 
 @endsection

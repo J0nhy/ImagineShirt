@@ -77,8 +77,8 @@
         <div class="mb-3 form-floating">
             <select class="form-select @error('tipo') is-invalid @enderror" name="tipo" id="inputTipo"
                 {{ $disabledStr }}>
-                <option {{ $user->type == 'A' ? 'selected' : '' }}>A</option>
-                <option {{ $user->type == 'E' ? 'selected' : '' }}>E</option>
+                <option {{ old('user_type', $user->user_type) == 'A'? 'selected' : '' }} value="A">A</option>
+                <option {{ old('user_type', $user->user_type) == 'E'? 'selected' : '' }} value="E">E</option>
             </select>
             <label for="inputTipo" class="form-label">Tipo de User</label>
             @error('tipo')

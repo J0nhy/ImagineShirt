@@ -14,5 +14,4 @@ class order_items extends Model
         'qty', 'unit_price', 'sub_total'
     ];
 
-    
 }
