@@ -10,7 +10,7 @@
         </a>
 
         <span class="stext-109 cl4">
-            Repor Password
+            Alterar Password
         </span>
     </div>
     <div class="row justify-content-center">

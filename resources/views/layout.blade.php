@@ -40,9 +40,11 @@
                         <li>
                             <a href="#">Contactos</a> <!-- /*route('contacts')*/ -->
                         </li>
-                        <li>
-                            <a href="{{ route('carrinho.cart') }}">Carrinho</a>
-                        </li>
+                        @if (!Auth::user() || Auth::user()->user_type == 'C')
+                            <li>
+                                <a href="{{ route('carrinho.cart') }}">Carrinho</a>
+                            </li>
+                        @endif
 
                     </ul>
 
@@ -54,13 +56,16 @@
                         <i class="zmdi zmdi-search"></i>
                     </div>
                     <?php
-
+                    
                     ?>
-                    <a href="{{ route('carrinho.cart') }}"
-                        class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                        data-notify="{{ Session::has('itemCount') ? Session::get('itemCount') : 0 }}">
-                        <i class="zmdi zmdi-shopping-cart"></i>
-                    </a>
+                    @if(!Auth::user() || Auth::user()->user_type == "C")
+                        
+                        <a href="{{ route('carrinho.cart') }}"
+                            class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+                            data-notify="{{ Session::has('itemCount') ? Session::get('itemCount') : 0 }}">
+                            <i class="zmdi zmdi-shopping-cart"></i>
+                        </a>
+                    @endif
 
                     <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
                         data-notify="0">
@@ -137,11 +142,13 @@
                 <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
                     <i class="zmdi zmdi-search"></i>
                 </div>
-
-                <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
-                    data-notify="2">
-                    <i class="zmdi zmdi-shopping-cart"></i>
-                </div>
+                @if(!Auth::user() || Auth::user()->user_type == "C")
+                   
+                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+                        data-notify="2">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                    </div>
+                @endif
 
                 <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
                     data-notify="0">
@@ -194,9 +201,11 @@
                 <li>
                     <a href="#">Contactos</a> <!-- /*route('contacts')*/ -->
                 </li>
-                <li>
-                    <a href="{{ route('carrinho.cart') }}">Carrinho</a>
-                </li>
+                @if (!Auth::user() || Auth::user()->user_type == 'C')
+                    <li>
+                        <a href="{{ route('carrinho.cart') }}">Carrinho</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </header>

@@ -3,7 +3,7 @@ $iterator=0;
 ?>
 @extends('layout')
 @section('main')
-<div class="container">
+<div class="container" style="max-width: 90% !important;">
     @if (session('message'))
         <script>
             alert('{{ session('message') }}');
@@ -22,7 +22,7 @@ $iterator=0;
         </span>
     </div>
 
-    <div class="tableList background" style="margin: 5%; margin-bottom: 0%;">
+    <div class="tableList background" style="margin: 5% 0% 0% 0%;">
         <table class="table-shopping-cart">
             <tr class="table_head" style="border-top: 0px solid transparent;">
                 <th class="cols">Estado</th>

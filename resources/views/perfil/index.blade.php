@@ -2,14 +2,6 @@
 @section('main')
 
 <div class="container">
-        {{-- inicio da Zona de testes para o carrinho --}}
-        @if (session('message'))
-            <script>
-                alert('{{ session('message') }}');
-            </script>
-        @endif
-        {{-- fim da Zona de testes para o carrinho --}}
-            
         <!-- breadcrumb -->
         <div class="bread-crumb flex-w p-l-25 p-r-15 p-lr-0-lg breadcrumbs">
             <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
@@ -71,10 +63,10 @@
                 <button type="button" onclick="btnUpdate()" id="btnEditar" style="width: 40%; margin-left:2.5%"
                     class="btn btn-primary mb-3 px-4 flex-grow-1">Editar</button><br>
                 <a href="/password/change" style="width: 40%; margin-left:2.5%"
-                    class="btn btn-secondary mb-3 px-4 flex-shrink-1">mudar pass</a><br>
+                    class="btn btn-secondary mb-3 px-4 flex-shrink-1">Mudar Password</a><br>
                 <a href="{{ route('perfil.desativa') }}"
                     style="width: 40%; margin-left:2.5%; background-color: rgb(179, 0, 0); border-color: rgb(179, 0, 0);"
-                    class="btn btn-secondary mb-3 px-4 flex-shrink-1">encerrar conta</a>
+                    class="btn btn-secondary mb-3 px-4 flex-shrink-1">Desativar Conta</a>
             </div>
         </div>
     </div>
