@@ -33,6 +33,7 @@ class perfilController extends Controller
         try {
 
             DB::transaction(function () use ($request) {
+                /* user infos */
                 $newUserInfo = users::find(Auth::user()->id);
                 $newUserInfo->name = $request->input('Nome') ?? $newUserInfo->name;
                 $newUserInfo->email = $request->input('Email') ?? $newUserInfo->email;
@@ -45,21 +46,23 @@ class perfilController extends Controller
                     $imageUrl = NULL;
                 }
                 $newUserInfo->photo_url = $imageUrl ?? $newUserInfo->photo_url;
-
                 $newUserInfo->save();
 
-                $newCustomerInfo = customers::find(Auth::user()->id);
-                $newCustomerInfo->nif = $request->input('NIF') ?? NULL;
-                $newCustomerInfo->address = $request->input('Morada') ?? NULL;
-                if (($request->input('payment') ?? '') == "Nenhum") {
-                    $newCustomerInfo->default_payment_type = NULL;
-                    $newCustomerInfo->default_payment_ref = NULL;
-                } else {
-                    $newCustomerInfo->default_payment_type = $request->input('payment') ?? $newCustomerInfo->default_payment_type;
-                    $newCustomerInfo->default_payment_ref = $request->input('payment') ? Auth::user()->email : $newCustomerInfo->default_payment_ref;
-                }
+                /* customer infos */
+                if (Auth::user()->user_type == 'C') {
+                    $newCustomerInfo = customers::find(Auth::user()->id);
+                    $newCustomerInfo->nif = $request->input('NIF') ?? NULL;
+                    $newCustomerInfo->address = $request->input('Morada') ?? NULL;
+                    if (($request->input('payment') ?? '') == "Nenhum") {
+                        $newCustomerInfo->default_payment_type = NULL;
+                        $newCustomerInfo->default_payment_ref = NULL;
+                    } else {
+                        $newCustomerInfo->default_payment_type = $request->input('payment') ?? $newCustomerInfo->default_payment_type;
+                        $newCustomerInfo->default_payment_ref = $request->input('payment') ? Auth::user()->email : $newCustomerInfo->default_payment_ref;
+                    }
 
-                $newCustomerInfo->save();
+                    $newCustomerInfo->save();
+                }
             });
 
             return redirect()->back()->with('message', "Perfil atualizado com sucesso");

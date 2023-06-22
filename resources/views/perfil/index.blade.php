@@ -24,28 +24,29 @@
                         <input type="text" class="inputText width80 marginr5" name="Nome" id="Nome" min="1"
                             max="30" placeholder="Nome" required value="{{ $user->name }}">
                         <input type="text" class="inputText width80 marginr5" name="Email" id="Email"
-                            min="1" max="30" placeholder="Email" required value="{{ $user->email }}">
-                        <input type="text" class="inputText width44 marginb5" name="NIF" id="NIF"
-                            min="1" max="9" placeholder="NIF" value="<?= $customer->nif ?? '' ?>">
-                        <!-- Dropdown -->
-                        <div class="dropdown p-t-33 marginb5">
-                            <div class="select">
-                                <span style="color:black !important;"
-                                    id="paymentTxt"><?= $customer->default_payment_type ?? 'Pagamento Padrão ' ?><i
-                                        class="zmdi zmdi-chevron-down icon" style="vertical-align: middle;"></i></span>
-                                <i class="fa fa-chevron-left"></i>
+                                min="1" max="30" placeholder="Email" required value="{{ $user->email }}">
+                        @if(Auth::user()->user_type == "C")
+                            <input type="text" class="inputText width44 marginb5" name="NIF" id="NIF"
+                                min="1" max="9" placeholder="NIF" value="<?= $customer->nif ?? '' ?>">
+                            <!-- Dropdown -->
+                            <div class="dropdown p-t-33 marginb5">
+                                <div class="select">
+                                    <span style="color:black !important;"
+                                        id="paymentTxt"><?= $customer->default_payment_type ?? 'Pagamento Padrão ' ?><i
+                                            class="zmdi zmdi-chevron-down icon" style="vertical-align: middle;"></i></span>
+                                    <i class="fa fa-chevron-left"></i>
+                                </div>
+                                <input type="hidden" name="payment" id="payment">
+                                <ul class="dropdown-menu">
+                                    <li onclick="changePayment('NENHUM')" id="Nenhum">Nenhum</li>
+                                    <li onclick="changePayment('VISA')" id="VISA">VISA</li>
+                                    <li onclick="changePayment('PAYPAL')"id="PAYPAL">PAYPAL</li>
+                                    <li onclick="changePayment('MC')"id="MC">MC</li>
+                                </ul>
                             </div>
-                            <input type="hidden" name="payment" id="payment">
-                            <ul class="dropdown-menu">
-                                <li onclick="changePayment('NENHUM')" id="Nenhum">Nenhum</li>
-                                <li onclick="changePayment('VISA')" id="VISA">VISA</li>
-                                <li onclick="changePayment('PAYPAL')"id="PAYPAL">PAYPAL</li>
-                                <li onclick="changePayment('MC')"id="MC">MC</li>
-                            </ul>
-                        </div>
-                        <input type="text" class="inputText width80" name="Morada" id="Morada" min="10"
-                            max="100" placeholder="Morada" value="<?= $customer->address ?? '' ?>">
-
+                            <input type="text" class="inputText width80" name="Morada" id="Morada" min="10"
+                                max="100" placeholder="Morada" value="<?= $customer->address ?? '' ?>">
+                        @endif
                 </div>
 
             </div>

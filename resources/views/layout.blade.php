@@ -45,6 +45,10 @@
                                 <a href="{{ route('carrinho.cart') }}">Carrinho</a>
                             </li>
                         @endif
+                        @if (Auth::user()->user_type == 'A' || Auth::user()->user_type == 'E')
+                            <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Admin</a>
+                            </li>
+                        @endif
 
                     </ul>
 
@@ -58,20 +62,18 @@
                     <?php
                     
                     ?>
-                    @if(!Auth::user() || Auth::user()->user_type == "C")
-                        
+                    @if (!Auth::user() || Auth::user()->user_type == 'C')
                         <a href="{{ route('carrinho.cart') }}"
                             class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
                             data-notify="{{ Session::has('itemCount') ? Session::get('itemCount') : 0 }}">
                             <i class="zmdi zmdi-shopping-cart"></i>
                         </a>
+
+                        <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+                            data-notify="0">
+                            <i class="zmdi zmdi-favorite-outline"></i>
+                        </a>
                     @endif
-
-                    <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                        data-notify="0">
-                        <i class="zmdi zmdi-favorite-outline"></i>
-                    </a>
-
                     <div style="padding-left: 13px;">
                         @if (Auth::user())
                             <?php
@@ -99,14 +101,16 @@
                                 @if (Auth::user())
                                     <li><a class="dropdown-item" href="{{ route('perfil.index') }}">Perfil</a>
                                     </li>
-                                    @if(Auth::user()->user_type == 'A' || Auth::user()->user_type == 'E')
-                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Admin</a>
-                                    </li>
+                                    @if (Auth::user()->user_type == 'A' || Auth::user()->user_type == 'E')
+                                        <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Admin</a>
+                                        </li>
                                     @endif
                                     <li><a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar
                                             Senha</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
-                                    </li>
+                                    @if (Auth::user()->user_type == 'C')
+                                        <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
+                                        </li>
+                                    @endif
                                     <li>
                                         <hr class="dropdown-divider" />
                                     </li>
@@ -146,18 +150,19 @@
                 <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
                     <i class="zmdi zmdi-search"></i>
                 </div>
-                @if(!Auth::user() || Auth::user()->user_type == "C")
-                   
+                @if (!Auth::user() || Auth::user()->user_type == 'C')
                     <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
                         data-notify="2">
                         <i class="zmdi zmdi-shopping-cart"></i>
                     </div>
-                @endif
 
-                <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
-                    data-notify="0">
-                    <i class="zmdi zmdi-favorite-outline"></i>
-                </a>
+
+                    <a href="#"
+                        class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+                        data-notify="0">
+                        <i class="zmdi zmdi-favorite-outline"></i>
+                    </a>
+                @endif
             </div>
 
             <!-- Button show menu -->
@@ -175,11 +180,13 @@
                 <li>
                     <div class="right-top-bar flex-w h-full">
                         @if (Auth::user())
-                            <a class="dropdown-item" href="#">Perfil</a>
-
+                            @if (Auth::user()->user_type != 'E')
+                                <a class="dropdown-item" href="#">Perfil</a>
+                            @endif
                             <a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar Senha</a>
-
-                            <a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
+                            @if (Auth::user()->user_type == 'C')
+                                <a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
+                            @endif
                         @else
                             <a class="dropdown-item" href="{{ route('login') }}">Login</a>
 
@@ -208,6 +215,10 @@
                 @if (!Auth::user() || Auth::user()->user_type == 'C')
                     <li>
                         <a href="{{ route('carrinho.cart') }}">Carrinho</a>
+                    </li>
+                @endif
+                @if (Auth::user()->user_type == 'A' || Auth::user()->user_type == 'E')
+                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Admin</a>
                     </li>
                 @endif
             </ul>
