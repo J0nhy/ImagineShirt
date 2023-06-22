@@ -36,7 +36,11 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ route('admin.index')}}" class="logo d-flex align-items-center">
+        @if (Auth::user()->user_type == 'A' )
         <span class="d-none d-lg-block">ImagineShirtAdmin</span>
+        @else
+        <span class="d-none d-lg-block">ImagineShirtEmpregado</span>
+        @endif
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
@@ -73,6 +77,14 @@
                     @if (Auth::user())
                         <li><a class="dropdown-item" href="">Perfil</a>
                         </li>
+                        @if(Auth::user()->user_type == 'A')
+                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Admin</a>
+                                    </li>
+                        @endif
+                        @if(Auth::user()->user_type == 'E')
+                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Empregado</a>
+                                    </li>
+                        @endif
                         <li><a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar
                                 Senha</a></li>
                         <li><a class="dropdown-item" href="{{ route('pedidos.orders') }}">Pedidos</a>
@@ -154,60 +166,6 @@
           </a>
       </li>
         @endcan
-<!-- Talvez adicionar...
-
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li>
-        -->
-
 
     </ul>
 

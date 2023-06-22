@@ -56,10 +56,10 @@
                         <i class="zmdi zmdi-search"></i>
                     </div>
                     <?php
-                    
+
                     ?>
                     @if(!Auth::user() || Auth::user()->user_type == "C")
-                        
+
                         <a href="{{ route('carrinho.cart') }}"
                             class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
                             data-notify="{{ Session::has('itemCount') ? Session::get('itemCount') : 0 }}">
@@ -99,8 +99,12 @@
                                 @if (Auth::user())
                                     <li><a class="dropdown-item" href="{{ route('perfil.index') }}">Perfil</a>
                                     </li>
-                                    @if(Auth::user()->user_type == 'A' || Auth::user()->user_type == 'E')
+                                    @if(Auth::user()->user_type == 'A')
                                     <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Admin</a>
+                                    </li>
+                                    @endif
+                                    @if(Auth::user()->user_type == 'E')
+                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Empregado</a>
                                     </li>
                                     @endif
                                     <li><a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar
@@ -147,7 +151,7 @@
                     <i class="zmdi zmdi-search"></i>
                 </div>
                 @if(!Auth::user() || Auth::user()->user_type == "C")
-                   
+
                     <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
                         data-notify="2">
                         <i class="zmdi zmdi-shopping-cart"></i>
