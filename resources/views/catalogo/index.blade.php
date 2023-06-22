@@ -102,7 +102,7 @@
             <div class="col-sm-9">
                 <div class="row background">
                     @if (Auth::user())
-                        
+
                         @if(Auth::user()->user_type != 'E')
                             <div style="text-align: right;">
                                 @if(Auth::user()->user_type == 'C')

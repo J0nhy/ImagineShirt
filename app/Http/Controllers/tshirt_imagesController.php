@@ -142,59 +142,64 @@ class tshirt_imagesController extends Controller
     }
     public function edit(Request $request): View
     {
-        if (Auth::user()->user_type != 'E') {
-            if (Auth::user()->user_type == 'C') {
-                $tshirts = tshirt_images::where('customer_id', '=', Auth::user()->id ?? '')->get();
-                return view('catalogo.edit')->with('tshirts', $tshirts);
-            } else {
-                $table_names = Schema::getColumnListing('tshirt_images');
-
-                $categorias = Category::all();
-                $filterByCategoria = $request->categoria ?? '';
-
-                $orderByCategoria = $request->categoriaOrder ?? '';
-                $orderByCategoriaAscDesc = $request->categoriaOrderAscDesc ?? '';
-
-                $filterByNome = $request->nome ?? '';
-                $filterByDescricao = $request->descricao ?? '';
-
-                $tshirtQuery = tshirt_images::query();
-
-
-                if ($filterByCategoria !== '') {
-                    $tshirtQuery->where('category_id', $filterByCategoria);
-                }
-                if ($filterByNome !== '') {
-                    $tshirtIds = tshirt_images::where('name', 'like', "%$filterByNome%")->pluck('id');
-                    $tshirtQuery->whereIntegerInRaw('id', $tshirtIds);
-                }
-                if ($filterByDescricao !== '') {
-                    $tshirtIds = tshirt_images::where('description', 'like', "%$filterByDescricao%")->pluck('id');
-                    $tshirtQuery->whereIntegerInRaw('id', $tshirtIds);
-                }
-                //order by categoria
-                if ($orderByCategoria !== '') {
-                    $tshirtQuery->orderBy($orderByCategoria, $orderByCategoriaAscDesc);
-                }
-                // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
-                $tshirts = $tshirtQuery->whereNull('customer_id')->paginate(16);
-                $imagensPrivadas = tshirt_images::where('customer_id', '=', Auth::user()->id ?? '')->paginate(16);
-
-                return view('catalogo.edit', compact(
-                    'tshirts',
-                    'imagensPrivadas',
-                    'filterByNome',
-                    'filterByDescricao',
-                    'filterByCategoria',
-                    'categorias',
-                    'table_names',
-                    'orderByCategoria',
-                    'orderByCategoriaAscDesc'
-                ));
-            }
-        } else {
+        if(!Auth::user()){
             return abort(403, 'This action is Unauthorized');
+        }else{
+            if (Auth::user()->user_type != 'E') {
+                if (Auth::user()->user_type == 'C') {
+                    $tshirts = tshirt_images::where('customer_id', '=', Auth::user()->id ?? '')->get();
+                    return view('catalogo.edit')->with('tshirts', $tshirts);
+                } else {
+                    $table_names = Schema::getColumnListing('tshirt_images');
+
+                    $categorias = Category::all();
+                    $filterByCategoria = $request->categoria ?? '';
+
+                    $orderByCategoria = $request->categoriaOrder ?? '';
+                    $orderByCategoriaAscDesc = $request->categoriaOrderAscDesc ?? '';
+
+                    $filterByNome = $request->nome ?? '';
+                    $filterByDescricao = $request->descricao ?? '';
+
+                    $tshirtQuery = tshirt_images::query();
+
+
+                    if ($filterByCategoria !== '') {
+                        $tshirtQuery->where('category_id', $filterByCategoria);
+                    }
+                    if ($filterByNome !== '') {
+                        $tshirtIds = tshirt_images::where('name', 'like', "%$filterByNome%")->pluck('id');
+                        $tshirtQuery->whereIntegerInRaw('id', $tshirtIds);
+                    }
+                    if ($filterByDescricao !== '') {
+                        $tshirtIds = tshirt_images::where('description', 'like', "%$filterByDescricao%")->pluck('id');
+                        $tshirtQuery->whereIntegerInRaw('id', $tshirtIds);
+                    }
+                    //order by categoria
+                    if ($orderByCategoria !== '') {
+                        $tshirtQuery->orderBy($orderByCategoria, $orderByCategoriaAscDesc);
+                    }
+                    // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
+                    $tshirts = $tshirtQuery->whereNull('customer_id')->paginate(16);
+                    $imagensPrivadas = tshirt_images::where('customer_id', '=', Auth::user()->id ?? '')->paginate(16);
+
+                    return view('catalogo.edit', compact(
+                        'tshirts',
+                        'imagensPrivadas',
+                        'filterByNome',
+                        'filterByDescricao',
+                        'filterByCategoria',
+                        'categorias',
+                        'table_names',
+                        'orderByCategoria',
+                        'orderByCategoriaAscDesc'
+                    ));
+                }
+            } else {
+                return abort(403, 'This action is Unauthorized');
+            }
         }
+
     }
 
     public function editarEstampa(): RedirectResponse
