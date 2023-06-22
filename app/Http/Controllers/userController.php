@@ -37,7 +37,6 @@ class userController extends Controller
 
         if ($filterByNome !== '') {
             $users = users::where('name', 'like', "%$filterByNome%")->pluck('id');
-            $users = users::where('email', 'like', "%$filterByNome%")->pluck('id');
             $userQuery->whereIntegerInRaw('id', $users);
         }
         if ($filterByBlocked !== '') {
