@@ -194,7 +194,7 @@
                     <div class="right-top-bar flex-w h-full">
                         @if (Auth::user())
                             @if (Auth::user()->user_type != 'E')
-                                <a class="dropdown-item" href="#">Perfil</a>
+                                <a class="dropdown-item" href="{{ route('perfil.index') }}">Perfil</a> 
                             @endif
                             <a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar Senha</a>
                             @if (Auth::user()->user_type == 'C')

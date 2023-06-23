@@ -75,7 +75,7 @@
                         @if (Auth::user())
 
                            @if(Auth::user()->user_type == 'C' || Auth::user()->user_type == 'A')
-                              <li><a class="dropdown-item" href="">Perfil</a>
+                              <li><a class="dropdown-item" href="{{ route('perfil.index') }}">Perfil</a>
                               </li>
                             @endif
                             <li><a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar
