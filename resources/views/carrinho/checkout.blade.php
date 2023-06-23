@@ -153,7 +153,7 @@
                                          <h5 class="linkBranco">Criar uma nova morada para esta encomenda</h5>
                                      </div>
                                  @endif
-                                 <div id="fields" class="<?php $customer->address != null ? 'hidden' : ''; ?>">
+                                 <div id="fields" class="<?= $customer->address != null ? 'hidden' : ''; ?>">
                                      <input type="text" class="inputText width44 dis-inline marginr5" name="Nome"
                                          id="Nome" min="1" max="20" placeholder="Nome Completo" required>
                                      <input type="text" class="inputText width30 dis-inline marginb8" name="NIF"
