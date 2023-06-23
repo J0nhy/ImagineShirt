@@ -38,7 +38,7 @@
                                         <select class="form-select" name="categoriaOrder" id="inputOrderCategoria">
                                             <option {{ old('categoriaOrder', $orderByCategoria) === '' ? 'selected' : '' }}
                                                 value="">Ordenar por</option>
-                                            @foreach ($table_names as $campo)
+                                            @foreach ($filteredColumns as $campo)
                                                 <option
                                                     {{ old('categoriaOrder', $orderByCategoria) == $campo ? 'selected' : '' }}
                                                     value="{{ $campo }}">{{ $campo }}</option>
@@ -48,18 +48,11 @@
 
                                     </div>
                                     <div class="flex-grow-1 mb-3 me-2 form-floating">
-                                        <select class="form-select" name="categoriaOrderAscDesc"
-                                            id="inputOrderCategoriaAscDesc">
-                                            <option
-                                                {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === '' ? 'selected' : '' }}
-                                                value="asc">Ascendente</option>
-                                            <option
-                                                {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === '' ? 'selected' : '' }}
-                                                value="desc">Descendente</option>
-
+                                        <select class="form-select" name="categoriaOrderAscDesc" id="inputOrderCategoriaAscDesc">
+                                            <option {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === 'asc' ? 'selected' : '' }} value="asc">Ascendente</option>
+                                            <option {{ old('categoriaOrderAscDesc', $orderByCategoriaAscDesc) === 'desc' ? 'selected' : '' }} value="desc">Descendente</option>
                                         </select>
                                         <label for="inputOrderCategoriaAscDesc" class="form-label">Ordem</label>
-
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-between">
@@ -162,10 +155,10 @@
                             <div>
                                 <div class="row">
                                     <div>
-                                        <h5 class="card-title titleCardBack">{{ $tshirt['name'] }} 
+                                        <h5 class="card-title titleCardBack">{{ $tshirt['name'] }}
                                             @if(Auth::user()->user_type == 'A')
                                                 <br><br><span>Categoria: {{ $tshirt['category_id'] }}</span>
-                                            @endif    
+                                            @endif
                                         </h5>
                                     </div>
                                 </div>
@@ -202,7 +195,7 @@
                 @endif
                 <br>
             </div>
-            <br>           
+            <br>
         </div>
     </div>
 

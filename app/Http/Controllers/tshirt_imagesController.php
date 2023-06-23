@@ -150,7 +150,12 @@ class tshirt_imagesController extends Controller
                     $tshirts = tshirt_images::where('customer_id', '=', Auth::user()->id ?? '')->get();
                     return view('catalogo.edit')->with('tshirts', $tshirts);
                 } else {
-                    $table_names = Schema::getColumnListing('tshirt_images');
+                    $tableName = 'tshirt_images';
+        $columns = Schema::getColumnListing($tableName);
+
+        $desiredColumns = ['name', 'description'];
+
+        $filteredColumns = array_intersect($columns, $desiredColumns);
 
                     $categorias = Category::all();
                     $filterByCategoria = $request->categoria ?? '';
@@ -190,7 +195,7 @@ class tshirt_imagesController extends Controller
                         'filterByDescricao',
                         'filterByCategoria',
                         'categorias',
-                        'table_names',
+                        'filteredColumns',
                         'orderByCategoria',
                         'orderByCategoriaAscDesc'
                     ));

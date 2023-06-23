@@ -8,6 +8,7 @@ use App\Http\Controllers\categoryController;
 use App\Http\Controllers\colorController;
 use App\Http\Controllers\orderController;
 use App\Http\Controllers\pedidosController;
+use App\Http\Controllers\PDFController;
 use App\Models\tshirt_images;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Auth;use App\Http\Controllers\PerfilController;
@@ -50,7 +51,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/gerar-pdf', [App\Http\Controllers\PDFController::class, 'gerarPDF'])->name('home');
+//Route::get('/orders/{orderId}/pdf', [PDFController::class, 'generateInvoicePDF']);
 
+Route::get('/pdf/{orderId}', [PDFController::class, 'generateInvoicePDF'])->name('order.invoice');
 
 //Route::get('admin', [tshirt_imagesController::class, 'admin'])->name('admin.index');
 Route::get('admin', [adminController::class, 'index'])->name('admin.index');

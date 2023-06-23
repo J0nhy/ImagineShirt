@@ -201,7 +201,11 @@ class carrinhoController extends Controller
                                 $iterator++;
                             }
                             return $newOrder->id;
+
                         });
+
+
+
                         if ($request->input('saveData') == "on") {
                             $customerUpdate = customers::find(Auth::user()->id ?? '');
                             $customerUpdate->default_payment_type = $request->input('payment');
@@ -210,7 +214,10 @@ class carrinhoController extends Controller
                             $customerUpdate->default_payment_ref = $customer->default_payment_ref ?? (Auth::user()->mail ?? '');
                             $customerUpdate->save();
                         }
+
+
                         $htmlMessage = "<strong>A sua encomenda foi concluida com sucesso: " . $total . "produto(s).</strong>";
+
 
                         $request->session()->forget('cart');
                         $request->session()->forget('itemCount');
@@ -221,7 +228,7 @@ class carrinhoController extends Controller
                     $htmlMessage = "Não existem produtos no carrinho.";
                 }
             } catch (\Exception $error) {
-                dd($error);
+
                 $htmlMessage = "Não foi possível concluir a encomenda, porque ocorreu um erro!";
             }
             return back()

@@ -13,5 +13,10 @@ class order_items extends Model
         'id', 'order_id', 'tshirt_image_id', 'color_code', 'size',
         'qty', 'unit_price', 'sub_total'
     ];
+    public function tshirtImage()
+    {
+        return $this->belongsTo(tshirt_images::class, 'tshirt_image_id');
+    }
+
 
 }

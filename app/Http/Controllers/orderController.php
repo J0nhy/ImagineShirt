@@ -27,9 +27,11 @@ class orderController extends Controller
         $allOrders = orders::all();
         $filterByStatus = $request->status ?? '';
         $filterByCostumerID = $request->CostumerID ?? '';
+        $filterByDate = $request->date ?? '';
 
 
         $orderQuery = orders::query();
+
 
         if ($filterByStatus !== '') {
             $orderQuery->where('status', $filterByStatus);
@@ -40,6 +42,13 @@ class orderController extends Controller
             $orderQuery->whereIntegerInRaw('id', $encomendas);
         }
 
+        if ($filterByDate !== '') {
+            $encomendas = orders::where('created_at', 'like', "%$filterByDate%")->pluck('id');
+            $orderQuery->whereIntegerInRaw('id', $encomendas);
+        }
+
+
+
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
         $encomendas = $orderQuery->paginate(10);
 
@@ -49,6 +58,10 @@ class orderController extends Controller
 
             $filterByStatus = $request->status ?? '';
             $filterByCostumerID = $request->CostumerID ?? '';
+
+
+
+
 
 
             $orderQuery = orders::query();

@@ -27,6 +27,14 @@
                     </div>
                 </div>
 
+                <div class="d-flex justify-content-between">
+                    <div class="mb-3 me-2 flex-grow-1 form-floating">
+                        <input type="date" class="form-control" name="date" id="inputDate"
+                            value="{{ old('date', $filterByCostumerID) }}">
+                        <label for="inputDate" class="form-label">Data</label>
+                    </div>
+                </div>
+
             </div>
             <div class="flex-shrink-1 d-flex flex-column justify-content-between">
                 <a class="btn btn-secondary mb-2 px-4 flex-shrink-1" style="visibility: hidden;">ffff</a>

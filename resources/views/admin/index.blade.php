@@ -48,9 +48,7 @@ var _ydata=JSON.parse('{!! json_encode($months) !!}');
 var _xdata=JSON.parse('{!! json_encode($monthCount) !!}');
 </script>
 
-<script src="assets/chart-area-demo.js"></script>
 <script src="assets/chart-bar-demo.js"></script>
-<script src="assets/chart-bar-demo2.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>

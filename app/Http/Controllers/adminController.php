@@ -16,7 +16,7 @@ class adminController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(orders::class, 'order');
+        $this->authorizeResource(colors::class, 'core');
     }
     public function index(): View
     {

@@ -27,4 +27,6 @@ class tshirt_images extends Model
         return $this->id . '-' . Str::slug($this->name , "-");
     }
 
+
+
 }

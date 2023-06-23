@@ -39,13 +39,13 @@ $iterator=0;
                             <td class="cols">{{ $order->status }}</td>
                             <td class="cols">{{ $order->date }}</td>
                             <td class="cols">{{ $order->total_price }}</td>
-                            <td class="cols">{{ $order->notes }}</td>
+                            <td class="cols" style="max-width:360px">{{ $order->notes }}</td>
                             <td class="cols">{{ $order->nif }}</td>
                             <td class="cols">{{ $order->address }}</td>
                             <td class="cols">{{ $order->payment_type }}</td>
                             <td class="cols">{{ $order->date }}</td>
                         </tr>
-                    <?php 
+                    <?php
                         $iterator++;
                     ?>
             @endforeach
