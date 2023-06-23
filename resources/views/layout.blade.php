@@ -51,7 +51,7 @@
                                 </li>
                             @endif
                             @if (Auth::user()->user_type == 'E')
-                                <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu Empregado</a>
+                                <li><a class="dropdown-item" href="{{ route('encomendas.index') }}">Menu Empregado</a>
                                 </li>
                             @endif
                         @endif
@@ -115,8 +115,7 @@
                                         </li>
                                     @endif
                                     @if (Auth::user()->user_type == 'E')
-                                        <li><a class="dropdown-item" href="{{ route('admin.index') }}">Menu
-                                                Empregado</a>
+                                    <li><a class="dropdown-item" href="{{ route('encomendas.index') }}">Menu Empregado</a>
                                         </li>
                                     @endif
                                     <li><a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar
