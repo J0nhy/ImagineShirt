@@ -2,7 +2,7 @@
 @extends('adminLayout')
 
 @section('main')
-    <form novalidate class="needs-validation" method="POST"
+    <form  class="needs-validation" method="POST"
         action="{{ route('users.update', ['user' => $user]) }}">
         @csrf
         @method('PUT')

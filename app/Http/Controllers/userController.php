@@ -101,6 +101,7 @@ class userController extends Controller
             $newUser->name = $nome;
             $newUser->email = $email;
             $newUser->user_type = $tipo;
+
              // password is form field
             $hashed = Hash::make($password);
             $newUser->password = $hashed;
@@ -120,11 +121,15 @@ class userController extends Controller
     public function update(UserRequest $request, users $user): RedirectResponse
     {
         //$this->authorize('update', $curso);
-        //dd($categoria);
+
+        //dd($categoria);+
+        $user->update(['user_type' => $request->tipo]);
         $user->update($request->validated());
+
         $url = route('users.show', ['user' => $user]);
         $htmlMessage = "User <a href='$url'>{$user->name}</a>
                         <strong>\"{$user->name}\"</strong> foi alterada com sucesso!";
+
         return redirect()->route('users.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
