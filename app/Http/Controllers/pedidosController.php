@@ -60,7 +60,7 @@ class pedidosController extends Controller
                 );
                 $iterator++;
             }
-            return view('pedidos.orderDetails')->with('produtos', $produtos);
+            return view('pedidos.orderDetails', compact('produtos', 'id'));
 
         } else {
             return abort(403, 'This action is Unauthorized');

@@ -24,8 +24,10 @@ $iterator = 0;
             <span class="stext-109 cl4">
                 Detalhes
             </span>
+            <div class="width80" style="float: right">
+                <a class="linkBranco" style="float: right" href="/pdf/<?=$id?>">Fatura PDF <i class="zmdi zmdi-download"></i></a>    
+            </div>
         </div>
-
         <div class="tableList background" style="margin: 5% 10% 0% 10%; ">
             <table class="table-shopping-cart">
                 <tr class="table_head" style="border-top: 0px solid transparent;">

@@ -15,23 +15,23 @@ class PDFController extends Controller
 
     public function generateInvoicePDF($orderId)
     {
-        // Recupere os dados da encomenda e seus itens das tabelas do banco de dados
-    $encomenda = orders::find($orderId);
-    $itens = order_items::where('order_id', $orderId)->get();
+        // Recuperar os dados da encomenda e os itens das tabelas da BD
+        $encomenda = orders::find($orderId);
+        $itens = order_items::where('order_id', $orderId)->get();
 
-    foreach ($itens as $item) {
-        $item->load('tshirtImage'); // Carregar a relação com a tabela tshirt_images
-    }
+        foreach ($itens as $item) {
+            $item->load('tshirtImage'); // Carregar a relação com a tabela tshirt_images
+        }
 
-    // Gerar o conteúdo do PDF usando uma view
-    $pdf = PDF::loadView('pdf.invoice', compact('encomenda', 'itens'));
+        // Gerar o conteúdo do PDF usando uma view
+        $pdf = PDF::loadView('pdf.invoice', compact('encomenda', 'itens'));
 
-    // Retornar o PDF para download ou visualização
-    // Definir o nome do arquivo
-    $nomeArquivo = 'Encomenda.pdf';
+        // Retornar o PDF para download ou visualização
+        // Definir o nome do arquivo
+        $nomeArquivo = 'Encomenda.pdf';
 
-    // Salvar o PDF com o nome especificado
-    return $pdf->download($nomeArquivo);
+        // guardar o PDF com o nome especificado
+        return $pdf->download($nomeArquivo);
 
     }
 }

@@ -38,7 +38,7 @@ class carrinhoController extends Controller
 
     public function checkout(Request $request): View
     {
-        if (!Auth::user() || Auth::user()->user_type == 'C') {
+        if (Auth::user()->user_type == 'C') {
             $total = $request->input('total');
             $array = $request->session()->get('cart');
 
@@ -143,7 +143,7 @@ class carrinhoController extends Controller
         }
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): View
     {
         if (!Auth::user() || Auth::user()->user_type == 'C') {
             $total = $request->input('total');
@@ -168,7 +168,7 @@ class carrinhoController extends Controller
                         } catch (\Exception $error) {
                             $htmlMessage = "User não existe ou dados estão incorretos";
                         }
-                        $order = DB::transaction(function () use ($array, $total, $qtds, $customer, $request) {
+                        $orderId = DB::transaction(function () use ($array, $total, $qtds, $customer, $request) {
                             $newOrder = new orders();
                             $newOrder->status = "pending";
                             $newOrder->customer_id = $customer->id;
@@ -205,7 +205,6 @@ class carrinhoController extends Controller
                         });
 
 
-
                         if ($request->input('saveData') == "on") {
                             $customerUpdate = customers::find(Auth::user()->id ?? '');
                             $customerUpdate->default_payment_type = $request->input('payment');
@@ -215,14 +214,11 @@ class carrinhoController extends Controller
                             $customerUpdate->save();
                         }
 
-
                         $htmlMessage = "<strong>A sua encomenda foi concluida com sucesso: " . $total . "produto(s).</strong>";
-
 
                         $request->session()->forget('cart');
                         $request->session()->forget('itemCount');
-                        return redirect()->route('carrinho.cart')
-                            ->with('message', $htmlMessage);
+                        return view('carrinho.orderCompleted')->with('orderId' , $orderId);
                     }
                 } else {
                     $htmlMessage = "Não existem produtos no carrinho.";
