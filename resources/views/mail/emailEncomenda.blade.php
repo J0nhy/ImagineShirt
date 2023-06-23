@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Encomenda</title>
+    <title>Recibo Encomenda</title>
     <style>
         /* Estilos CSS para o PDF */
         body {
@@ -57,10 +57,7 @@
 </head>
 <body>
     <div class="header">
-        <div class="logo">
-            <img src="img/image2.png" alt="Logo">
-        </div>
-        <h1>Informações da Encomenda</h1>
+        <h1>Recibo - Informações da Encomenda</h1>
     </div>
 
     <div class="order-info">
@@ -74,7 +71,6 @@
         <thead>
             <tr>
                 <th>Item</th>
-                <th>Imagem</th>
                 <th>Quantidade</th>
                 <th>Preço Unitário</th>
                 <th>Total</th>
@@ -85,7 +81,6 @@
             @foreach ($itens as $item)
             <tr>
                 <td>{{ $item->tshirtImage->name }}</td>
-                <td><img src="tshirt_images/{{$item->tshirtImage->image_url}}" style="width: 50px; height:50px;"></td>
                 <td>{{ $item->qty }}</td>
                 <td>{{ $item->unit_price }}</td>
                 <td>{{ $item->sub_total }}</td>
@@ -99,6 +94,7 @@
     <div class="total">
         <p>Total: {{ $total }} €</p>
     </div>
+    <h3>Para quaisquer duvidas ou pedidos de informação contacte os desenvolvedores.</h3>
 </body>
 </html>
 

@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\orders;
-use App\Models\order_items;
-use Illuminate\Support\Facades\Auth;
-use App\Models\customers;
-use App\Models\tshirt_images;
-use App\Models\prices;
 use App\Models\colors;
-use Illuminate\Http\Request;
+use App\Models\orders;
+use App\Models\prices;
+use App\Mail\MailSender;
+use App\Models\customers;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
+use App\Models\order_items;
+use Illuminate\Http\Request;
+use App\Models\tshirt_images;
 use Laravel\Ui\Presets\React;
-use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\Catch_;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\RedirectResponse;
 
 class carrinhoController extends Controller
 {
@@ -218,13 +220,17 @@ class carrinhoController extends Controller
 
                         $request->session()->forget('cart');
                         $request->session()->forget('itemCount');
+
+                        // Send the email using the mail facade
+                        Mail::to('noreply@demo.ainet.com'/*Auth::user()->email*/)->send(new MailSender($orderId));
+                        
                         return view('carrinho.orderCompleted')->with('orderId' , $orderId);
                     }
                 } else {
                     $htmlMessage = "Não existem produtos no carrinho.";
                 }
             } catch (\Exception $error) {
-
+                dd($error);
                 $htmlMessage = "Não foi possível concluir a encomenda, porque ocorreu um erro!";
             }
             return back()

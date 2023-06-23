@@ -74,7 +74,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         @if (Auth::user())
 
-                           @if(Auth::user()->user_type == 'C')
+                           @if(Auth::user()->user_type == 'C' || Auth::user()->user_type == 'A')
                               <li><a class="dropdown-item" href="">Perfil</a>
                               </li>
                             @endif

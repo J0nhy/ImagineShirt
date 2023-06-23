@@ -1,20 +1,20 @@
 <?php
 
-use App\Http\Controllers\adminController;
+use App\Mail\MailSender;
+use App\Models\tshirt_images;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\tshirt_imagesController;
-use App\Http\Controllers\carrinhoController;
-use App\Http\Controllers\categoryController;
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\userController;
+use App\Http\Controllers\adminController;
 use App\Http\Controllers\colorController;
 use App\Http\Controllers\orderController;
 use App\Http\Controllers\pedidosController;
-use App\Http\Controllers\PDFController;
-use App\Models\tshirt_images;
-use App\Http\Controllers\userController;
-use Illuminate\Support\Facades\Auth;use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\carrinhoController;
+use App\Http\Controllers\categoryController;
+use App\Http\Controllers\tshirt_imagesController;
 use App\Http\Controllers\Auth\ChangePasswordController;
-
-
+use Illuminate\Support\Facades\Auth;use App\Http\Controllers\PerfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +93,7 @@ Route::put('admin/users/canceled/{encomenda}', [orderController::class, 'cancele
 
 Route::get('/password/change', [ChangePasswordController::class, 'show'])->name('password.change.show');
 Route::post('/password/change', [ChangePasswordController::class, 'store'])->name('password.change.store');
+
 Route::get('perfil', [perfilController::class, 'index'])->name('perfil.index');
 Route::post('update', [perfilController::class, 'update'])->name('perfil.update');
 Route::get('desativa', [perfilController::class, 'desativa'])->name('perfil.desativa');
