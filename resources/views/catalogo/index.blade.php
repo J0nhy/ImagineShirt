@@ -81,6 +81,7 @@
                                 class="btn btn-secondary mb-3 py-3 px-4 flex-shrink-1">Limpar</a>
                         </div>
                     </form>
+
                     <form method="POST" action="{{ route('catalogo.uploadEstampa') }}" id="formFiltro"
                         enctype="multipart/form-data">
                         @csrf
@@ -131,7 +132,7 @@
 
                                         <div class="min-height250">
                                             <a href="{{ route('catalogo.show', ['tshirt' => $tshirt->slug]) }}">
-                                                <img src="tshirt_images/{{ $tshirt['image_url'] }}"
+                                                <img src="{{ asset('storage/tshirt_images/' . $tshirt->image_url) }}"
                                                     class="card-img-top center" alt="{{ $tshirt['image_url'] }}">
                                             </a>
                                         </div>
@@ -171,7 +172,7 @@
 
                         <div class="min-height250">
                             <a href="{{ route('catalogo.show', ['tshirt' => $tshirt->slug]) }}">
-                                <img src="tshirt_images/{{ $tshirt['image_url'] }}" class="card-img-top center"
+                                <img src="{{ asset('storage/tshirt_images/' . $tshirt->image_url) }}" class="card-img-top center"
                                     alt="{{ $tshirt['image_url'] }}">
                             </a>
                         </div>
