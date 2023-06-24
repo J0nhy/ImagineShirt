@@ -78,7 +78,7 @@ class carrinhoController extends Controller
             // Retrieve the array from the session
             if ($request->session()->has('cart')) {
                 $array = $request->session()->get('cart');
-                $igual = array_key_exists($id, $array);
+                $igual = array_key_exists($arrayId, $array);
 
                 if ($igual == false) {
                     $count = count($array) + 1;
@@ -100,7 +100,7 @@ class carrinhoController extends Controller
                         "name" => $nome,
                         "cor" => $cor,
                         "size" => $size,
-                        "qtd" => $array[$id]["qtd"] + $qtd,
+                        "qtd" => $array[$arrayId]["qtd"] + $qtd,
                         "id" => $id,
                         "colorCode" => $corCode,
                         "own" => $own
