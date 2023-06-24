@@ -25,7 +25,8 @@ class UserRequest extends FormRequest
             'name' =>        'required',
             'email' =>       'required',
             'password' =>    'required',
-            'tipo' =>        'required'
+            'tipo' =>        'required',
+            'file_photo' =>         'sometimes|image|max:4096'
         ];
     }
     public function messages(): array
@@ -34,7 +35,8 @@ class UserRequest extends FormRequest
             'name.required' => 'O nome é obrigatório',
             'email.required' => 'O email é obrigatório',
             'password.required' => 'A password é obrigatória',
-            'tipo.required' => 'O tipo é obrigatório'
+            'tipo.required' => 'O tipo é obrigatório',
+            'file_photo.image' => 'O ficheiro tem de ser uma imagem',
 
         ];
     }

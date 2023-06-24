@@ -8,12 +8,12 @@
                 Home
                 <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
-    
+
             <span class="stext-109 cl4">
                 Perfil
             </span>
         </div>
-        
+
 
         <div class="row">
             <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -53,14 +53,14 @@
             <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
 
                 <img id="avatar"
-                    src="<?= $user->photo_url != '' ? Auth::user()->fullPhotoUrl : '/img/avatar_unknown.png' ?>"
+                    src="{{ asset('storage/photos/' . $user->photo_url) }}"
                     alt="Avatar" class="iconPerfil">
                 <div id="uploadFile" class="hidden">
                     <input type="file" class="btn btn-secondary mb-3 px-4 flex-grow-1" id="foto" name="foto"
                         accept=".jpg,.jpeg,.png">
                     <br>
                 </div>
-                
+
                 <button type="button" onclick="btnUpdate()" id="btnEditar" style="width: 40%; margin-left:2.5%"
                     class="btn btn-primary mb-3 px-4 flex-grow-1">Editar</button><br>
                 <a href="/password/change" style="width: 40%; margin-left:2.5%"

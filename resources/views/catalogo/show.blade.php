@@ -25,14 +25,14 @@
                 <div class="col-md-6 myBlowAnim position-relative" onclick="expandirImagem('#fotoTshirt')">
 
                     <!--put one image that occopy the whole div and center it-->
-                    <img id="baseTshirt" src="/tshirt_base/{{ $allColors['0']['code'] }}.png" alt="IMG-PRODUCT"
+                    <img id="baseTshirt" src="/storage/tshirt_base/{{ $allColors['0']['code'] }}.png" alt="IMG-PRODUCT"
 
                         style="width: 80%; height: 80%; max-height: none;object-fit: contain; position:absolute; z-index: 1;">
                     <div
                         style="height: 250px;
                     width: 200px;  position:absolute; z-index: 3; top: 40%; left: 46%; transform: translate(-52%,-50%);">
 
-                        <img id="fotoTshirt"src="/tshirt_images/{{ $tshirt->image_url }}" alt="IMG-PRODUCT"
+                        <img id="fotoTshirt"src="{{ asset('storage/tshirt_images/' . $tshirt->image_url) }}" alt="IMG-PRODUCT"
                             style="object-fit: cover; max-width:160px; max-height:350px;">
                     </div>
 
@@ -129,7 +129,7 @@
 
 
         function changeImage(colorCode, colorName) {
-            image.src = '/tshirt_base/' + colorCode + '.png';
+            image.src = '/storage/tshirt_base/' + colorCode + '.png';
             cor = colorName;
             corCode = colorCode;
             changeURL();

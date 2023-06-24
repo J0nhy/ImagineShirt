@@ -145,14 +145,14 @@ $valorTotal=0;
 								<tr class="table_row" style="border-bottom: 0px solid transparent;">
 										<td class="column-1">
 											<div class="how-itemcart1" onclick="expandirImagem('#img<?= $iterator; ?>')" title="Click to Preview">
-												<img src="tshirt_images/{{$item["image_url"]}}" class="card-img-top center" alt="{{ $item["image_url"] }}" id="img<?= $iterator; ?>">
+												<img src="storage/tshirt_images/{{$item["image_url"]}}" class="card-img-top center" alt="{{ $item["image_url"] }}" id="img<?= $iterator; ?>">
 											</div>
 											<!-- Pop-up -->
 											<div class="popup" onclick="fecharPopUp()">
 												<div class="popup-content">
                                                     <img id="baseTshirt" src="/tshirt_base/{{ $item["colorCode"] }}.png" alt="IMG-PRODUCT" style="width: 80%; height: 80%; max-height: none;object-fit: contain; position:absolute; z-index: 1;">
                                                     <div style="height: 350px; width: 300px;  position:absolute; z-index: 2; top: 50%; left: 50.5%; transform: translate(-52%,-50%);">
-                                                        <img id="fotoTshirt"src="/tshirt_images/{{$item["image_url"]}}" alt="IMG-PRODUCT" style="object-fit: cover; max-width:215px; max-height:410px;" class="popup-image">
+                                                        <img id="fotoTshirt"src="storage/tshirt_images/{{$item["image_url"]}}" alt="IMG-PRODUCT" style="object-fit: cover; max-width:215px; max-height:410px;" class="popup-image">
                                                     </div>
                                                 </div>
 											</div>

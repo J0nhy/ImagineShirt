@@ -9,28 +9,20 @@
         @if ($disabledStr)
 
             @if ($user->photo_url == null)
-                <img src="{{ asset('/img/avatar_unknown.png') }}" alt="Imagem da cor {{ $user->photo_url }}"
+                <img src="{{ asset('/img/avatar_unknown.png') }}" alt="Imagem do user {{ $user->name }}"
                     class="img-fluid bg-dark rounded-circle">
             @else
-                <img src="{{ asset('photos/' . $user->photo_url) }}" alt="Imagem da cor {{ $user->photo_url }}"
+                <img src="{{ asset('storage/photos/' . $user->photo_url) }}" alt="Imagem do user {{ $user->name }}"
                 class="img-fluid bg-dark rounded-circle">
             @endif
-
-
-
         @else
-
-            @if (!$disabledStr)
                 <div>
-                    <img src="{{ asset('/img/avatar_unknown.png') }}" alt="Imagem da cor {{ $user->photo_url }}"
+                    <img src="{{ asset('storage/photos/' . $user->photo_url) }}" alt="Imagem do user {{ $user->name }}"
                     class="img-fluid bg-dark rounded-circle">
                     <br>
-
-                    <input type="file" class="btn btn-secondary my-3" style="width: 215px;" id="imagem" name="imagem"
-                        accept=".png, .jpg, .jpeg">
-
+                    <input type="file" class="form-control @error('imagem') is-invalid @enderror" style="width: 215px;" id="imagem" name="imagem">
                 </div>
-            @endif
+
             @error('imagem')
                 <div class="invalid-feedback">
                     {{ $message }}

@@ -10,6 +10,9 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 
 class userController extends Controller
 {
@@ -53,7 +56,6 @@ class userController extends Controller
             'filterByNome',
             'filterByBlocked'
         ));
-
     }
     public function show(users $user): View
     {
@@ -70,60 +72,68 @@ class userController extends Controller
 
     public function store(UserRequest $request): RedirectResponse
     {
+        //dd($request->hasFile('imagem'));
+        $formData = $request->validated();
 
-            $nome = $_POST['name'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $tipo = $_POST['tipo'];
-            //$imageUrl = basename($_FILES["imagem"]["name"]);
+        $user = DB::transaction(function () use ($formData, $request) {
             $newUser = new users();
-            if($_FILES["imagem"]["name"] == ""){
-
-
-            }else{
-                $imageUrl = basename($_FILES["imagem"]["name"]);
-
-                $imageUrl = str_replace(" ", "_", $imageUrl);
-
-                $imagem = $request->file('imagem');
-                $path = $imagem->storeAs('photos', $imageUrl);
-
-                $imagem = $request->file('imagem');
-
-                $path = $imagem->storeAs('tshirt_base', $imageUrl);
-                $newUser->photo_url = $imageUrl;
-            }
-            //$imageUrl = basename($_FILES["Tshirt"]["name"]);
-            //dd($nome, $codigoCor, $imageUrl);
-
-
-
-            $newUser->name = $nome;
-            $newUser->email = $email;
-            $newUser->user_type = $tipo;
-
-             // password is form field
-            $hashed = Hash::make($password);
-            $newUser->password = $hashed;
-
-
-
-
-            //dd($newImage);
+            $newUser->name = $formData['name'];
+            $newUser->email = $formData['email'];
+            $newUser->user_type = $formData['tipo'];
+            $newUser->password =  Hash::make($formData['password']);
             $newUser->save();
 
-            return redirect()->route('users.index')->with('message', 'Estampa "' . $nome . '" guardada em ' . '.');
+            if ($request->hasFile('imagem')) {
+                $path = $request->imagem->store('public/photos');
+                $newUser->photo_url = basename($path);
+                $newUser->save();
+            }
 
+            if (Auth::user()->user_type == 'C') {
+                $newImage->customer_id = Auth::user()->id ?? '';
+            } else {
+                $newImage->category_id = $nome = $_POST['categoriaEstampa'] ?? '';
+            }
+            return $newUser;
+        });
 
+        return redirect()->route('users.index')->with('message', 'User "' . $user->name . '" criado');
     }
 
 
     public function update(UserRequest $request, users $user): RedirectResponse
     {
+
+        $formData = $request->validated();
+
+        $user = DB::transaction(function () use ($formData, $user, $request) {
+            $user->name = $formData['name'];
+            $user->email = $formData['email'];
+            $user->user_type = $formData['tipo'];
+            $user->save();
+            if ($request->hasFile('imagem')) {
+                if ($user->photo_url) {
+                    Storage::delete('public/photos/' . $user->photo_url);
+                }
+                $path = $request->imagem->store('public/photos');
+                $user->photo_url = basename($path);
+                $user->save();
+            }
+            return $user;
+        });
+        $url = route('users.show', ['user' => $user]);
+        $htmlMessage = "Docente <a href='$url'>#{$user->id}</a>
+                        <strong>\"{$user->name}\"</strong> foi alterado com sucesso!";
+        return redirect()->route('users.index')
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
+
         //$this->authorize('update', $curso);
 
         //dd($categoria);+
+        /*
         $user->update(['user_type' => $request->tipo]);
+
         $user->update($request->validated());
 
         $url = route('users.show', ['user' => $user]);
@@ -132,8 +142,7 @@ class userController extends Controller
 
         return redirect()->route('users.index')
             ->with('alert-msg', $htmlMessage)
-            ->with('alert-type', 'success');
-
+            ->with('alert-type', 'success');*/
     }
 
     public function edit(users $user): View
@@ -145,80 +154,67 @@ class userController extends Controller
     public function destroy(users $user): RedirectResponse
     {
 
-            try{
-                if($user != null){
-                    users::where('id',$user->id)->delete();
-                }
-
-                return redirect()->route('users.index')->with('message', "User eliminado com sucesso.");
-
-            } catch (\Throwable $th) {
-                return redirect()->route('users.index')->with('message', "ERRO: Não foi possivel eliminar a cor.");
+        try {
+            if ($user != null) {
+                users::where('id', $user->id)->delete();
             }
 
+            return redirect()->route('users.index')->with('message', "User eliminado com sucesso.");
+        } catch (\Throwable $th) {
+            return redirect()->route('users.index')->with('message', "ERRO: Não foi possivel eliminar a cor.");
+        }
     }
 
     public function recover(string $user): RedirectResponse
     {
-        try{
+        try {
 
-            if($user != null){
-                users::where('id',$user)->restore();
+            if ($user != null) {
+                users::where('id', $user)->restore();
             }
 
             return redirect()->route('users.index')->with('message', "User restaurado com sucesso.");
-
         } catch (\Throwable $th) {
             return redirect()->route('users.index')->with('message', "ERRO: Não foi possivel restaurar o user.");
         }
-
-
-
     }
 
     public function block(string $user): RedirectResponse
     {
 
-        try{
-            $userToChange = users::where('id','=' ,$user)->first();
+        try {
+            $userToChange = users::where('id', '=', $user)->first();
 
 
-        if ($userToChange->deleted_at != null)
-            return redirect()->back()->with('errorMessage', "Não podes alterar um user apagado");
-        else
-            $userToChange->blocked = 1;
+            if ($userToChange->deleted_at != null)
+                return redirect()->back()->with('errorMessage', "Não podes alterar um user apagado");
+            else
+                $userToChange->blocked = 1;
 
-        $userToChange->save();
+            $userToChange->save();
 
             return redirect()->route('users.index')->with('message', "User restaurado com sucesso.");
-
         } catch (\Throwable $th) {
             return redirect()->route('users.index')->with('message', "ERRO: Não foi possivel restaurar o user.");
         }
-
-
     }
 
     public function unblock(string $user): RedirectResponse
     {
-        try{
-            $userToChange = users::where('id','=' ,$user)->first();
+        try {
+            $userToChange = users::where('id', '=', $user)->first();
 
 
-        if ($userToChange->deleted_at != null)
-            return redirect()->back()->with('errorMessage', "Não podes alterar um user apagado");
-        else
-            $userToChange->blocked = 0;
+            if ($userToChange->deleted_at != null)
+                return redirect()->back()->with('errorMessage', "Não podes alterar um user apagado");
+            else
+                $userToChange->blocked = 0;
 
-        $userToChange->save();
+            $userToChange->save();
 
             return redirect()->route('users.index')->with('message', "User restaurado com sucesso.");
-
         } catch (\Throwable $th) {
             return redirect()->route('users.index')->with('message', "ERRO: Não foi possivel restaurar o user.");
         }
-
-
-
     }
 }

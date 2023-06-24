@@ -1,4 +1,4 @@
-@can('view', $core )
+@can('view', $cor )
 @extends('adminLayout')
 
 @section('main')
@@ -7,7 +7,7 @@
     </div>
     <div class="my-4 d-flex justify-content-end">
 
-        <form method="POST" action="{{ route('cores.destroy', ['core' => $core]) }}">
+        <form method="POST" action="{{ route('cores.destroy', ['core' => $cor]) }}">
             @csrf
             @method('DELETE')
             <button type="submit" name="delete" class="btn btn-danger">

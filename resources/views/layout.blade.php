@@ -99,7 +99,7 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 @if (Auth::user())
-                                    <img src="{{ Auth::user()->fullPhotoUrl }}" alt="Avatar"
+                                    <img src="{{ asset('storage/photos/' . Auth::user()->photo_url) }}" alt="Avatar"
                                         class="bg-dark rounded-circle" width="45" height="45">
                                 @endif
                             </a>
@@ -194,7 +194,7 @@
                     <div class="right-top-bar flex-w h-full">
                         @if (Auth::user())
                             @if (Auth::user()->user_type != 'E')
-                                <a class="dropdown-item" href="{{ route('perfil.index') }}">Perfil</a> 
+                                <a class="dropdown-item" href="{{ route('perfil.index') }}">Perfil</a>
                             @endif
                             <a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar Senha</a>
                             @if (Auth::user()->user_type == 'C')

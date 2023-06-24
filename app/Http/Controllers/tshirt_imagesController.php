@@ -112,7 +112,9 @@ class tshirt_imagesController extends Controller
 
     public function uploadEstampa(Request $request): RedirectResponse
     {
+
         try {
+
             $nome = $_POST['NomeEstampa'];
             $descricao = $_POST['DescricaoEstampa'];
             $imageUrl = basename($_FILES["Estampa"]["name"]);
@@ -121,16 +123,16 @@ class tshirt_imagesController extends Controller
             $imageUrl = str_replace(" ", "_", $imageUrl);
 
             $imagem = $request->file('Estampa');
-            $path = $imagem->storeAs('tshirt_images', $imageUrl);
+            $path = $imagem->storeAs('public/tshirt_images', $imageUrl);
 
             $newImage = new tshirt_images();
             $newImage->name = $nome;
             $newImage->description = $descricao;
             $newImage->image_url = $imageUrl;
-            if(Auth::user()->user_type == 'C'){
+            if (Auth::user()->user_type == 'C') {
                 $newImage->customer_id = Auth::user()->id ?? '';
-            }else{
-                $newImage->category_id =$nome = $_POST['categoriaEstampa'] ?? '';
+            } else {
+                $newImage->category_id = $nome = $_POST['categoriaEstampa'] ?? '';
             }
 
             $newImage->save();
@@ -142,20 +144,20 @@ class tshirt_imagesController extends Controller
     }
     public function edit(Request $request): View
     {
-        if(!Auth::user()){
+        if (!Auth::user()) {
             return abort(403, 'This action is Unauthorized');
-        }else{
+        } else {
             if (Auth::user()->user_type != 'E') {
                 if (Auth::user()->user_type == 'C') {
                     $tshirts = tshirt_images::where('customer_id', '=', Auth::user()->id ?? '')->get();
                     return view('catalogo.edit')->with('tshirts', $tshirts);
                 } else {
                     $tableName = 'tshirt_images';
-        $columns = Schema::getColumnListing($tableName);
+                    $columns = Schema::getColumnListing($tableName);
 
-        $desiredColumns = ['name', 'description'];
+                    $desiredColumns = ['name', 'description'];
 
-        $filteredColumns = array_intersect($columns, $desiredColumns);
+                    $filteredColumns = array_intersect($columns, $desiredColumns);
 
                     $categorias = Category::all();
                     $filterByCategoria = $request->categoria ?? '';
@@ -204,7 +206,6 @@ class tshirt_imagesController extends Controller
                 return abort(403, 'This action is Unauthorized');
             }
         }
-
     }
 
     public function editarEstampa(): RedirectResponse
@@ -218,7 +219,7 @@ class tshirt_imagesController extends Controller
 
             $estampa->name = $nome;
             $estampa->description = $descricao;
-            if(Auth::user()->user_type == 'A'){
+            if (Auth::user()->user_type == 'A') {
                 $estampa->category_id = $_POST['updatecategoriaEstampa'] ?? '';
             }
 

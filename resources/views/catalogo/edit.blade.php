@@ -148,7 +148,7 @@
                         <div class="col-4 imgCardBack noHover">
 
                             <div class="min-height250">
-                                <img src="tshirt_images/{{ $tshirt['image_url'] }}" class="card-img-top center"
+                                <img src="{{ asset('storage/tshirt_images/' . $tshirt->image_url) }}" class="card-img-top center"
                                     alt="{{ $tshirt['image_url'] }}">
                                 </a>
                             </div>

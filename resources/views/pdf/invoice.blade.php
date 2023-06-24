@@ -85,7 +85,7 @@
             @foreach ($itens as $item)
             <tr>
                 <td>{{ $item->tshirtImage->name }}</td>
-                <td><img src="tshirt_images/{{$item->tshirtImage->image_url}}" style="width: 50px; height:50px;"></td>
+                <td><img src="storage/tshirt_images/{{$item->tshirtImage->image_url}}" style="width: 50px; height:50px;"></td>
                 <td>{{ $item->qty }}</td>
                 <td>{{ $item->unit_price }}</td>
                 <td>{{ $item->sub_total }}</td>

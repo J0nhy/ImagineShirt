@@ -2,8 +2,8 @@
 @extends('adminLayout')
 
 @section('main')
-    <form  class="needs-validation" method="POST"
-        action="{{ route('users.update', ['user' => $user]) }}">
+    <form novalidate class="needs-validation" method="POST"
+        action="{{ route('users.update', ['user' => $user]) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         @include('admin.user.shared.fields')

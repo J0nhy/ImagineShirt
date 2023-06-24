@@ -26,7 +26,7 @@ class ColorsPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user, colors $core): bool
+    public function create(User $user): bool
     {
         return $user->user_type == 'A';
     }

@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use App\Http\Requests\CorRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 //soft deletes
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -32,7 +33,7 @@ class colorController extends Controller
         //dd(strtok($categoria, '-'));
         //$cor = colors::findOrFail($cor);
 
-        return view('admin.cores.show')->with('core', $core);
+        return view('admin.cores.show')->with('cor', $core);
         //return view('admin.cores.show', compact('cores'));
     }
 
@@ -51,61 +52,51 @@ class colorController extends Controller
 
     public function store(CorRequest $request): RedirectResponse
     {
+        $formData = $request->validated();
 
-            $nome = $_POST['name'];
-            $codigoCor = $_POST['colorValue'];
-            //$imageUrl = basename($_FILES["imagem"]["name"]);
-            $codigoCor = Str::remove('#', $codigoCor);
-            $imageUrl = $codigoCor . '.png';
-            //$imageUrl = basename($_FILES["Tshirt"]["name"]);
-            //dd($nome, $codigoCor, $imageUrl);
-            $imagem = $request->file('imagem');
-            //dd($imagem);
-            //dd($imagem);
-            $path = $imagem->storeAs('tshirt_base', $imageUrl);
-
+        $cor = DB::transaction(function () use ($formData, $request) {
             $newCor = new colors();
-            $newCor->name = $nome;
-            $newCor->code = $codigoCor;
-            //dd($newImage);
+            $codigo = trim($formData['colorValue'], '#');
+            $newCor->code = $codigo;
+            $newCor->name = $formData['name'];
             $newCor->save();
 
-            return redirect()->route('cores.index')->with('message', 'Estampa "' . $nome . '" guardada em ' . $path . '.');
+            if ($request->hasFile('imagem')) {
+                $imageName = $codigo . '.' . $request->imagem->getClientOriginalExtension();
+                $path = $request->imagem->storeAs('public/tshirt_base', $imageName);
 
+                $newCor->save();
+            }
+            return $newCor;
+        });
 
+        return redirect()->route('cores.index')->with('message', 'User "' . $cor->name . '" criado');
     }
     public function destroy(colors $core): RedirectResponse
     {
 
-            try{
-                if($core != null){
-                    colors::where('code',$core->code)->delete();
-                }
-
-                return redirect()->route('cores.index')->with('message', "Cor eliminada com sucesso.");
-
-            } catch (\Throwable $th) {
-                return redirect()->route('cores.index')->with('message', "ERRO: Não foi possivel eliminar a cor.");
+        try {
+            if ($core != null) {
+                colors::where('code', $core->code)->delete();
             }
 
+            return redirect()->route('cores.index')->with('message', "Cor eliminada com sucesso.");
+        } catch (\Throwable $th) {
+            return redirect()->route('cores.index')->with('message', "ERRO: Não foi possivel eliminar a cor.");
+        }
     }
 
     public function recover(string $cor): RedirectResponse
     {
-        try{
+        try {
 
-            if(colors::where('code',$cor) != null){
-                colors::where('code',$cor)->restore();
+            if (colors::where('code', $cor) != null) {
+                colors::where('code', $cor)->restore();
             }
 
             return redirect()->route('cores.index')->with('message', "Cor restaurada com sucesso.");
-
         } catch (\Throwable $th) {
             return redirect()->route('cores.index')->with('message', "ERRO: Não foi possivel restaurar a cor.");
         }
-
-
-
     }
-
 }

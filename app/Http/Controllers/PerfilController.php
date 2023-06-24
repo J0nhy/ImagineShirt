@@ -41,7 +41,7 @@ class perfilController extends Controller
                 if ($imageUrl = basename($_FILES["foto"]["name"])) {
                     $imageUrl = str_replace(" ", "_", $imageUrl);
                     $imagem = $request->file('foto');
-                    $imagem->storeAs('photos', $imageUrl);
+                    $imagem->storeAs('public/photos', $imageUrl);
                 } else {
                     $imageUrl = NULL;
                 }

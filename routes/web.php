@@ -15,6 +15,8 @@ use App\Http\Controllers\categoryController;
 use App\Http\Controllers\tshirt_imagesController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use Illuminate\Support\Facades\Auth;use App\Http\Controllers\PerfilController;
+use Illuminate\Support\Facades\Artisan;
+
 
 /*
 |--------------------------------------------------------------------------
