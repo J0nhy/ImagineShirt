@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 
 class userController extends Controller
@@ -89,11 +90,7 @@ class userController extends Controller
                 $newUser->save();
             }
 
-            if (Auth::user()->user_type == 'C') {
-                $newImage->customer_id = Auth::user()->id ?? '';
-            } else {
-                $newImage->category_id = $nome = $_POST['categoriaEstampa'] ?? '';
-            }
+
             return $newUser;
         });
 

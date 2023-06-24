@@ -6,6 +6,7 @@
     <div class="col-sm-2 d-flex justify-content-center">
         <!--center the image in the columns-->
         <!-- <div class="d-flex justify-content-center"> -->
+        <!--Se for para ver-->
         @if ($disabledStr)
 
             @if ($user->photo_url == null)
@@ -13,16 +14,27 @@
                     class="img-fluid bg-dark rounded-circle">
             @else
                 <img src="{{ asset('storage/photos/' . $user->photo_url) }}" alt="Imagem do user {{ $user->name }}"
-                class="img-fluid bg-dark rounded-circle">
+                    class="img-fluid bg-dark rounded-circle">
             @endif
         @else
-                <div>
-                    <img src="{{ asset('storage/photos/' . $user->photo_url) }}" alt="Imagem do user {{ $user->name }}"
+        <!--Se for para editar-->
+            @if ($user->photo_url == null)
+            <div>
+                <img src="{{ asset('/img/avatar_unknown.png') }}" alt="Imagem do user {{ $user->name }}"
                     class="img-fluid bg-dark rounded-circle">
+                <br>
+                <input type="file" class="form-control @error('imagem') is-invalid @enderror" style="width: 215px;"
+                    id="imagem" name="imagem">
+            </div>
+            @else
+                <div>
+                    <img src="{{ asset('storage/photos/' . $user->photo_url) }}"
+                        alt="Imagem do user {{ $user->name }}" class="img-fluid bg-dark rounded-circle">
                     <br>
-                    <input type="file" class="form-control @error('imagem') is-invalid @enderror" style="width: 215px;" id="imagem" name="imagem">
+                    <input type="file" class="form-control @error('imagem') is-invalid @enderror"
+                        style="width: 215px;" id="imagem" name="imagem">
                 </div>
-
+            @endif
             @error('imagem')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -69,9 +81,10 @@
         </div>
 
         <div class="mb-3 form-floating">
-            <select class="form-select @error('tipo') is-invalid @enderror" name="tipo" id="inputTipo" {{ $disabledStr }}>
-                <option value='A' {{ old('tipo', $user->user_type) == 'A'? 'selected' : '' }}>A</option>
-                <option value='E' {{ old('tipo', $user->user_type) == 'E'? 'selected' : '' }}>E</option>
+            <select class="form-select @error('tipo') is-invalid @enderror" name="tipo" id="inputTipo"
+                {{ $disabledStr }}>
+                <option value='A' {{ old('tipo', $user->user_type) == 'A' ? 'selected' : '' }}>A</option>
+                <option value='E' {{ old('tipo', $user->user_type) == 'E' ? 'selected' : '' }}>E</option>
             </select>
             <label for="inputTipo" class="form-label">Tipo de User</label>
             @error('tipo')
